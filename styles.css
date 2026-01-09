@@ -911,12 +911,21 @@ textarea {
     color: var(--color-gray-dark);
 }
 
-.projects__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--spacing-xl);
+/* Карусель проектов */
+.projects__carousel {
+    position: relative;
     max-width: var(--container-width-wide);
     margin: 0 auto;
+}
+
+.projects__track {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-sm) 0;
 }
 
 .projects__card {
@@ -926,6 +935,9 @@ textarea {
     transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
+    flex: 0 0 calc(33.333% - 1.33rem);
+    min-width: 0;
+    scroll-snap-align: start;
 }
 
 .projects__card:hover {
@@ -1011,6 +1023,94 @@ textarea {
     border-width: 2px;
 }
 
+/* Стрелки навигации карусели */
+.projects__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gold);
+    color: var(--color-gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.projects__arrow:hover {
+    background-color: var(--color-gold);
+    color: var(--color-white);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-gold);
+}
+
+.projects__arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.projects__arrow--prev {
+    left: -1.5rem;
+}
+
+.projects__arrow--next {
+    right: -1.5rem;
+}
+
+.projects__arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.projects__arrow svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Индикаторы карусели */
+.projects__indicators {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.projects__indicator {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--color-gray);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    padding: 0;
+}
+
+.projects__indicator:hover {
+    background-color: var(--color-gold);
+    transform: scale(1.2);
+}
+
+.projects__indicator--active {
+    background-color: var(--color-gold);
+    width: 2rem;
+    border-radius: 0.375rem;
+}
+
+/* Адаптивность карусели для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .projects__card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
 /* ============================================ */
 /* WORKS */
 /* ============================================ */
@@ -1043,24 +1143,21 @@ textarea {
     margin-right: auto;
 }
 
-.works__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--spacing-xl);
+/* Карусель работ */
+.works__carousel {
+    position: relative;
     max-width: var(--container-width-wide);
     margin: 0 auto;
 }
 
-@media (min-width: 1400px) {
-    .works__grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 1024px) and (min-width: 769px) {
-    .works__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.works__track {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-sm) 0;
 }
 
 .works__card {
@@ -1070,6 +1167,9 @@ textarea {
     transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
+    flex: 0 0 calc(33.333% - 1.33rem);
+    min-width: 0;
+    scroll-snap-align: start;
 }
 
 .works__card:hover {
@@ -1175,6 +1275,95 @@ textarea {
     font-size: var(--font-size-base);
     line-height: 1.6;
     color: var(--color-gray-dark);
+}
+
+/* Стрелки навигации карусели работ */
+.works__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gold);
+    color: var(--color-gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.works__arrow:hover {
+    background-color: var(--color-gold);
+    color: var(--color-white);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-gold);
+}
+
+.works__arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.works__arrow--prev {
+    left: -1.5rem;
+}
+
+.works__arrow--next {
+    right: -1.5rem;
+}
+
+.works__arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.works__arrow svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Индикаторы карусели работ */
+.works__indicators {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.works__indicator {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--color-gray);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    padding: 0;
+}
+
+.works__indicator:hover {
+    background-color: var(--color-gold);
+    transform: scale(1.2);
+}
+
+.works__indicator--active {
+    background-color: var(--color-gold);
+    width: 2rem;
+    border-radius: 0.375rem;
+}
+
+/* Адаптивность карусели работ для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .works__card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
     margin: 0;
     margin-top: auto;
     padding-top: var(--spacing-md);
@@ -2322,14 +2511,22 @@ textarea {
     .trust__grid,
     .advantages__grid,
     .pricing__grid,
-    .projects__grid,
-    .works__grid,
     .services__grid,
     .reviews__grid,
     .reviews__text,
     .about__team-grid,
     .grid--auto-fit {
         grid-template-columns: 1fr;
+    }
+
+    /* Карусель проектов - мобильная версия (в основном медиа-запросе) */
+    .projects__card {
+        flex: 0 0 calc(100% - 0.5rem);
+    }
+
+    /* Карусель работ - мобильная версия (в основном медиа-запросе) */
+    .works__card {
+        flex: 0 0 calc(100% - 0.5rem);
     }
 
     /* Process timeline адаптивность */
@@ -2378,9 +2575,30 @@ textarea {
         padding: var(--spacing-md);
     }
 
-    .projects__grid,
-    .works__grid {
-        grid-template-columns: 1fr;
+    /* Карусель проектов - мобильная версия */
+    .projects__carousel {
+        padding: 0 var(--spacing-md);
+    }
+
+    .projects__track {
+        gap: var(--spacing-md);
+    }
+
+    .projects__card {
+        flex: 0 0 calc(100% - 0.5rem);
+    }
+
+    .projects__arrow {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .projects__arrow--prev {
+        left: -0.5rem;
+    }
+
+    .projects__arrow--next {
+        right: -0.5rem;
     }
 
     .projects__card-image,
@@ -2683,14 +2901,9 @@ textarea {
         padding: 1.5rem;
     }
 
-    .projects__grid,
-    .works__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .projects__track,
-    .works__track {
-        flex-direction: column;
+    /* Карусель проектов - планшетная версия */
+    .projects__card {
+        flex: 0 0 calc(50% - 1rem);
     }
 }
 

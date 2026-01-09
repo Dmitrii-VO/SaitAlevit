@@ -237,6 +237,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация мобильного меню (бургер)
     initMobileMenu();
+    
+    // Инициализация карусели проектов
+    initProjectsCarousel();
+    
+    // Инициализация карусели работ
+    initWorksCarousel();
 });
 
 /**
@@ -450,6 +456,426 @@ const $ = {
         }
     }
 };
+
+/**
+ * Инициализация карусели проектов
+ */
+function initProjectsCarousel() {
+    const carousel = document.querySelector('.projects__carousel');
+    const track = document.querySelector('#projects-track');
+    const prevButton = document.querySelector('.projects__arrow--prev');
+    const nextButton = document.querySelector('.projects__arrow--next');
+    const indicatorsContainer = document.querySelector('#projects-indicators');
+    
+    if (!carousel || !track || !prevButton || !nextButton) return;
+    
+    const cards = track.querySelectorAll('.projects__card');
+    if (cards.length === 0) return;
+    
+    let currentIndex = 0;
+    let cardsPerView = 3; // По умолчанию 3 на десктопе
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    
+    // Определение количества видимых карточек в зависимости от размера экрана
+    function updateCardsPerView() {
+        const width = window.innerWidth;
+        if (width <= 768) {
+            cardsPerView = 1;
+        } else if (width <= 1024) {
+            cardsPerView = 2;
+        } else {
+            cardsPerView = 3;
+        }
+        updateIndicators();
+        updateButtons();
+    }
+    
+    // Создание индикаторов
+    function createIndicators() {
+        if (!indicatorsContainer) return;
+        
+        indicatorsContainer.innerHTML = '';
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        
+        for (let i = 0; i < totalSlides; i++) {
+            const indicator = document.createElement('button');
+            indicator.className = 'projects__indicator';
+            indicator.setAttribute('aria-label', `Перейти к слайду ${i + 1}`);
+            indicator.setAttribute('role', 'tab');
+            indicator.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+            indicator.addEventListener('click', () => goToSlide(i));
+            indicatorsContainer.appendChild(indicator);
+        }
+        
+        updateIndicators();
+    }
+    
+    // Обновление индикаторов
+    function updateIndicators() {
+        if (!indicatorsContainer) return;
+        
+        const indicators = indicatorsContainer.querySelectorAll('.projects__indicator');
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('projects__indicator--active', index === currentSlide);
+            indicator.setAttribute('aria-selected', index === currentSlide ? 'true' : 'false');
+        });
+    }
+    
+    // Обновление состояния кнопок
+    function updateButtons() {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        prevButton.disabled = currentSlide === 0;
+        nextButton.disabled = currentSlide >= totalSlides - 1;
+    }
+    
+    // Переход к конкретному слайду
+    function goToSlide(slideIndex) {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        if (slideIndex < 0 || slideIndex >= totalSlides) return;
+        
+        currentIndex = slideIndex * cardsPerView;
+        scrollToCurrent();
+    }
+    
+    // Прокрутка к текущей позиции
+    function scrollToCurrent() {
+        if (!track || cards.length === 0) return;
+        
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        const scrollPosition = currentIndex * (cardWidth + gap);
+        
+        track.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+        
+        updateIndicators();
+        updateButtons();
+    }
+    
+    // Переход к следующему слайду
+    function nextSlide() {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        if (currentSlide < totalSlides - 1) {
+            goToSlide(currentSlide + 1);
+        }
+    }
+    
+    // Переход к предыдущему слайду
+    function prevSlide() {
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        if (currentSlide > 0) {
+            goToSlide(currentSlide - 1);
+        }
+    }
+    
+    // Обработчики событий для кнопок
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+    
+    // Обработка прокрутки трека для обновления индикаторов
+    let scrollTimeout;
+    track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const cardWidth = cards[0].offsetWidth;
+            const gap = parseFloat(getComputedStyle(track).gap) || 24;
+            const scrollPosition = track.scrollLeft;
+            const newIndex = Math.round(scrollPosition / (cardWidth + gap));
+            
+            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
+                currentIndex = newIndex;
+                updateIndicators();
+                updateButtons();
+            }
+        }, 100);
+    });
+    
+    // Touch-свайп для мобильных устройств
+    track.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        track.style.scrollBehavior = 'auto';
+    });
+    
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+    });
+    
+    track.addEventListener('touchend', () => {
+        isDragging = false;
+        track.style.scrollBehavior = 'smooth';
+        
+        // Определяем ближайший слайд после свайпа
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        const scrollPosition = track.scrollLeft;
+        const newIndex = Math.round(scrollPosition / (cardWidth + gap));
+        
+        if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
+            currentIndex = newIndex;
+            scrollToCurrent();
+        }
+    });
+    
+    // Обработка клавиатуры (стрелки влево/вправо)
+    track.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextSlide();
+        }
+    });
+    
+    // Обработка изменения размера окна
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCardsPerView();
+            createIndicators();
+            scrollToCurrent();
+        }, 250);
+    });
+    
+    // Инициализация
+    updateCardsPerView();
+    createIndicators();
+    updateButtons();
+    
+    // Установка tabindex для доступности
+    track.setAttribute('tabindex', '0');
+    track.setAttribute('role', 'region');
+    track.setAttribute('aria-label', 'Карусель проектов домов');
+}
+
+/**
+ * Инициализация карусели работ
+ */
+function initWorksCarousel() {
+    const carousel = document.querySelector('.works__carousel');
+    const track = document.querySelector('#works-track');
+    const prevButton = document.querySelector('.works__arrow--prev');
+    const nextButton = document.querySelector('.works__arrow--next');
+    const indicatorsContainer = document.querySelector('#works-indicators');
+    
+    if (!carousel || !track || !prevButton || !nextButton) return;
+    
+    const cards = track.querySelectorAll('.works__card');
+    if (cards.length === 0) return;
+    
+    let currentIndex = 0;
+    let cardsPerView = 3; // По умолчанию 3 на десктопе
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    
+    // Определение количества видимых карточек в зависимости от размера экрана
+    function updateCardsPerView() {
+        const width = window.innerWidth;
+        if (width <= 768) {
+            cardsPerView = 1;
+        } else if (width <= 1024) {
+            cardsPerView = 2;
+        } else {
+            cardsPerView = 3;
+        }
+        updateIndicators();
+        updateButtons();
+    }
+    
+    // Создание индикаторов
+    function createIndicators() {
+        if (!indicatorsContainer) return;
+        
+        indicatorsContainer.innerHTML = '';
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        
+        for (let i = 0; i < totalSlides; i++) {
+            const indicator = document.createElement('button');
+            indicator.className = 'works__indicator';
+            indicator.setAttribute('aria-label', `Перейти к слайду ${i + 1}`);
+            indicator.setAttribute('role', 'tab');
+            indicator.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+            indicator.addEventListener('click', () => goToSlide(i));
+            indicatorsContainer.appendChild(indicator);
+        }
+        
+        updateIndicators();
+    }
+    
+    // Обновление индикаторов
+    function updateIndicators() {
+        if (!indicatorsContainer) return;
+        
+        const indicators = indicatorsContainer.querySelectorAll('.works__indicator');
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('works__indicator--active', index === currentSlide);
+            indicator.setAttribute('aria-selected', index === currentSlide ? 'true' : 'false');
+        });
+    }
+    
+    // Обновление состояния кнопок
+    function updateButtons() {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        prevButton.disabled = currentSlide === 0;
+        nextButton.disabled = currentSlide >= totalSlides - 1;
+    }
+    
+    // Переход к конкретному слайду
+    function goToSlide(slideIndex) {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        if (slideIndex < 0 || slideIndex >= totalSlides) return;
+        
+        currentIndex = slideIndex * cardsPerView;
+        scrollToCurrent();
+    }
+    
+    // Прокрутка к текущей позиции
+    function scrollToCurrent() {
+        if (!track || cards.length === 0) return;
+        
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        const scrollPosition = currentIndex * (cardWidth + gap);
+        
+        track.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+        
+        updateIndicators();
+        updateButtons();
+    }
+    
+    // Переход к следующему слайду
+    function nextSlide() {
+        const totalSlides = Math.ceil(cards.length / cardsPerView);
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        if (currentSlide < totalSlides - 1) {
+            goToSlide(currentSlide + 1);
+        }
+    }
+    
+    // Переход к предыдущему слайду
+    function prevSlide() {
+        const currentSlide = Math.floor(currentIndex / cardsPerView);
+        
+        if (currentSlide > 0) {
+            goToSlide(currentSlide - 1);
+        }
+    }
+    
+    // Обработчики событий для кнопок
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+    
+    // Обработка прокрутки трека для обновления индикаторов
+    let scrollTimeout;
+    track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const cardWidth = cards[0].offsetWidth;
+            const gap = parseFloat(getComputedStyle(track).gap) || 24;
+            const scrollPosition = track.scrollLeft;
+            const newIndex = Math.round(scrollPosition / (cardWidth + gap));
+            
+            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
+                currentIndex = newIndex;
+                updateIndicators();
+                updateButtons();
+            }
+        }, 100);
+    });
+    
+    // Touch-свайп для мобильных устройств
+    track.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        track.style.scrollBehavior = 'auto';
+    });
+    
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+    });
+    
+    track.addEventListener('touchend', () => {
+        isDragging = false;
+        track.style.scrollBehavior = 'smooth';
+        
+        // Определяем ближайший слайд после свайпа
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        const scrollPosition = track.scrollLeft;
+        const newIndex = Math.round(scrollPosition / (cardWidth + gap));
+        
+        if (newIndex !== currentIndex && newIndex >= 0 && newIndex < cards.length) {
+            currentIndex = newIndex;
+            scrollToCurrent();
+        }
+    });
+    
+    // Обработка клавиатуры (стрелки влево/вправо)
+    track.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextSlide();
+        }
+    });
+    
+    // Обработка изменения размера окна
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCardsPerView();
+            createIndicators();
+            scrollToCurrent();
+        }, 250);
+    });
+    
+    // Инициализация
+    updateCardsPerView();
+    createIndicators();
+    updateButtons();
+    
+    // Установка tabindex для доступности
+    track.setAttribute('tabindex', '0');
+    track.setAttribute('role', 'region');
+    track.setAttribute('aria-label', 'Карусель построенных домов');
+}
 
 // Экспорт для использования в других модулях
 if (typeof module !== 'undefined' && module.exports) {

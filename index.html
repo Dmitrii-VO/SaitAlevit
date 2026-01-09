@@ -309,121 +309,248 @@
             <div class="projects__container">
                 <h2 class="projects__title">Типовые проекты домов</h2>
                 <p class="projects__subtitle">Выберите готовый проект или закажите индивидуальное проектирование</p>
-                <div class="projects__grid">
-                    <div class="projects__card">
-                        <div class="projects__card-image">
-                            <img src="images/projects/Проект 1 этаж 1Z Площадь 136 кв. м стоимость 6 120 000/Проект 1Z.jpg" alt="Проект 1Z - одноэтажный дом 136 м²" class="projects__card-img" loading="lazy">
+                <div class="projects__carousel">
+                    <button class="projects__arrow projects__arrow--prev" aria-label="Предыдущий слайд">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="projects__track" id="projects-track">
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 1Z Площадь 136 кв. м стоимость 6 120 000/Проект 1Z.jpg" alt="Проект 1Z - одноэтажный дом 136 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 1Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>136</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
                         </div>
-                        <div class="projects__card-content">
-                            <h3 class="projects__card-title">Проект 1Z</h3>
-                            <ul class="projects__card-specs">
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Этажность:</span>
-                                    <span class="projects__card-spec-value">1 этаж</span>
-                                </li>
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Площадь:</span>
-                                    <span class="projects__card-spec-value"><strong>136</strong> м²</span>
-                                </li>
-                            </ul>
-                            <button class="btn btn--primary">Узнать стоимость проекта</button>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 2Z Площадь 187 кв. м стоимость 8 430 000/c0018f2a-e1d8-4268-88fd-a7f43aeea624.jpg" alt="Проект 2Z - одноэтажный дом 187 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 2Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>187</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 3Z Площадь 127 кв. м стоимость 5 715 000/46a2a137-9857-4e8e-9c16-1397dd2ec87c.jpg" alt="Проект 3Z - одноэтажный дом 127 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 3Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>127</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 4Z Площадь 175 кв. м стоимость 7 875 000/6e9007b5-599e-4248-9e98-3cb9094ec4b3.jpg" alt="Проект 4Z - одноэтажный дом 175 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 4Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>175</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 5Z Площадь 149 кв. м стоимость 6 705 000/3d111fc4-f8eb-4073-96ed-43c534ac35da.jpg" alt="Проект 5Z - одноэтажный дом 149 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 5Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>149</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 6Z Площадь 94 кв. м стоимость 4 230 000/2477a073-46fe-49c6-95d6-c9d0704c9ee4.jpg" alt="Проект 6Z - одноэтажный дом 94 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 6Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>94</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 1 этаж 7Z Площадь 204 кв. м стоимость 9 190 000/2f05a4c6-e8a7-4914-90d2-02a40c685044.jpg" alt="Проект 7Z - одноэтажный дом 204 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 7Z</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>204</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 2 х этаж 1V Площадь 177 кв. м стоимость 7 965 000/57ebda11-52b6-41d9-bb53-16a0129e5c93.jpg" alt="Проект 1V - двухэтажный дом 177 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 1V</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">2 этажа</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>177</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 2 х этаж 2V Площадь 150 кв. м стоимость 6 750 000/6ce4b29f-8f4f-4e5c-a2f2-6fce026e38bf.jpg" alt="Проект 2V - двухэтажный дом 150 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 2V</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">2 этажа</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>150</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект 2 х этаж 3V Площадь 185 кв. м стоимость 8 350 000/a69e0b1d-2f22-44c7-91fc-77904e5329ba.jpg" alt="Проект 3V - двухэтажный дом 185 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект 3V</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">2 этажа</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>185</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект Бани 1О Площадь 34 кв. м стоимость 1 530 000/72aab435-f298-4822-b709-fee01e4600e7.jpg" alt="Проект бани 1О - баня 34 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект бани 1О</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>34</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
+                        </div>
+                        <div class="projects__card">
+                            <div class="projects__card-image">
+                                <img src="images/projects/Проект Бани 2О Площадь 34 кв. м стоимость  2 170 000/08e29905-377e-4cb5-9015-84ead6db8698.jpg" alt="Проект бани 2О - баня 34 м²" class="projects__card-img" loading="lazy">
+                            </div>
+                            <div class="projects__card-content">
+                                <h3 class="projects__card-title">Проект бани 2О</h3>
+                                <ul class="projects__card-specs">
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Этажность:</span>
+                                        <span class="projects__card-spec-value">1 этаж</span>
+                                    </li>
+                                    <li class="projects__card-spec">
+                                        <span class="projects__card-spec-label">Площадь:</span>
+                                        <span class="projects__card-spec-value"><strong>34</strong> м²</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn--primary">Узнать стоимость проекта</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="projects__card">
-                        <div class="projects__card-image">
-                            <img src="images/projects/Проект 1 этаж 2Z Площадь 187 кв. м стоимость 8 430 000/c0018f2a-e1d8-4268-88fd-a7f43aeea624.jpg" alt="Проект 2Z - одноэтажный дом 187 м²" class="projects__card-img" loading="lazy">
-                        </div>
-                        <div class="projects__card-content">
-                            <h3 class="projects__card-title">Проект 2Z</h3>
-                            <ul class="projects__card-specs">
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Этажность:</span>
-                                    <span class="projects__card-spec-value">1 этаж</span>
-                                </li>
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Площадь:</span>
-                                    <span class="projects__card-spec-value"><strong>187</strong> м²</span>
-                                </li>
-                            </ul>
-                            <button class="btn btn--primary">Узнать стоимость проекта</button>
-                        </div>
-                    </div>
-                    <div class="projects__card">
-                        <div class="projects__card-image">
-                            <img src="images/projects/Проект 1 этаж 4Z Площадь 175 кв. м стоимость 7 875 000/6e9007b5-599e-4248-9e98-3cb9094ec4b3.jpg" alt="Проект 4Z - одноэтажный дом 175 м²" class="projects__card-img" loading="lazy">
-                        </div>
-                        <div class="projects__card-content">
-                            <h3 class="projects__card-title">Проект 4Z</h3>
-                            <ul class="projects__card-specs">
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Этажность:</span>
-                                    <span class="projects__card-spec-value">1 этаж</span>
-                                </li>
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Площадь:</span>
-                                    <span class="projects__card-spec-value"><strong>175</strong> м²</span>
-                                </li>
-                            </ul>
-                            <button class="btn btn--primary">Узнать стоимость проекта</button>
-                        </div>
-                    </div>
-                    <div class="projects__card">
-                        <div class="projects__card-image">
-                            <img src="images/projects/Проект 2 х этаж 1V Площадь 177 кв. м стоимость 7 965 000/57ebda11-52b6-41d9-bb53-16a0129e5c93.jpg" alt="Проект 1V - двухэтажный дом 177 м²" class="projects__card-img" loading="lazy">
-                        </div>
-                        <div class="projects__card-content">
-                            <h3 class="projects__card-title">Проект 1V</h3>
-                            <ul class="projects__card-specs">
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Этажность:</span>
-                                    <span class="projects__card-spec-value">2 этажа</span>
-                                </li>
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Площадь:</span>
-                                    <span class="projects__card-spec-value"><strong>177</strong> м²</span>
-                                </li>
-                            </ul>
-                            <button class="btn btn--primary">Узнать стоимость проекта</button>
-                        </div>
-                    </div>
-                    <div class="projects__card">
-                        <div class="projects__card-image">
-                            <img src="images/projects/Проект 2 х этаж 2V Площадь 150 кв. м стоимость 6 750 000/6ce4b29f-8f4f-4e5c-a2f2-6fce026e38bf.jpg" alt="Проект 2V - двухэтажный дом 150 м²" class="projects__card-img" loading="lazy">
-                        </div>
-                        <div class="projects__card-content">
-                            <h3 class="projects__card-title">Проект 2V</h3>
-                            <ul class="projects__card-specs">
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Этажность:</span>
-                                    <span class="projects__card-spec-value">2 этажа</span>
-                                </li>
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Площадь:</span>
-                                    <span class="projects__card-spec-value"><strong>150</strong> м²</span>
-                                </li>
-                            </ul>
-                            <button class="btn btn--primary">Узнать стоимость проекта</button>
-                        </div>
-                    </div>
-                    <div class="projects__card">
-                        <div class="projects__card-image">
-                            <img src="images/projects/Проект 2 х этаж 3V Площадь 185 кв. м стоимость 8 350 000/a69e0b1d-2f22-44c7-91fc-77904e5329ba.jpg" alt="Проект 3V - двухэтажный дом 185 м²" class="projects__card-img" loading="lazy">
-                        </div>
-                        <div class="projects__card-content">
-                            <h3 class="projects__card-title">Проект 3V</h3>
-                            <ul class="projects__card-specs">
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Этажность:</span>
-                                    <span class="projects__card-spec-value">2 этажа</span>
-                                </li>
-                                <li class="projects__card-spec">
-                                    <span class="projects__card-spec-label">Площадь:</span>
-                                    <span class="projects__card-spec-value"><strong>185</strong> м²</span>
-                                </li>
-                            </ul>
-                            <button class="btn btn--primary">Узнать стоимость проекта</button>
-                        </div>
-                    </div>
+                    <button class="projects__arrow projects__arrow--next" aria-label="Следующий слайд">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="projects__indicators" id="projects-indicators" role="tablist" aria-label="Навигация по проектам"></div>
                 </div>
             </div>
         </section>
@@ -435,151 +562,164 @@
             <div class="works__container">
                 <h2 class="works__title">Наши работы</h2>
                 <p class="works__subtitle">Реальные дома, построенные нашей компанией. Каждый проект — это результат нашей работы и доверие наших клиентов.</p>
-                <div class="works__grid">
-                    <div class="works__card">
-                        <div class="works__card-image">
-                            <img src="images/houses/1а/a627111e-e3c5-44e8-8534-e40adcdae1b2.jpg" alt="Дом 1а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
-                            <div class="works__card-badge works__card-badge--completed">Построен</div>
+                <div class="works__carousel">
+                    <button class="works__arrow works__arrow--prev" aria-label="Предыдущий слайд">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="works__track" id="works-track">
+                        <div class="works__card">
+                            <div class="works__card-image">
+                                <img src="images/houses/1а/a627111e-e3c5-44e8-8534-e40adcdae1b2.jpg" alt="Дом 1а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
+                                <div class="works__card-badge works__card-badge--completed">Построен</div>
+                            </div>
+                            <div class="works__card-content">
+                                <h3 class="works__card-title">Дом 1а</h3>
+                                <ul class="works__card-specs">
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Площадь:</span>
+                                        <span class="works__card-spec-value"><strong>136</strong> м²</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Формат:</span>
+                                        <span class="works__card-spec-value">Под ключ</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Статус:</span>
+                                        <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
+                                    </li>
+                                </ul>
+                                <p class="works__card-description">Качественное строительство с соблюдением всех технологий. Дом полностью готов к проживанию.</p>
+                            </div>
                         </div>
-                        <div class="works__card-content">
-                            <h3 class="works__card-title">Дом 1а</h3>
-                            <ul class="works__card-specs">
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Площадь:</span>
-                                    <span class="works__card-spec-value"><strong>136</strong> м²</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Формат:</span>
-                                    <span class="works__card-spec-value">Под ключ</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Статус:</span>
-                                    <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
-                                </li>
-                            </ul>
-                            <p class="works__card-description">Качественное строительство с соблюдением всех технологий. Дом полностью готов к проживанию.</p>
+                        <div class="works__card">
+                            <div class="works__card-image">
+                                <img src="images/houses/2а/cb713e1d-2cd9-463b-adc5-d64bfffeff9a.jpg" alt="Дом 2а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
+                                <div class="works__card-badge works__card-badge--completed">Построен</div>
+                            </div>
+                            <div class="works__card-content">
+                                <h3 class="works__card-title">Дом 2а</h3>
+                                <ul class="works__card-specs">
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Площадь:</span>
+                                        <span class="works__card-spec-value">187 м²</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Формат:</span>
+                                        <span class="works__card-spec-value">Под ключ</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Статус:</span>
+                                        <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
+                                    </li>
+                                </ul>
+                                <p class="works__card-description">Просторный дом для большой семьи. Все работы выполнены в срок с гарантией качества.</p>
+                            </div>
+                        </div>
+                        <div class="works__card">
+                            <div class="works__card-image">
+                                <img src="images/houses/3а/08950143-7e04-4ea1-8068-a9addd02eb5d.jpg" alt="Дом 3а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
+                                <div class="works__card-badge works__card-badge--completed">Построен</div>
+                            </div>
+                            <div class="works__card-content">
+                                <h3 class="works__card-title">Дом 3а</h3>
+                                <ul class="works__card-specs">
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Площадь:</span>
+                                        <span class="works__card-spec-value"><strong>127</strong> м²</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Формат:</span>
+                                        <span class="works__card-spec-value">Чистовая отделка</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Статус:</span>
+                                        <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
+                                    </li>
+                                </ul>
+                                <p class="works__card-description">Компактный и уютный дом. Фиксированная цена, все работы выполнены согласно договору.</p>
+                            </div>
+                        </div>
+                        <div class="works__card">
+                            <div class="works__card-image">
+                                <img src="images/houses/4а/3544336a-db50-4167-b6f9-87f4eff2324a.jpg" alt="Дом 4а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
+                                <div class="works__card-badge works__card-badge--completed">Построен</div>
+                            </div>
+                            <div class="works__card-content">
+                                <h3 class="works__card-title">Дом 4а</h3>
+                                <ul class="works__card-specs">
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Площадь:</span>
+                                        <span class="works__card-spec-value"><strong>175</strong> м²</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Формат:</span>
+                                        <span class="works__card-spec-value">Под ключ</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Статус:</span>
+                                        <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
+                                    </li>
+                                </ul>
+                                <p class="works__card-description">Современный дом с продуманной планировкой. Гарантия 5 лет на все виды работ.</p>
+                            </div>
+                        </div>
+                        <div class="works__card">
+                            <div class="works__card-image">
+                                <img src="images/houses/5а/3df6fdf4-8e96-4ed5-90fc-e6583b6f35f2.jpg" alt="Дом 5а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
+                                <div class="works__card-badge works__card-badge--completed">Построен</div>
+                            </div>
+                            <div class="works__card-content">
+                                <h3 class="works__card-title">Дом 5а</h3>
+                                <ul class="works__card-specs">
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Площадь:</span>
+                                        <span class="works__card-spec-value"><strong>149</strong> м²</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Формат:</span>
+                                        <span class="works__card-spec-value">Под ключ</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Статус:</span>
+                                        <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
+                                    </li>
+                                </ul>
+                                <p class="works__card-description">Надёжное строительство с использованием качественных материалов. Дом готов к заселению.</p>
+                            </div>
+                        </div>
+                        <div class="works__card">
+                            <div class="works__card-image">
+                                <img src="images/houses/6а/86a1596c-c61f-4d77-a1da-603e8c9a9c33.jpg" alt="Дом 6а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
+                                <div class="works__card-badge works__card-badge--completed">Построен</div>
+                            </div>
+                            <div class="works__card-content">
+                                <h3 class="works__card-title">Дом 6а</h3>
+                                <ul class="works__card-specs">
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Площадь:</span>
+                                        <span class="works__card-spec-value"><strong>94</strong> м²</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Формат:</span>
+                                        <span class="works__card-spec-value">Под ключ</span>
+                                    </li>
+                                    <li class="works__card-spec">
+                                        <span class="works__card-spec-label">Статус:</span>
+                                        <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
+                                    </li>
+                                </ul>
+                                <p class="works__card-description">Экономичный вариант для молодой семьи. Все работы выполнены качественно и в срок.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="works__card">
-                        <div class="works__card-image">
-                            <img src="images/houses/2а/cb713e1d-2cd9-463b-adc5-d64bfffeff9a.jpg" alt="Дом 2а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
-                            <div class="works__card-badge works__card-badge--completed">Построен</div>
-                        </div>
-                        <div class="works__card-content">
-                            <h3 class="works__card-title">Дом 2а</h3>
-                            <ul class="works__card-specs">
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Площадь:</span>
-                                    <span class="works__card-spec-value">187 м²</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Формат:</span>
-                                    <span class="works__card-spec-value">Под ключ</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Статус:</span>
-                                    <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
-                                </li>
-                            </ul>
-                            <p class="works__card-description">Просторный дом для большой семьи. Все работы выполнены в срок с гарантией качества.</p>
-                        </div>
-                    </div>
-                    <div class="works__card">
-                        <div class="works__card-image">
-                            <img src="images/houses/3а/08950143-7e04-4ea1-8068-a9addd02eb5d.jpg" alt="Дом 3а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
-                            <div class="works__card-badge works__card-badge--completed">Построен</div>
-                        </div>
-                        <div class="works__card-content">
-                            <h3 class="works__card-title">Дом 3а</h3>
-                            <ul class="works__card-specs">
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Площадь:</span>
-                                    <span class="works__card-spec-value"><strong>127</strong> м²</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Формат:</span>
-                                    <span class="works__card-spec-value">Чистовая отделка</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Статус:</span>
-                                    <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
-                                </li>
-                            </ul>
-                            <p class="works__card-description">Компактный и уютный дом. Фиксированная цена, все работы выполнены согласно договору.</p>
-                        </div>
-                    </div>
-                    <div class="works__card">
-                        <div class="works__card-image">
-                            <img src="images/houses/4а/3544336a-db50-4167-b6f9-87f4eff2324a.jpg" alt="Дом 4а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
-                            <div class="works__card-badge works__card-badge--completed">Построен</div>
-                        </div>
-                        <div class="works__card-content">
-                            <h3 class="works__card-title">Дом 4а</h3>
-                            <ul class="works__card-specs">
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Площадь:</span>
-                                    <span class="works__card-spec-value"><strong>175</strong> м²</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Формат:</span>
-                                    <span class="works__card-spec-value">Под ключ</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Статус:</span>
-                                    <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
-                                </li>
-                            </ul>
-                            <p class="works__card-description">Современный дом с продуманной планировкой. Гарантия 5 лет на все виды работ.</p>
-                        </div>
-                    </div>
-                    <div class="works__card">
-                        <div class="works__card-image">
-                            <img src="images/houses/5а/3df6fdf4-8e96-4ed5-90fc-e6583b6f35f2.jpg" alt="Дом 5а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
-                            <div class="works__card-badge works__card-badge--completed">Построен</div>
-                        </div>
-                        <div class="works__card-content">
-                            <h3 class="works__card-title">Дом 5а</h3>
-                            <ul class="works__card-specs">
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Площадь:</span>
-                                    <span class="works__card-spec-value"><strong>149</strong> м²</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Формат:</span>
-                                    <span class="works__card-spec-value">Под ключ</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Статус:</span>
-                                    <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
-                                </li>
-                            </ul>
-                            <p class="works__card-description">Надёжное строительство с использованием качественных материалов. Дом готов к заселению.</p>
-                        </div>
-                    </div>
-                    <div class="works__card">
-                        <div class="works__card-image">
-                            <img src="images/houses/6а/86a1596c-c61f-4d77-a1da-603e8c9a9c33.jpg" alt="Дом 6а - построенный дом компании АЛЕВИТ СТРОЙ" class="works__card-img" loading="lazy">
-                            <div class="works__card-badge works__card-badge--completed">Построен</div>
-                        </div>
-                        <div class="works__card-content">
-                            <h3 class="works__card-title">Дом 6а</h3>
-                            <ul class="works__card-specs">
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Площадь:</span>
-                                    <span class="works__card-spec-value"><strong>94</strong> м²</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Формат:</span>
-                                    <span class="works__card-spec-value">Под ключ</span>
-                                </li>
-                                <li class="works__card-spec">
-                                    <span class="works__card-spec-label">Статус:</span>
-                                    <span class="works__card-spec-value works__card-spec-value--success">Сдан в эксплуатацию</span>
-                                </li>
-                            </ul>
-                            <p class="works__card-description">Экономичный вариант для молодой семьи. Все работы выполнены качественно и в срок.</p>
-                        </div>
-                    </div>
+                    <button class="works__arrow works__arrow--next" aria-label="Следующий слайд">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="works__indicators" id="works-indicators" role="tablist" aria-label="Навигация по работам"></div>
                 </div>
                 <div class="works__cta">
                     <a href="#cta" class="btn btn--primary">Построить такой же дом</a>
