@@ -327,6 +327,7 @@ textarea {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .nav__link {
@@ -334,10 +335,15 @@ textarea {
     padding: var(--spacing-xs) var(--spacing-sm);
     color: var(--color-white);
     transition: color var(--transition-base);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .nav__link:hover {
     color: var(--color-gold);
+    border-bottom: 1px solid var(--color-gold);
+    padding-bottom: calc(var(--spacing-xs) - 0.125rem);
 }
 
 .nav__logo {
@@ -390,18 +396,17 @@ textarea {
     font-weight: 600;
     font-size: 2.5rem;
     color: #f6c86b;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     white-space: nowrap;
     text-transform: uppercase;
     text-shadow:
-        0 0 6px rgba(0, 0, 0, 0.8),
-        0 0 14px rgba(212, 175, 55, 0.9),
-        0 0 24px rgba(212, 175, 55, 0.9);
+        0 0 8px rgba(0, 0, 0, 0.8),
+        0 0 18px rgba(212, 175, 55, 0.4);
 }
 
 .nav__menu {
     display: flex;
-    gap: var(--spacing-lg);
+    gap: 1.25rem;
 }
 
 .nav__burger {
@@ -520,20 +525,21 @@ textarea {
 }
 
 .hero__title {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--spacing-xl);
+    font-family: 'Playfair Display', 'Cinzel', serif;
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.75rem;
     color: var(--color-white);
     text-shadow: var(--shadow-text);
 }
 
 .hero__subtitle {
-    font-size: clamp(1.125rem, 2.5vw, 1.75rem);
-    line-height: 1.6;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    line-height: 1.5;
     font-weight: 500;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: var(--color-white);
     opacity: 0.95;
     text-shadow: var(--shadow-text-sm);
@@ -543,16 +549,16 @@ textarea {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-xs);
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: 0.75rem 1.5rem;
     background-color: var(--color-gold);
     color: var(--color-black);
-    border-radius: 2rem;
-    font-size: 1rem;
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing);
     margin-bottom: var(--spacing-xl);
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -565,10 +571,10 @@ textarea {
 .hero__proof {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-md);
     justify-content: center;
-    margin-bottom: 3rem;
-    padding: var(--spacing-xl) var(--spacing-xxl);
+    margin-bottom: 2.5rem;
+    padding: 1.5rem 2rem;
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     border-radius: var(--border-radius);
@@ -580,7 +586,7 @@ textarea {
     align-items: center;
     gap: var(--spacing-xs);
     color: var(--color-white);
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
@@ -594,12 +600,12 @@ textarea {
 .hero__proof-item strong {
     color: var(--color-gold);
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
 .hero__cta {
     display: flex;
-    gap: var(--spacing-lg);
+    gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -792,6 +798,15 @@ textarea {
     height: 100%;
 }
 
+.advantages__icon-img {
+    width: 180%;
+    height: 180%;
+    object-fit: contain;
+    display: block;
+    max-width: 9rem;
+    max-height: 9rem;
+}
+
 .advantages__item-title {
     margin-bottom: var(--spacing-md);
     font-size: var(--font-size-h4);
@@ -940,7 +955,7 @@ textarea {
 }
 
 .projects__card-content {
-    padding: var(--spacing-lg);
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -969,8 +984,8 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-xs) 0;
-    border-bottom: 1px solid var(--color-gray-light);
+    padding: 0.4rem 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
 }
 
 .projects__card-spec:last-child {
@@ -991,6 +1006,9 @@ textarea {
 .projects__card .btn {
     width: 100%;
     margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    border-width: 2px;
 }
 
 /* ============================================ */
@@ -1102,7 +1120,7 @@ textarea {
 }
 
 .works__card-content {
-    padding: var(--spacing-lg);
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -1130,8 +1148,8 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-xs) 0;
-    border-bottom: 1px solid var(--color-gray-light);
+    padding: 0.4rem 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
 }
 
 .works__card-spec:last-child {
@@ -1423,6 +1441,15 @@ textarea {
     height: var(--size-icon-sm);
 }
 
+.services__card-icon-img {
+    width: 180%;
+    height: 180%;
+    object-fit: contain;
+    display: block;
+    max-width: 9rem;
+    max-height: 9rem;
+}
+
 .services__card-title {
     font-size: var(--font-size-h3);
     color: var(--color-black);
@@ -1441,6 +1468,9 @@ textarea {
 .services__card .btn {
     width: 100%;
     margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    border-width: 2px;
 }
 
 /* ============================================ */
