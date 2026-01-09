@@ -243,6 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация карусели работ
     initWorksCarousel();
+    
+    // Инициализация галереи проектов
+    initProjectsGallery();
 });
 
 /**
@@ -875,6 +878,304 @@ function initWorksCarousel() {
     track.setAttribute('tabindex', '0');
     track.setAttribute('role', 'region');
     track.setAttribute('aria-label', 'Карусель построенных домов');
+}
+
+/**
+ * Инициализация галереи проектов
+ */
+function initProjectsGallery() {
+    const galleryButtons = document.querySelectorAll('.projects__gallery-btn');
+    const modal = document.querySelector('#gallery-modal');
+    const overlay = modal?.querySelector('.gallery-modal__overlay');
+    const closeButton = modal?.querySelector('.gallery-modal__close');
+    const prevButton = modal?.querySelector('.gallery-modal__arrow--prev');
+    const nextButton = modal?.querySelector('.gallery-modal__arrow--next');
+    const mainImage = document.querySelector('#gallery-main-image');
+    const projectName = document.querySelector('#gallery-project-name');
+    const currentCounter = document.querySelector('#gallery-current');
+    const totalCounter = document.querySelector('#gallery-total');
+    const thumbnailsContainer = document.querySelector('#gallery-thumbnails');
+    const loader = document.querySelector('#gallery-loader');
+    
+    if (!modal || !galleryButtons.length) return;
+    
+    let currentImages = [];
+    let currentIndex = 0;
+    
+    /**
+     * Открытие модального окна галереи
+     * @param {string[]} images - Массив путей к изображениям
+     * @param {string} project - Название проекта
+     */
+    function openGallery(images, project) {
+        if (!images || images.length === 0) return;
+        
+        currentImages = images;
+        currentIndex = 0;
+        
+        // Устанавливаем название проекта
+        if (projectName) {
+            projectName.textContent = project;
+        }
+        
+        // Обновляем счетчик
+        if (totalCounter) {
+            totalCounter.textContent = images.length;
+        }
+        
+        // Загружаем первое изображение
+        loadImage(0);
+        
+        // Создаем миниатюры
+        createThumbnails();
+        
+        // Показываем модальное окно
+        modal.classList.add('gallery-modal--active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        
+        // Фокус на кнопке закрытия для доступности
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }
+    
+    /**
+     * Закрытие модального окна галереи
+     */
+    function closeGallery() {
+        modal.classList.remove('gallery-modal--active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        currentImages = [];
+        currentIndex = 0;
+    }
+    
+    /**
+     * Загрузка изображения по индексу
+     * @param {number} index - Индекс изображения
+     */
+    function loadImage(index) {
+        if (index < 0 || index >= currentImages.length) return;
+        
+        currentIndex = index;
+        const imagePath = currentImages[index];
+        
+        // Показываем загрузчик
+        if (loader) {
+            loader.style.display = 'flex';
+        }
+        
+        if (mainImage) {
+            // Предзагрузка изображения
+            const img = new Image();
+            img.onload = () => {
+                mainImage.src = imagePath;
+                mainImage.alt = `Фото проекта ${projectName?.textContent || ''} - ${index + 1} из ${currentImages.length}`;
+                
+                // Скрываем загрузчик
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+            };
+            img.onerror = () => {
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+                console.error('Ошибка загрузки изображения:', imagePath);
+            };
+            img.src = imagePath;
+        }
+        
+        // Обновляем счетчик
+        if (currentCounter) {
+            currentCounter.textContent = index + 1;
+        }
+        
+        // Обновляем миниатюры
+        updateThumbnails();
+        
+        // Обновляем состояние кнопок
+        updateButtons();
+    }
+    
+    /**
+     * Переход к следующему изображению
+     */
+    function nextImage() {
+        if (currentIndex < currentImages.length - 1) {
+            loadImage(currentIndex + 1);
+        }
+    }
+    
+    /**
+     * Переход к предыдущему изображению
+     */
+    function prevImage() {
+        if (currentIndex > 0) {
+            loadImage(currentIndex - 1);
+        }
+    }
+    
+    /**
+     * Обновление состояния кнопок навигации
+     */
+    function updateButtons() {
+        if (prevButton) {
+            prevButton.disabled = currentIndex === 0;
+            prevButton.setAttribute('aria-disabled', currentIndex === 0);
+        }
+        if (nextButton) {
+            nextButton.disabled = currentIndex === currentImages.length - 1;
+            nextButton.setAttribute('aria-disabled', currentIndex === currentImages.length - 1);
+        }
+    }
+    
+    /**
+     * Создание миниатюр
+     */
+    function createThumbnails() {
+        if (!thumbnailsContainer) return;
+        
+        thumbnailsContainer.innerHTML = '';
+        
+        currentImages.forEach((imagePath, index) => {
+            const thumbnail = document.createElement('button');
+            thumbnail.className = 'gallery-modal__thumbnail';
+            thumbnail.setAttribute('role', 'tab');
+            thumbnail.setAttribute('aria-selected', index === currentIndex ? 'true' : 'false');
+            thumbnail.setAttribute('aria-label', `Показать фото ${index + 1}`);
+            thumbnail.setAttribute('tabindex', index === currentIndex ? '0' : '-1');
+            
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.alt = `Миниатюра ${index + 1}`;
+            img.className = 'gallery-modal__thumbnail-img';
+            img.loading = 'lazy';
+            
+            thumbnail.appendChild(img);
+            thumbnail.addEventListener('click', () => loadImage(index));
+            
+            thumbnailsContainer.appendChild(thumbnail);
+        });
+    }
+    
+    /**
+     * Обновление активной миниатюры
+     */
+    function updateThumbnails() {
+        if (!thumbnailsContainer) return;
+        
+        const thumbnails = thumbnailsContainer.querySelectorAll('.gallery-modal__thumbnail');
+        thumbnails.forEach((thumbnail, index) => {
+            const isActive = index === currentIndex;
+            thumbnail.classList.toggle('gallery-modal__thumbnail--active', isActive);
+            thumbnail.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            thumbnail.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+    }
+    
+    // Обработчики событий для кнопок галереи проектов
+    galleryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const imagesJson = button.getAttribute('data-images');
+            const project = button.getAttribute('data-project');
+            
+            if (imagesJson) {
+                try {
+                    const images = JSON.parse(imagesJson);
+                    openGallery(images, project);
+                } catch (error) {
+                    console.error('Ошибка парсинга данных изображений:', error);
+                }
+            }
+        });
+    });
+    
+    // Обработчики событий для кнопок галереи работ
+    const worksGalleryButtons = document.querySelectorAll('.works__gallery-btn');
+    worksGalleryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const imagesJson = button.getAttribute('data-images');
+            const project = button.getAttribute('data-project');
+            
+            if (imagesJson) {
+                try {
+                    const images = JSON.parse(imagesJson);
+                    openGallery(images, project);
+                } catch (error) {
+                    console.error('Ошибка парсинга данных изображений:', error);
+                }
+            }
+        });
+    });
+    
+    // Закрытие по клику на overlay
+    if (overlay) {
+        overlay.addEventListener('click', closeGallery);
+    }
+    
+    // Закрытие по клику на кнопку закрытия
+    if (closeButton) {
+        closeButton.addEventListener('click', closeGallery);
+    }
+    
+    // Навигация стрелками
+    if (prevButton) {
+        prevButton.addEventListener('click', prevImage);
+    }
+    if (nextButton) {
+        nextButton.addEventListener('click', nextImage);
+    }
+    
+    // Навигация клавиатурой
+    modal.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('gallery-modal--active')) return;
+        
+        switch (e.key) {
+            case 'Escape':
+                closeGallery();
+                break;
+            case 'ArrowLeft':
+                e.preventDefault();
+                prevImage();
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                nextImage();
+                break;
+        }
+    });
+    
+    // Навигация свайпами для мобильных
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    if (mainImage) {
+        mainImage.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        mainImage.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+    }
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Свайп влево - следующее фото
+                nextImage();
+            } else {
+                // Свайп вправо - предыдущее фото
+                prevImage();
+            }
+        }
+    }
 }
 
 // Экспорт для использования в других модулях
