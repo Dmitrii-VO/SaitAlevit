@@ -1,0 +1,108 @@
+/* ============================================ */
+/* SERVICES */
+/* ============================================ */
+
+.services {
+    padding: var(--spacing-xxl) var(--container-padding);
+    background-color: var(--color-white);
+}
+
+.services__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.services__title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-black);
+}
+
+.services__subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+    font-size: var(--font-size-lg);
+    color: var(--color-gray);
+}
+
+.services__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.services__card {
+    padding: var(--spacing-xxl);
+    background-color: var(--color-white);
+    border: var(--border-width-thick) solid var(--color-gray-light);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    transition: all var(--transition-slow);
+    box-shadow: var(--shadow-sm);
+}
+
+.services__card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-gold);
+    box-shadow: var(--shadow-gold);
+}
+
+.services__card-icon {
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(212, 175, 55, 0.1);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-slow);
+}
+
+.services__card:hover .services__card-icon {
+    background-color: var(--color-gold);
+    color: var(--color-white);
+    transform: scale(1.1);
+}
+
+.services__card-icon svg {
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+}
+
+.services__card-icon-img {
+    width: 180%;
+    height: 180%;
+    object-fit: contain;
+    display: block;
+    max-width: 9rem;
+    max-height: 9rem;
+}
+
+.services__card-title {
+    font-size: var(--font-size-h3);
+    color: var(--color-black);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.services__card-text {
+    font-size: var(--font-size-base);
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+    flex-grow: 1;
+}
+
+.services__card .btn {
+    width: 100%;
+    margin-top: auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    border-width: 2px;
+}

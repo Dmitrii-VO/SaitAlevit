@@ -1,0 +1,16 @@
+/* ============================================ */
+/* БАЗОВЫЕ КЛАССЫ GRID */
+/* ============================================ */
+
+.grid {
+    display: grid;
+    gap: var(--spacing-xl);
+}
+
+.grid--auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid--mobile-single {
+    grid-template-columns: 1fr;
+}

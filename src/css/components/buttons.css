@@ -1,0 +1,52 @@
+/* ============================================ */
+/* BUTTONS */
+/* ============================================ */
+
+.btn {
+    display: inline-block;
+    padding: 1.125rem 3rem;
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    border: 3px solid transparent;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.btn--primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+}
+
+.btn--primary:hover {
+    background-color: var(--color-black-light);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+}
+
+.btn--secondary {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+    border-color: var(--color-gold);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-gold-dark);
+    border-color: var(--color-gold-dark);
+    transform: translateY(-2px);
+}
+
+.btn--outline {
+    background-color: transparent;
+    border-color: var(--color-black);
+    color: var(--color-black);
+}
+
+.btn--outline:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}

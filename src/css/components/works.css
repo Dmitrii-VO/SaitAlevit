@@ -1,0 +1,253 @@
+/* ============================================ */
+/* WORKS */
+/* ============================================ */
+
+.works {
+    padding: var(--spacing-xxl) var(--container-padding);
+    background-color: var(--color-gray-light);
+}
+
+.works__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.works__title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.works__subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+    font-size: var(--font-size-large);
+    color: var(--color-gray-dark);
+    max-width: var(--container-width-narrow);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Карусель работ */
+.works__carousel {
+    position: relative;
+    max-width: var(--container-width-wide);
+    margin: 0 auto;
+}
+
+.works__track {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--spacing-sm) 0;
+}
+
+.works__card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-light);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(33.333% - 1.33rem);
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.works__card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.works__card-image {
+    width: 100%;
+    height: var(--size-card-image-lg);
+    overflow: hidden;
+    background-color: var(--color-gray-light);
+    position: relative;
+}
+
+.works__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--transition-base);
+}
+
+.works__card:hover .works__card-img {
+    transform: scale(1.05);
+}
+
+.works__card-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+    border: 1px solid var(--color-gray-light);
+    z-index: 2;
+}
+
+.works__card-badge--completed {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+    border-color: var(--color-gold);
+}
+
+.works__card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.works__card-title {
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-black);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.works__card-specs {
+    list-style: none;
+    margin: 0 0 var(--spacing-md) 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.works__card-spec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+}
+
+.works__card-spec:last-child {
+    border-bottom: none;
+}
+
+.works__card-spec-label {
+    font-size: var(--font-size-base);
+    color: var(--color-gray);
+}
+
+.works__card-spec-value {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.works__card-spec-value--success {
+    color: var(--color-gold);
+}
+
+.works__card-description {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-gray-dark);
+}
+
+/* Стрелки навигации карусели работ */
+.works__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gold);
+    color: var(--color-gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+}
+
+.works__arrow:hover {
+    background-color: var(--color-gold);
+    color: var(--color-white);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-gold);
+}
+
+.works__arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.works__arrow--prev {
+    left: -1.5rem;
+}
+
+.works__arrow--next {
+    right: -1.5rem;
+}
+
+.works__arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.works__arrow svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Индикаторы карусели работ */
+.works__indicators {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.works__indicator {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--color-gray);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    padding: 0;
+}
+
+.works__indicator:hover {
+    background-color: var(--color-gold);
+    transform: scale(1.2);
+}
+
+.works__indicator--active {
+    background-color: var(--color-gold);
+    width: 2rem;
+    border-radius: 0.375rem;
+}
+
+/* Адаптивность карусели работ для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .works__card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}

@@ -1,0 +1,67 @@
+/* ============================================ */
+/* MAP */
+/* ============================================ */
+
+.map {
+    padding: var(--spacing-xxl) var(--container-padding);
+    background-color: var(--color-gray-light);
+}
+
+.map__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.map__title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.map__subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.map__legend {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.map__legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.map__legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.map__legend-color--green {
+    background-color: var(--color-green);
+}
+
+.map__legend-color--orange {
+    background-color: var(--color-orange);
+}
+
+.map__legend-color--red {
+    background-color: var(--color-red);
+}
+
+.map__content {
+    min-height: 400px;
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map__placeholder {
+    color: var(--color-gray);
+}

@@ -1,0 +1,184 @@
+/* ============================================ */
+/* REVIEWS */
+/* ============================================ */
+
+.reviews {
+    padding: var(--spacing-xxl) var(--container-padding);
+    background-color: var(--color-gray-light);
+}
+
+.reviews__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.reviews__title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-black);
+}
+
+.reviews__subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+    font-size: var(--font-size-lg);
+    color: var(--color-gray);
+}
+
+.reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xxl);
+}
+
+.reviews__card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-slow);
+}
+
+.reviews__card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.reviews__card-video {
+    position: relative;
+    width: 100%;
+    height: var(--size-card-image-sm);
+    background: linear-gradient(135deg, var(--color-black) 0%, var(--color-gray-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-slow);
+}
+
+.reviews__card-video:hover {
+    background: linear-gradient(135deg, var(--color-gray-dark) 0%, var(--color-black) 100%);
+}
+
+.reviews__card-video:hover .reviews__card-video-icon {
+    transform: scale(1.1);
+    color: var(--color-gold);
+}
+
+.reviews__card-video-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    color: var(--color-white);
+}
+
+.reviews__card-video-icon {
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
+    color: var(--color-white);
+    transition: all var(--transition-slow);
+}
+
+.reviews__card-video-text {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.reviews__card-content {
+    padding: var(--spacing-lg);
+}
+
+.reviews__card-author {
+    font-size: var(--font-size-h3);
+    color: var(--color-black);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
+.reviews__card-house {
+    font-size: var(--font-size-sm);
+    color: var(--color-gold);
+    margin-bottom: var(--spacing-md);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.reviews__card-text {
+    font-size: var(--font-size-base);
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.reviews__text {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.reviews__text-item {
+    background-color: var(--color-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    border-left: var(--border-width-thick) solid var(--color-gold);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-slow);
+    position: relative;
+}
+
+.reviews__text-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.reviews__text-quote {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    color: var(--color-gold);
+    opacity: 0.2;
+}
+
+.reviews__text-quote svg {
+    width: 48px;
+    height: 48px;
+}
+
+.reviews__text-content {
+    font-size: var(--font-size-base);
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-lg);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+}
+
+.reviews__text-meta {
+    border-top: 1px solid var(--color-gray-light);
+    padding-top: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.reviews__text-author {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: var(--spacing-xs);
+}
+
+.reviews__text-house {
+    font-size: var(--font-size-sm);
+    color: var(--color-gold);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+    margin: 0;
+}

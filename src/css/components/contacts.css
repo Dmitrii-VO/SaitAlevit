@@ -1,0 +1,195 @@
+/* ============================================ */
+/* CONTACTS */
+/* ============================================ */
+
+.contacts {
+    padding: var(--spacing-xxl) var(--container-padding);
+    background-color: var(--color-white);
+}
+
+.contacts__container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.contacts__title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-black);
+}
+
+.contacts__subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+    font-size: var(--font-size-lg);
+    color: var(--color-gray);
+}
+
+.contacts__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xxl);
+    align-items: start;
+}
+
+.contacts__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.contacts__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background-color: var(--color-gray-light);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-slow);
+}
+
+.contacts__item:hover {
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.contacts__item-icon {
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gold);
+    color: var(--color-white);
+    border-radius: var(--border-radius);
+    flex-shrink: 0;
+}
+
+.contacts__item-icon svg {
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+}
+
+.contacts__item-content {
+    flex: 1;
+}
+
+.contacts__item-title {
+    font-size: var(--font-size-base);
+    color: var(--color-gold);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.contacts__item-link {
+    display: inline-block;
+    font-size: var(--font-size-lg);
+    color: var(--color-black);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition-slow);
+}
+
+.contacts__item-link:hover {
+    color: var(--color-gold);
+}
+
+.contacts__item-text {
+    font-size: var(--font-size-base);
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.contacts__social {
+    padding: var(--spacing-lg);
+    background-color: var(--color-gray-light);
+    border-radius: var(--border-radius);
+}
+
+.contacts__social-title {
+    font-size: var(--font-size-base);
+    color: var(--color-gold);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.contacts__social-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.contacts__social-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-white);
+    border: var(--border-width-thick) solid var(--color-gray-light);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--color-black);
+    font-weight: 500;
+    transition: all var(--transition-slow);
+}
+
+.contacts__social-link:hover {
+    border-color: var(--color-gold);
+    transform: translateX(4px);
+}
+
+.contacts__social-link--whatsapp:hover {
+    background-color: var(--color-whatsapp);
+    color: var(--color-white);
+    border-color: var(--color-whatsapp);
+}
+
+.contacts__social-link--telegram:hover {
+    background-color: var(--color-telegram);
+    color: var(--color-white);
+    border-color: var(--color-telegram);
+}
+
+.contacts__social-link svg {
+    width: var(--size-icon-sm);
+    height: var(--size-icon-sm);
+    flex-shrink: 0;
+}
+
+.contacts__map {
+    height: 31.25rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.contacts__map-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-gray-light) 0%, var(--color-gray) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    color: var(--color-gray-dark);
+}
+
+.contacts__map-placeholder svg {
+    width: var(--size-icon-md);
+    height: var(--size-icon-md);
+    opacity: 0.5;
+}
+
+.contacts__map-text {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-dark);
+    margin: 0;
+}

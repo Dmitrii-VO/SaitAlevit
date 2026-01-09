@@ -1,0 +1,13 @@
+/* ============================================ */
+/* CTA BUTTONS AFTER SECTIONS */
+/* ============================================ */
+
+.trust__cta,
+.advantages__cta,
+.pricing__cta,
+.works__cta,
+.reviews__cta,
+.about__cta {
+    text-align: center;
+    margin-top: var(--spacing-xxl);
+}
