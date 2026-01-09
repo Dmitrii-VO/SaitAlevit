@@ -51,7 +51,7 @@
     --size-burger-gap: 0.25rem;
     --size-burger-width: 1.5rem;
     --size-burger-height: 0.125rem;
-    --size-logo-height: 3.75rem;
+    --size-logo-height: 4.5rem;
     --size-icon-sm: 1.5rem;
     --size-icon-md: 2rem;
     --size-icon-lg: 4rem;
@@ -322,10 +322,11 @@ textarea {
 .nav__container {
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: var(--spacing-md) var(--container-padding);
+    padding: var(--spacing-md) var(--container-padding) var(--spacing-lg);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--spacing-md);
 }
 
 .nav__link {
@@ -342,15 +343,15 @@ textarea {
 .nav__logo {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    transition: transform var(--transition-slow);
+    gap: 1.5rem;
+    transition: opacity var(--transition-base);
     text-decoration: none;
     position: relative;
     z-index: 1;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius);
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(212, 175, 55, 0.2);
+    padding: 0;
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--color-gold);
+    background: transparent;
     animation: logoFadeIn 0.6s ease-out;
 }
 
@@ -366,43 +367,36 @@ textarea {
 }
 
 .nav__logo:hover {
-    transform: translateY(-2px) scale(1.02);
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.15);
+    opacity: 0.8;
 }
 
 .nav__logo:active {
-    transform: translateY(0) scale(0.98);
+    opacity: 0.7;
 }
 
 .nav__logo-img {
-    max-height: var(--size-logo-height);
+    max-height: 6.375rem;
     width: auto;
     height: auto;
     object-fit: contain;
     display: block;
     filter: none;
-    transition: transform var(--transition-slow);
 }
 
-.nav__logo:hover .nav__logo-img {
-    transform: scale(1.03);
-}
-
-/* Текстовое название компании рядом с логотипом (опционально) */
+/* Текстовое название компании рядом с логотипом */
 .nav__logo-text {
-    display: none;
+    display: block;
+    font-family: 'Cinzel', 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 1.125rem;
-    color: var(--color-black);
-    letter-spacing: 0.05em;
+    font-size: 2.5rem;
+    color: #f6c86b;
+    letter-spacing: 0.12em;
     white-space: nowrap;
-}
-
-@media (min-width: 1024px) {
-    .nav__logo-text {
-        display: block;
-    }
+    text-transform: uppercase;
+    text-shadow:
+        0 0 6px rgba(0, 0, 0, 0.8),
+        0 0 14px rgba(212, 175, 55, 0.9),
+        0 0 24px rgba(212, 175, 55, 0.9);
 }
 
 .nav__menu {
@@ -522,6 +516,7 @@ textarea {
     color: var(--color-white);
     max-width: 900px;
     margin: 0 auto;
+    padding-top: 8rem;
 }
 
 .hero__title {
@@ -2245,16 +2240,16 @@ textarea {
     }
 
     .nav__logo {
-        padding: 0.375rem 0.75rem;
-        background: rgba(255, 255, 255, 0.98);
+        padding: 0.375rem 0;
     }
 
     .nav__logo-img {
-        max-height: 2.5rem;
+        max-height: 4.875rem;
     }
 
-    .nav__logo:hover {
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.3);
+    .nav__logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.16em;
     }
 
     .nav__menu {

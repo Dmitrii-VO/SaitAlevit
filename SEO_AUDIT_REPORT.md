@@ -286,3 +286,4 @@
 - Рекомендуется протестировать Open Graph теги через [Facebook Debugger](https://developers.facebook.com/tools/debug/)
 - Проверить структурированные данные через [Google Rich Results Test](https://search.google.com/test/rich-results)
 
+
