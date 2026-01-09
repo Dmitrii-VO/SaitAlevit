@@ -1,0 +1,37 @@
+<!-- GALLERY MODAL - Модальное окно галереи -->
+    <!-- ============================================ -->
+    <div class="gallery-modal" id="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title" aria-hidden="true">
+        <div class="gallery-modal__overlay"></div>
+        <div class="gallery-modal__container">
+            <button class="gallery-modal__close" aria-label="Закрыть галерею">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="gallery-modal__header">
+                <h2 class="gallery-modal__title" id="gallery-modal-title">Проект <span id="gallery-project-name"></span></h2>
+                <p class="gallery-modal__counter">
+                    <span id="gallery-current">1</span> / <span id="gallery-total">1</span>
+                </p>
+            </div>
+            <div class="gallery-modal__content">
+                <button class="gallery-modal__arrow gallery-modal__arrow--prev" aria-label="Предыдущее фото">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="gallery-modal__image-wrapper">
+                    <img id="gallery-main-image" src="" alt="" class="gallery-modal__image" loading="lazy">
+                    <div class="gallery-modal__loader" id="gallery-loader">
+                        <div class="gallery-modal__spinner"></div>
+                    </div>
+                </div>
+                <button class="gallery-modal__arrow gallery-modal__arrow--next" aria-label="Следующее фото">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="gallery-modal__thumbnails" id="gallery-thumbnails" role="tablist" aria-label="Миниатюры фотографий"></div>
+        </div>
+    </div>

@@ -106,7 +106,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ============================================ -->
     <!-- HEADER - Навигация -->
     <!-- ============================================ -->
     <header class="header" id="header">
@@ -131,9 +130,8 @@
             </div>
         </nav>
     </header>
-
+    
     <main class="main">
-        <!-- ============================================ -->
         <!-- HERO - Первый экран -->
         <!-- ============================================ -->
         <section class="hero" id="hero">
@@ -177,7 +175,6 @@
                 </div>
             </div>
         </section>
-        <!-- ============================================ -->
         <!-- TRUST - Блок доверия (цифры, опыт, гарантия) -->
         <!-- ============================================ -->
         <section class="trust" id="trust">
@@ -198,8 +195,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- ADVANTAGES - Почему выбирают нас -->
         <!-- ============================================ -->
         <section class="advantages" id="advantages">
@@ -247,8 +242,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- PRICING - Форматы домов и цены -->
         <!-- ============================================ -->
         <section class="pricing" id="pricing">
@@ -292,8 +285,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- PROJECTS - Типовые проекты домов -->
         <!-- ============================================ -->
         <section class="projects" id="projects">
@@ -593,8 +584,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- WORKS - Наши работы (реальные построенные дома) -->
         <!-- ============================================ -->
         <section class="works" id="works">
@@ -771,8 +760,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- PROCESS - Этапы строительства -->
         <!-- ============================================ -->
         <section class="process" id="process">
@@ -855,9 +842,6 @@
                 </div>
             </div>
         </section>
-
-
-        <!-- ============================================ -->
         <!-- SERVICES - Услуги (ипотека, участок, проектирование) -->
         <!-- ============================================ -->
         <section class="services" id="services">
@@ -892,8 +876,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- REVIEWS - Отзывы -->
         <!-- ============================================ -->
         <section class="reviews" id="reviews">
@@ -993,8 +975,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- ABOUT - О компании и команда -->
         <!-- ============================================ -->
         <section class="about" id="about">
@@ -1049,8 +1029,54 @@
                 </div>
             </div>
         </section>
-
+        <!-- CALCULATOR - Калькулятор стоимости -->
         <!-- ============================================ -->
+        <section class="calculator" id="calculator">
+            <div class="calculator__container">
+                <h2 class="calculator__title">Калькулятор стоимости дома</h2>
+                <p class="calculator__subtitle">Рассчитайте примерную стоимость вашего будущего дома</p>
+                <div class="calculator__wrapper">
+                    <div class="calculator__form-wrapper">
+                        <form class="calculator__form" id="calculator-form">
+                            <div class="calculator__form-group">
+                                <label for="calc-area" class="calculator__form-label">Площадь дома (м²)</label>
+                                <input type="number" id="calc-area" name="area" class="calculator__form-input" placeholder="120" min="20" max="500" value="120" required>
+                                <span class="calculator__form-hint">От 20 до 500 м²</span>
+                            </div>
+                            <div class="calculator__form-group">
+                                <label for="calc-type" class="calculator__form-label">Тип дома</label>
+                                <select id="calc-type" name="type" class="calculator__form-select" required>
+                                    <option value="gas-block">Газобетон</option>
+                                    <option value="brick">Кирпич</option>
+                                    <option value="frame">Каркас</option>
+                                </select>
+                            </div>
+                            <div class="calculator__form-group">
+                                <label for="calc-finish" class="calculator__form-label">Формат отделки</label>
+                                <select id="calc-finish" name="finish" class="calculator__form-select" required>
+                                    <option value="box">Коробка</option>
+                                    <option value="clean">Чистовая отделка</option>
+                                    <option value="turnkey">Под ключ</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn--primary calculator__form-submit">Рассчитать стоимость</button>
+                        </form>
+                    </div>
+                    <div class="calculator__result" id="calculator-result">
+                        <div class="calculator__result-content">
+                            <h3 class="calculator__result-title">Примерная стоимость</h3>
+                            <div class="calculator__result-price">
+                                <span class="calculator__result-price-label">от</span>
+                                <span class="calculator__result-price-value" id="result-price">—</span>
+                                <span class="calculator__result-price-currency">₽</span>
+                            </div>
+                            <p class="calculator__result-note">Точную стоимость рассчитаем после консультации</p>
+                            <a href="#cta" class="btn btn--secondary calculator__result-cta">Получить точный расчёт</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- FAQ - Часто задаваемые вопросы -->
         <!-- ============================================ -->
         <section class="faq" id="faq">
@@ -1127,58 +1153,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ============================================ -->
-        <!-- CALCULATOR - Калькулятор стоимости -->
-        <!-- ============================================ -->
-        <section class="calculator" id="calculator">
-            <div class="calculator__container">
-                <h2 class="calculator__title">Калькулятор стоимости дома</h2>
-                <p class="calculator__subtitle">Рассчитайте примерную стоимость вашего будущего дома</p>
-                <div class="calculator__wrapper">
-                    <div class="calculator__form-wrapper">
-                        <form class="calculator__form" id="calculator-form">
-                            <div class="calculator__form-group">
-                                <label for="calc-area" class="calculator__form-label">Площадь дома (м²)</label>
-                                <input type="number" id="calc-area" name="area" class="calculator__form-input" placeholder="120" min="20" max="500" value="120" required>
-                                <span class="calculator__form-hint">От 20 до 500 м²</span>
-                            </div>
-                            <div class="calculator__form-group">
-                                <label for="calc-type" class="calculator__form-label">Тип дома</label>
-                                <select id="calc-type" name="type" class="calculator__form-select" required>
-                                    <option value="gas-block">Газобетон</option>
-                                    <option value="brick">Кирпич</option>
-                                    <option value="frame">Каркас</option>
-                                </select>
-                            </div>
-                            <div class="calculator__form-group">
-                                <label for="calc-finish" class="calculator__form-label">Формат отделки</label>
-                                <select id="calc-finish" name="finish" class="calculator__form-select" required>
-                                    <option value="box">Коробка</option>
-                                    <option value="clean">Чистовая отделка</option>
-                                    <option value="turnkey">Под ключ</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn--primary calculator__form-submit">Рассчитать стоимость</button>
-                        </form>
-                    </div>
-                    <div class="calculator__result" id="calculator-result">
-                        <div class="calculator__result-content">
-                            <h3 class="calculator__result-title">Примерная стоимость</h3>
-                            <div class="calculator__result-price">
-                                <span class="calculator__result-price-label">от</span>
-                                <span class="calculator__result-price-value" id="result-price">—</span>
-                                <span class="calculator__result-price-currency">₽</span>
-                            </div>
-                            <p class="calculator__result-note">Точную стоимость рассчитаем после консультации</p>
-                            <a href="#cta" class="btn btn--secondary calculator__result-cta">Получить точный расчёт</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================ -->
         <!-- CTA - Призыв к действию и формы -->
         <!-- ============================================ -->
         <section class="cta" id="cta">
@@ -1250,8 +1224,6 @@
                 </form>
             </div>
         </section>
-
-        <!-- ============================================ -->
         <!-- CONTACTS - Контакты -->
         <!-- ============================================ -->
         <section class="contacts" id="contacts">
@@ -1327,10 +1299,7 @@
             </div>
         </section>
     </main>
-
-    <!-- ============================================ -->
-    <!-- FOOTER - Подвал сайта -->
-    <!-- ============================================ -->
+    
     <footer class="footer">
         <div class="footer__container">
             <div class="footer__content">
@@ -1350,8 +1319,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- ============================================ -->
     <!-- FLOATING BUTTONS - Плавающие кнопки -->
     <!-- ============================================ -->
     <div class="floating-buttons" id="floating-buttons">
@@ -1372,8 +1339,6 @@
             </svg>
         </a>
     </div>
-
-    <!-- ============================================ -->
     <!-- GALLERY MODAL - Модальное окно галереи -->
     <!-- ============================================ -->
     <div class="gallery-modal" id="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title" aria-hidden="true">
@@ -1411,7 +1376,7 @@
             <div class="gallery-modal__thumbnails" id="gallery-thumbnails" role="tablist" aria-label="Миниатюры фотографий"></div>
         </div>
     </div>
-
+    
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,71 @@
+<!-- CTA - Призыв к действию и формы -->
+        <!-- ============================================ -->
+        <section class="cta" id="cta">
+            <div class="cta__container">
+                <div class="cta__content">
+                    <h2 class="cta__title">Получите бесплатный проект дома и точный расчёт стоимости</h2>
+                    <p class="cta__subtitle">Оставьте заявку и получите:</p>
+                    <ul class="cta__benefits">
+                        <li class="cta__benefit">
+                            <svg class="cta__benefit-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Бесплатный проект дома</span>
+                        </li>
+                        <li class="cta__benefit">
+                            <svg class="cta__benefit-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Точный расчёт стоимости</span>
+                        </li>
+                        <li class="cta__benefit">
+                            <svg class="cta__benefit-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Бесплатная консультация специалиста</span>
+                        </li>
+                        <li class="cta__benefit">
+                            <svg class="cta__benefit-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Ответ в течение 15 минут</span>
+                        </li>
+                    </ul>
+                    <div class="cta__guarantees">
+                        <p class="cta__guarantee-text">🔒 Ваши данные в безопасности</p>
+                        <p class="cta__guarantee-text">✅ Только для жителей Белгорода и области</p>
+                        <p class="cta__guarantee-text">📞 Никакого спама, только звонок от специалиста</p>
+                    </div>
+                </div>
+                <form class="cta__form" id="cta-form">
+                    <h3 class="cta__form-title">Оставьте заявку</h3>
+                    <p class="cta__form-subtitle">Мы свяжемся с вами в течение 15 минут</p>
+                    <div class="cta__form-progress">
+                        <div class="cta__form-progress-bar" id="form-progress"></div>
+                    </div>
+                    <div class="cta__form-group">
+                        <label for="cta-name" class="cta__form-label">Ваше имя</label>
+                        <input type="text" id="cta-name" name="name" class="cta__form-input" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="cta__form-group">
+                        <label for="cta-phone" class="cta__form-label">Телефон</label>
+                        <input type="tel" id="cta-phone" name="phone" class="cta__form-input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                    </div>
+                    <div class="cta__form-group">
+                        <label for="cta-area" class="cta__form-label">Желаемая площадь (м²)</label>
+                        <input type="number" id="cta-area" name="area" class="cta__form-input" placeholder="120" min="20" max="500">
+                    </div>
+                    <div class="cta__form-group">
+                        <label class="cta__form-checkbox">
+                            <input type="checkbox" name="agreement" required>
+                            <span>Я согласен на <a href="#" class="cta__form-link">обработку персональных данных</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn--primary cta__form-submit">
+                        <span class="cta__form-submit-text">Получить бесплатный проект</span>
+                        <span class="cta__form-submit-loading" style="display: none;">Отправка...</span>
+                    </button>
+                    <p class="cta__form-note">Нажимая кнопку, вы даёте согласие на обработку персональных данных</p>
+                </form>
+            </div>
+        </section>

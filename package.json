@@ -6,12 +6,15 @@
   "scripts": {
     "start": "live-server . --port=3000 --ignore=node_modules,src,.git",
     "dev": "live-server . --port=3000 --watch=. --ignore=node_modules,src,.git",
-    "build": "npm run build:css && npm run build:js",
+    "build": "npm run build:html && npm run build:css && npm run build:js",
+    "build:html": "node scripts/build-html.js",
     "build:css": "postcss src/css/main.css -o styles.css",
     "build:js": "webpack --mode=production",
-    "watch": "npm run watch:css & npm run watch:js",
+    "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
+    "watch:html": "nodemon --watch src/html scripts/build-html.js",
     "watch:css": "postcss src/css/main.css -o styles.css --watch",
     "watch:js": "webpack --mode=development --watch",
+    "split:html": "node scripts/split-html.js",
     "lint": "eslint src/js/**/*.js",
     "format": "prettier --write src/**/*.{html,css,js}",
     "test": "jest"

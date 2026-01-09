@@ -401,6 +401,11 @@ textarea {
     gap: var(--size-burger-gap);
     padding: 0.5rem;
     padding: var(--spacing-xs);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1000;
 }
 .nav__burger span {
     width: 1.5rem;
@@ -422,31 +427,71 @@ textarea {
     transform: rotate(-45deg) translate(0.4rem, -0.4rem);
 }
 @media (max-width: 768px) {
+    .nav__container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .nav__burger {
+        display: flex;
+    }
+    
     .nav__burger span {
-        background-color: #000000;
-        background-color: var(--color-black);
+        background-color: #ffffff;
+        background-color: var(--color-white);
     }
     
     .nav__menu {
         position: fixed;
-        top: 5rem;
+        top: 0;
         left: 0;
         right: 0;
-        background-color: #ffffff;
-        background-color: var(--color-white);
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.95);
         flex-direction: column;
-        padding: 2rem;
-        padding: var(--spacing-lg);
+        padding: 3rem;
+        padding: var(--spacing-xl);
+        padding-top: 6rem;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         box-shadow: var(--shadow-lg);
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         transition: transform var(--transition-slow);
         z-index: 999;
+        gap: 1.5rem;
+        gap: var(--spacing-md);
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow-y: auto;
     }
     
     .nav__menu--active {
         transform: translateX(0);
+    }
+    
+    .nav__item {
+        width: 100%;
+    }
+    
+    .nav__link {
+        display: block;
+        width: 100%;
+        padding: 1.5rem;
+        padding: var(--spacing-md);
+        color: #ffffff;
+        color: var(--color-white);
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav__link:hover {
+        color: #d4af37;
+        color: var(--color-gold);
+        border-bottom-color: #d4af37;
+        border-bottom-color: var(--color-gold);
+        padding-bottom: 1.5rem;
+        padding-bottom: var(--spacing-md);
     }
 }
 /* ============================================ */
