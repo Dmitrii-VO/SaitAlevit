@@ -4,8 +4,11 @@
   "description": "Сайт проект",
   "main": "index.html",
   "scripts": {
-    "start": "live-server . --port=3000 --ignore=node_modules,src,.git",
-    "dev": "live-server . --port=3000 --watch=. --ignore=node_modules,src,.git",
+    "start": "node scripts/server.js",
+    "start:live": "live-server . --port=3000 --host=0.0.0.0 --ignore=node_modules,src,.git",
+    "dev": "node scripts/server.js",
+    "dev:live": "live-server . --port=3000 --host=0.0.0.0 --watch=. --ignore=node_modules,src,.git",
+    "dev:mobile": "node scripts/server.js",
     "build": "npm run build:html && npm run build:css && npm run build:js",
     "build:html": "node scripts/build-html.js",
     "build:css": "postcss src/css/main.css -o styles.css",
@@ -15,6 +18,7 @@
     "watch:css": "postcss src/css/main.css -o styles.css --watch",
     "watch:js": "webpack --mode=development --watch",
     "split:html": "node scripts/split-html.js",
+    "check:network": "node scripts/check-network.js",
     "lint": "eslint src/js/**/*.js",
     "format": "prettier --write src/**/*.{html,css,js}",
     "test": "jest"
