@@ -141,7 +141,8 @@ async function handleMessage(bot, msg, userStates) {
         break;
         
       case 'houseName':
-        if (msg.text.trim().toLowerCase() === '/skip') {
+        const houseText = msg.text.trim().toLowerCase();
+        if (houseText === '/skip' || houseText === 'skip') {
           state.data.houseName = '';
         } else {
           state.data.houseName = msg.text.trim();
@@ -202,8 +203,9 @@ async function handleMessage(bot, msg, userStates) {
         
       case 'photo':
         // Обработка фото происходит в handlePhoto
-        // Если пришло текстовое сообщение, значит пользователь отправил /skip
-        if (msg.text && msg.text.trim().toLowerCase() === '/skip') {
+        // Если пришло текстовое сообщение, значит пользователь отправил /skip или skip
+        const skipText = msg.text ? msg.text.trim().toLowerCase() : '';
+        if (skipText === '/skip' || skipText === 'skip') {
           state.data.clientPhoto = '';
           state.step = 'status';
           await bot.sendMessage(
@@ -350,7 +352,7 @@ async function handleMessage(bot, msg, userStates) {
           } else {
             return bot.sendMessage(chatId, '❌ Пожалуйста, введите "опубликован" или "скрыт"');
           }
-        } else if (editField === 'houseName' && newValue.toLowerCase() === '/skip') {
+        } else if (editField === 'houseName' && (newValue.toLowerCase() === '/skip' || newValue.toLowerCase() === 'skip')) {
           newValue = '';
         }
 
@@ -400,7 +402,8 @@ async function handleMessage(bot, msg, userStates) {
         break;
 
       case 'edit_client_photo':
-        if (msg.text && msg.text.trim().toLowerCase() === '/skip') {
+        const skipPhotoText = msg.text ? msg.text.trim().toLowerCase() : '';
+        if (skipPhotoText === '/skip' || skipPhotoText === 'skip') {
           await updateReviewField(chatId, state.selectedReview.id, 'clientPhoto', '', bot);
           delete userStates[chatId];
         }

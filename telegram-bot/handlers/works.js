@@ -177,7 +177,8 @@ async function handleMessage(bot, msg, userStates) {
         break;
         
       case 'description':
-        if (msg.text.trim().toLowerCase() === '/skip') {
+        const descText = msg.text.trim().toLowerCase();
+        if (descText === '/skip' || descText === 'skip') {
           state.data.description = '';
         } else {
           state.data.description = msg.text.trim();
@@ -189,9 +190,10 @@ async function handleMessage(bot, msg, userStates) {
           { parse_mode: 'HTML' }
         );
         break;
-        
+
       case 'address':
-        if (msg.text.trim().toLowerCase() === '/skip') {
+        const addrText = msg.text.trim().toLowerCase();
+        if (addrText === '/skip' || addrText === 'skip') {
           state.data.address = '';
         } else {
           state.data.address = msg.text.trim();
@@ -365,7 +367,7 @@ async function handleMessage(bot, msg, userStates) {
           } else {
             return bot.sendMessage(chatId, '❌ Пожалуйста, введите "опубликован" или "скрыт"');
           }
-        } else if ((editField === 'description' || editField === 'address') && newValue.toLowerCase() === '/skip') {
+        } else if ((editField === 'description' || editField === 'address') && (newValue.toLowerCase() === '/skip' || newValue.toLowerCase() === 'skip')) {
           newValue = '';
         }
 
