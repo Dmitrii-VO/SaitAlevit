@@ -45,6 +45,7 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+telegram-bot/.env
 
 # Тесты
 coverage/

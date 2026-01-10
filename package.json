@@ -9,6 +9,8 @@
     "dev": "node scripts/server.js",
     "dev:live": "live-server . --port=3000 --host=0.0.0.0 --watch=. --ignore=node_modules,src,.git",
     "dev:mobile": "node scripts/server.js",
+    "bot": "node telegram-bot/bot.js",
+    "bot:dev": "nodemon telegram-bot/bot.js",
     "build": "npm run build:html && npm run build:css && npm run build:js",
     "build:html": "node scripts/build-html.js",
     "build:css": "postcss src/css/main.css -o styles.css",
@@ -23,6 +25,10 @@
     "format": "prettier --write src/**/*.{html,css,js}",
     "test": "jest"
   },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "node-telegram-bot-api": "^0.64.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.23.0",
@@ -32,6 +38,7 @@
     "eslint": "^8.52.0",
     "jest": "^29.7.0",
     "live-server": "^1.2.2",
+    "nodemon": "^3.0.1",
     "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
     "postcss-import": "^16.1.1",

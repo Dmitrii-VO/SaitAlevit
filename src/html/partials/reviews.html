@@ -4,93 +4,11 @@
             <div class="reviews__container">
                 <h2 class="reviews__title">Отзывы наших клиентов</h2>
                 <p class="reviews__subtitle">Что говорят о нас те, кто уже построил дом</p>
-                <div class="reviews__grid">
-                    <article class="reviews__card">
-                        <div class="reviews__card-video">
-                            <div class="reviews__card-video-placeholder">
-                                <svg class="reviews__card-video-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M10 8L16 12L10 16V8Z" fill="currentColor"/>
-                                </svg>
-                                <span class="reviews__card-video-text">Видео отзыв</span>
-                            </div>
-                        </div>
-                        <div class="reviews__card-content">
-                            <p class="reviews__card-author">Александр и Елена</p>
-                            <p class="reviews__card-house">Дом 1а, 136 м², под ключ</p>
-                            <p class="reviews__card-text">"Строительство началось в срок, все этапы контролировали лично. Дом сдали раньше намеченного, качество отличное. Фиксированная цена — это огромный плюс, никаких доплат."</p>
-                        </div>
-                    </article>
-                    <article class="reviews__card">
-                        <div class="reviews__card-video">
-                            <div class="reviews__card-video-placeholder">
-                                <svg class="reviews__card-video-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M10 8L16 12L10 16V8Z" fill="currentColor"/>
-                                </svg>
-                                <span class="reviews__card-video-text">Видео отзыв</span>
-                            </div>
-                        </div>
-                        <div class="reviews__card-content">
-                            <p class="reviews__card-author">Дмитрий</p>
-                            <p class="reviews__card-house">Дом 2а, 187 м², под ключ</p>
-                            <p class="reviews__card-text">"Работали с компанией АЛЕВИТ СТРОЙ. Всё прозрачно, каждый этап согласовывали. Гарантия 5 лет даёт уверенность. Рекомендую как надёжного подрядчика."</p>
-                        </div>
-                    </article>
-                    <article class="reviews__card">
-                        <div class="reviews__card-video">
-                            <div class="reviews__card-video-placeholder">
-                                <svg class="reviews__card-video-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M10 8L16 12L10 16V8Z" fill="currentColor"/>
-                                </svg>
-                                <span class="reviews__card-video-text">Видео отзыв</span>
-                            </div>
-                        </div>
-                        <div class="reviews__card-content">
-                            <p class="reviews__card-author">Семья Петровых</p>
-                            <p class="reviews__card-house">Дом 4а, 175 м², под ключ</p>
-                            <p class="reviews__card-text">"От проекта до сдачи — всё на высшем уровне. Команда профессионалов, всегда на связи. Дом получился именно таким, как мечтали. Спасибо за работу!"</p>
-                        </div>
-                    </article>
+                <div class="reviews__grid" id="reviews-grid">
+                    <!-- Видео отзывы будут загружены динамически из data/reviews.json -->
                 </div>
-                <div class="reviews__text">
-                    <article class="reviews__text-item">
-                        <div class="reviews__text-quote">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 21C3 17.4 5.4 15 9 15C10.6 15 12 15.6 13 16.6M21 21C21 17.4 18.6 15 15 15C13.4 15 12 15.6 11 16.6M13 8C13 9.65685 11.6569 11 10 11C8.34315 11 7 9.65685 7 8C7 6.34315 8.34315 5 10 5C11.6569 5 13 6.34315 13 8ZM17 8C17 9.65685 15.6569 11 14 11C12.3431 11 11 9.65685 11 8C11 6.34315 12.3431 5 14 5C15.6569 5 17 6.34315 17 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <p class="reviews__text-content">"Отличная работа! Дом построили в срок, качество на высоте. Фиксированная цена — никаких сюрпризов. Рекомендую!"</p>
-                        <div class="reviews__text-meta">
-                            <p class="reviews__text-author">Игорь Смирнов</p>
-                            <p class="reviews__text-house">Дом 3а, 150 м², под ключ</p>
-                        </div>
-                    </article>
-                    <article class="reviews__text-item">
-                        <div class="reviews__text-quote">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 21C3 17.4 5.4 15 9 15C10.6 15 12 15.6 13 16.6M21 21C21 17.4 18.6 15 15 15C13.4 15 12 15.6 11 16.6M13 8C13 9.65685 11.6569 11 10 11C8.34315 11 7 9.65685 7 8C7 6.34315 8.34315 5 10 5C11.6569 5 13 6.34315 13 8ZM17 8C17 9.65685 15.6569 11 14 11C12.3431 11 11 9.65685 11 8C11 6.34315 12.3431 5 14 5C15.6569 5 17 6.34315 17 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <p class="reviews__text-content">"Гарантия 5 лет — это серьёзно. Уже год живём, всё отлично. Компания держит слово, качество на уровне. Спасибо за наш дом!"</p>
-                        <div class="reviews__text-meta">
-                            <p class="reviews__text-author">Мария Козлова</p>
-                            <p class="reviews__text-house">Дом 5а, 200 м², под ключ</p>
-                        </div>
-                    </article>
-                    <article class="reviews__text-item">
-                        <div class="reviews__text-quote">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 21C3 17.4 5.4 15 9 15C10.6 15 12 15.6 13 16.6M21 21C21 17.4 18.6 15 15 15C13.4 15 12 15.6 11 16.6M13 8C13 9.65685 11.6569 11 10 11C8.34315 11 7 9.65685 7 8C7 6.34315 8.34315 5 10 5C11.6569 5 13 6.34315 13 8ZM17 8C17 9.65685 15.6569 11 14 11C12.3431 11 11 9.65685 11 8C11 6.34315 12.3431 5 14 5C15.6569 5 17 6.34315 17 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <p class="reviews__text-content">"Проект бесплатно — приятный бонус. Помогли с выбором, всё объяснили. Строительство прошло без проблем, контролировали каждый этап."</p>
-                        <div class="reviews__text-meta">
-                            <p class="reviews__text-author">Андрей Волков</p>
-                            <p class="reviews__text-house">Дом 6а, 160 м², под ключ</p>
-                        </div>
-                    </article>
+                <div class="reviews__text" id="reviews-text">
+                    <!-- Текстовые отзывы будут загружены динамически из data/reviews.json -->
                 </div>
                 <div class="reviews__cta">
                     <a href="#cta" class="btn btn--primary">Стать следующим довольным клиентом</a>

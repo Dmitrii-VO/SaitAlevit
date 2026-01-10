@@ -15,11 +15,15 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: []
           }
         }
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js']
   },
   mode: process.env.NODE_ENV || 'development'
 };
