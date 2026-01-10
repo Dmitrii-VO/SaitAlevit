@@ -337,7 +337,7 @@ async function handleMessage(bot, msg, userStates) {
 
       case 'edit_value':
         const editField = state.editField;
-        const project = state.selectedProject;
+        const currentProject = state.selectedProject;
         let newValue = msg.text.trim();
 
         // Валидация и преобразование значения
@@ -367,7 +367,7 @@ async function handleMessage(bot, msg, userStates) {
         }
 
         // Обновляем проект
-        await updateProjectField(chatId, project.id, editField, newValue, bot);
+        await updateProjectField(chatId, currentProject.id, editField, newValue, bot);
         delete userStates[chatId];
         break;
 
