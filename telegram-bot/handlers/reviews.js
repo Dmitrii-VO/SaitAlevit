@@ -362,10 +362,10 @@ async function handleMessage(bot, msg, userStates) {
         break;
 
       case 'edit_review_type':
-        const type = msg.text.trim().toLowerCase();
+        const reviewType = msg.text.trim().toLowerCase();
         const rev = state.selectedReview;
 
-        if (type === 'видео' || type === 'video') {
+        if (reviewType === 'видео' || reviewType === 'video') {
           // Меняем на видео отзыв
           const data = await dataManager.readData('reviews');
           const reviewToUpdate = data.reviews.find(r => String(r.id) === String(rev.id));
@@ -381,7 +381,7 @@ async function handleMessage(bot, msg, userStates) {
             `✅ Тип изменён на "Видео"\n\nВведите ссылку на видео:`,
             { parse_mode: 'HTML' }
           );
-        } else if (type === 'текст' || type === 'text' || type === 'текстовый') {
+        } else if (reviewType === 'текст' || reviewType === 'text' || reviewType === 'текстовый') {
           // Меняем на текстовый отзыв
           const data = await dataManager.readData('reviews');
           const reviewToUpdate = data.reviews.find(r => String(r.id) === String(rev.id));
