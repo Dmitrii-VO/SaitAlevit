@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "Проект 1",
+      "floors": "1 этаж",
+      "area": 136,
+      "price": 6120000,
+      "description": "Красиво удобно",
+      "mainImage": "images/projects/photos_file_0-1768075704318.jpg",
+      "gallery": [
+        "images/projects/photos_file_1-1768075731016.jpg",
+        "images/projects/photos_file_2-1768075730944.jpg",
+        "images/projects/photos_file_0-1768075731217.jpg",
+        "images/projects/photos_file_3-1768075730989.jpg"
+      ],
+      "status": "published",
+      "createdAt": "2026-01-10T20:09:14.755Z"
+    },
+    {
+      "id": "2",
+      "title": "Проект 2",
+      "floors": "1 этаж",
+      "area": 187,
+      "price": 8430000,
+      "description": "Тоже хороший дом",
+      "mainImage": "images/projects/photos_file_4-1768079012765.jpg",
+      "gallery": [
+        "images/projects/photos_file_6-1768079028698.jpg",
+        "images/projects/photos_file_7-1768079028700.jpg",
+        "images/projects/photos_file_9-1768079028832.jpg",
+        "images/projects/photos_file_4-1768079028857.jpg",
+        "images/projects/photos_file_5-1768079028698.jpg",
+        "images/projects/photos_file_8-1768079028709.jpg"
+      ],
+      "status": "published",
+      "createdAt": "2026-01-10T21:04:05.390Z"
+    }
+  ]
+}

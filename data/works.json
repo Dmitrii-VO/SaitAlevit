@@ -1,0 +1,26 @@
+{
+  "works": [
+    {
+      "id": "1",
+      "title": "Дом 1",
+      "area": 25,
+      "format": "Коробка",
+      "workStatus": "сдан в эксплуатацию",
+      "description": "хороший дом",
+      "address": "skip",
+      "mainImage": "images/works/photos_file_10-1768087067427.jpg",
+      "gallery": [
+        "images/works/photos_file_11-1768087082945.jpg",
+        "images/works/photos_file_12-1768087082862.jpg",
+        "images/works/photos_file_14-1768087082857.jpg",
+        "images/works/photos_file_13-1768087082630.jpg",
+        "images/works/photos_file_17-1768087082631.jpg",
+        "images/works/photos_file_16-1768087082938.jpg",
+        "images/works/photos_file_15-1768087082857.jpg",
+        "images/works/photos_file_10-1768087082934.jpg"
+      ],
+      "status": "published",
+      "createdAt": "2026-01-10T23:18:14.983Z"
+    }
+  ]
+}

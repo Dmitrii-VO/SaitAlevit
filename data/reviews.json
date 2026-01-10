@@ -1,0 +1,15 @@
+{
+  "reviews": [
+    {
+      "id": "1",
+      "clientName": "Дима",
+      "houseName": "Дом 11",
+      "reviewText": "Леша лучший",
+      "clientPhoto": "images/reviews/photos_file_18-1768087602064.jpg",
+      "videoUrl": "",
+      "isVideo": false,
+      "status": "published",
+      "createdAt": "2026-01-10T23:26:49.286Z"
+    }
+  ]
+}
