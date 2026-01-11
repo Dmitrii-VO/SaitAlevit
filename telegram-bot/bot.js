@@ -305,7 +305,7 @@ bot.on('message', (msg) => {
 });
 
 // Обработка загрузки фото
-bot.on('photo', (msg) => {
+bot.on('photo', async (msg) => {
   const chatId = msg.chat.id;
   const state = userStates[chatId];
   
@@ -313,13 +313,22 @@ bot.on('photo', (msg) => {
     return; // Нет активного диалога для загрузки фото
   }
   
-  // Перенаправляем в соответствующий обработчик
-  if (state.type && state.type.startsWith('projects_')) {
-    projectsHandler.handlePhoto(bot, msg, userStates);
-  } else if (state.type && state.type.startsWith('works_')) {
-    worksHandler.handlePhoto(bot, msg, userStates);
-  } else if (state.type && state.type.startsWith('reviews_')) {
-    reviewsHandler.handlePhoto(bot, msg, userStates);
+  try {
+    // Перенаправляем в соответствующий обработчик
+    if (state.type && state.type.startsWith('projects_')) {
+      await projectsHandler.handlePhoto(bot, msg, userStates);
+    } else if (state.type && state.type.startsWith('works_')) {
+      await worksHandler.handlePhoto(bot, msg, userStates);
+    } else if (state.type && state.type.startsWith('reviews_')) {
+      await reviewsHandler.handlePhoto(bot, msg, userStates);
+    }
+  } catch (error) {
+    console.error('❌ Ошибка при обработке фото:', error);
+    try {
+      await bot.sendMessage(chatId, '❌ Произошла ошибка при обработке фото. Попробуйте ещё раз или /cancel');
+    } catch (sendError) {
+      console.error('❌ Ошибка отправки сообщения об ошибке:', sendError);
+    }
   }
 });
 
@@ -334,47 +343,75 @@ bot.on('polling_error', (error) => {
   // #endregion
   
   // Обработка AggregateError (множественные ошибки)
-  if (error.name === 'AggregateError' || error.code === 'AggregateError') {
+  // Проверяем по имени и сообщению, так как ошибка может приходить как "EFATAL: AggregateError"
+  const isAggregateError = error.name === 'AggregateError' || 
+                          error.code === 'AggregateError' ||
+                          (error.message && error.message.includes('AggregateError'));
+  
+  if (isAggregateError) {
     const errors = error.errors || [];
-    const isNetworkError = errors.some(e => 
-      e.code === 'EAI_AGAIN' || 
-      e.code === 'ETIMEDOUT' || 
-      e.code === 'ECONNRESET' ||
-      e.message && (e.message.includes('getaddrinfo') || e.message.includes('timeout'))
-    );
+    
+    // Проверяем, является ли это сетевой ошибкой
+    const isNetworkError = errors.length === 0 || errors.some(e => {
+      const code = e.code || error.code;
+      const message = e.message || error.message || '';
+      return code === 'EAI_AGAIN' || 
+             code === 'ETIMEDOUT' || 
+             code === 'ECONNRESET' ||
+             code === 'ENOTFOUND' ||
+             code === 'EFATAL' ||
+             message.includes('getaddrinfo') || 
+             message.includes('timeout') ||
+             message.includes('ECONNREFUSED');
+    });
     
     if (isNetworkError) {
       // Это временная сетевая ошибка - игнорируем, бот продолжит попытки
-      console.warn('⚠️ Временная сетевая ошибка при подключении к Telegram API (попытка будет повторена автоматически)');
+      // Не выводим сообщение, чтобы не засорять консоль
       return;
+    }
+  }
+  
+  // Обработка EFATAL ошибок (часто встречается в WSL)
+  if (error.code === 'EFATAL') {
+    const message = error.message || '';
+    
+    // Игнорируем EFATAL с AggregateError - это обычно сетевые проблемы
+    if (message.includes('AggregateError')) {
+      return; // Тихо игнорируем
+    }
+    
+    // Игнорируем таймауты - это нормально
+    if (message.includes('ETIMEDOUT') || message.includes('timeout')) {
+      return; // Тихо игнорируем
+    }
+    
+    // Игнорируем DNS ошибки
+    if (message.includes('getaddrinfo') || message.includes('EAI_AGAIN')) {
+      return; // Тихо игнорируем
     }
   }
   
   // Обработка DNS ошибок (getaddrinfo EAI_AGAIN)
-  if (error.code === 'EFATAL' || error.code === 'EAI_AGAIN') {
-    if (error.message && (error.message.includes('getaddrinfo') || error.message.includes('EAI_AGAIN'))) {
-      console.warn('⚠️ Проблема с DNS при подключении к api.telegram.org (проверьте интернет-соединение)');
-      console.warn('   Бот продолжит попытки подключения...');
-      return;
-    }
-  }
-  
-  // Игнорируем таймауты и временные сетевые ошибки - это нормально
-  if (error.code === 'EFATAL' && error.message && error.message.includes('ETIMEDOUT')) {
-    console.warn('⚠️ Таймаут при запросе к Telegram API (это нормально при отсутствии новых сообщений)');
+  if (error.code === 'EAI_AGAIN') {
+    // Тихо игнорируем DNS ошибки - это временные проблемы сети
     return;
-  }
-  
-  // Для критических ошибок выводим полную информацию
-  console.error('❌ Ошибка polling:', error.message || error);
-  if (error.code) {
-    console.error(`   Код ошибки: ${error.code}`);
   }
   
   // Если это ошибка авторизации - критично
   if (error.response && error.response.statusCode === 401) {
     console.error('❌ КРИТИЧЕСКАЯ ОШИБКА: Неверный токен бота!');
     process.exit(1);
+  }
+  
+  // Для других ошибок выводим информацию только если это не сетевая проблема
+  // Проверяем, не является ли это известной сетевой ошибкой
+  const knownNetworkErrors = ['ETIMEDOUT', 'ECONNRESET', 'ENOTFOUND', 'ECONNREFUSED', 'EAI_AGAIN'];
+  if (!knownNetworkErrors.includes(error.code)) {
+    console.error('❌ Ошибка polling:', error.message || error);
+    if (error.code) {
+      console.error(`   Код ошибки: ${error.code}`);
+    }
   }
 });
 
@@ -392,47 +429,68 @@ process.on('unhandledRejection', (error) => {
   fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'bot.js:332',message:'Unhandled rejection',data:{errorMessage:error?.message,errorCode:error?.code},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'D'})}).catch(()=>{});
   // #endregion
   
+  if (!error) return;
+  
   // Обработка AggregateError
-  if (error && (error.name === 'AggregateError' || error.code === 'AggregateError')) {
+  const isAggregateError = error.name === 'AggregateError' || 
+                          error.code === 'AggregateError' ||
+                          (error.message && error.message.includes('AggregateError'));
+  
+  if (isAggregateError) {
     const errors = error.errors || [];
-    const isNetworkError = errors.some(e => 
-      e.code === 'EAI_AGAIN' || 
-      e.code === 'ETIMEDOUT' || 
-      e.code === 'ECONNRESET' ||
-      e.message && (e.message.includes('getaddrinfo') || e.message.includes('timeout'))
-    );
+    
+    // Проверяем, является ли это сетевой ошибкой
+    const isNetworkError = errors.length === 0 || errors.some(e => {
+      const code = e.code || error.code;
+      const message = e.message || error.message || '';
+      return code === 'EAI_AGAIN' || 
+             code === 'ETIMEDOUT' || 
+             code === 'ECONNRESET' ||
+             code === 'ENOTFOUND' ||
+             code === 'EFATAL' ||
+             message.includes('getaddrinfo') || 
+             message.includes('timeout') ||
+             message.includes('ECONNREFUSED');
+    });
     
     if (isNetworkError) {
-      console.warn('⚠️ Временная сетевая ошибка при подключении (попытка будет повторена)');
+      // Тихо игнорируем сетевые ошибки
       return;
     }
   }
   
-  // Игнорируем временные сетевые ошибки при запуске
-  if (error && (
-    (error.code === 'EFATAL' && error.message && error.message.includes('ETIMEDOUT')) ||
-    error.code === 'EAI_AGAIN' ||
-    (error.message && error.message.includes('getaddrinfo'))
-  )) {
-    console.warn('⚠️ Временная сетевая ошибка при подключении (попытка будет повторена)');
+  // Игнорируем EFATAL ошибки (часто встречается в WSL)
+  if (error.code === 'EFATAL') {
+    const message = error.message || '';
+    if (message.includes('AggregateError') || 
+        message.includes('ETIMEDOUT') || 
+        message.includes('timeout') ||
+        message.includes('getaddrinfo')) {
+      // Тихо игнорируем
+      return;
+    }
+  }
+  
+  // Игнорируем временные сетевые ошибки
+  const knownNetworkErrors = ['EAI_AGAIN', 'ETIMEDOUT', 'ECONNRESET', 'ENOTFOUND', 'ECONNREFUSED'];
+  if (knownNetworkErrors.includes(error.code)) {
+    // Тихо игнорируем
     return;
   }
   
   // Игнорируем ошибки преждевременного закрытия потока (могут происходить при загрузке файлов)
-  if (error && error.code === 'ERR_STREAM_PREMATURE_CLOSE') {
-    console.warn('⚠️ Поток был закрыт преждевременно (возможно, проблема с сетью при загрузке файла)');
+  if (error.code === 'ERR_STREAM_PREMATURE_CLOSE') {
+    // Тихо игнорируем
     return;
   }
   
   // Для других ошибок выводим информацию
-  if (error) {
-    console.error('❌ Необработанная ошибка:', error.message || error);
-    if (error.code) {
-      console.error(`   Код: ${error.code}`);
-    }
-    if (error.stack) {
-      console.error('   Stack:', error.stack);
-    }
+  console.error('❌ Необработанная ошибка:', error.message || error);
+  if (error.code) {
+    console.error(`   Код: ${error.code}`);
+  }
+  if (error.stack) {
+    console.error('   Stack:', error.stack);
   }
 });
 
@@ -496,7 +554,22 @@ async function startPollingWithRetry(maxRetries = 5, delay = 5000) {
       fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'bot.js:350',message:'Polling start failed',data:{attempt,maxRetries,errorMessage:error.message,errorCode:error.code,errorName:error.name},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'E'})}).catch(()=>{});
       // #endregion
       
-      console.error(`❌ Попытка ${attempt}/${maxRetries} запуска polling не удалась:`, error.message);
+      // Проверяем, является ли это сетевой ошибкой, которую можно игнорировать
+      const isNetworkError = error.code === 'EFATAL' || 
+                            error.code === 'EAI_AGAIN' ||
+                            error.code === 'ETIMEDOUT' ||
+                            (error.message && (
+                              error.message.includes('AggregateError') ||
+                              error.message.includes('getaddrinfo') ||
+                              error.message.includes('timeout')
+                            ));
+      
+      if (isNetworkError && attempt < maxRetries) {
+        // Это временная сетевая ошибка - пробуем ещё раз, но не выводим ошибку
+        console.warn(`⚠️ Временная сетевая проблема при запуске polling (попытка ${attempt}/${maxRetries})...`);
+      } else {
+        console.error(`❌ Попытка ${attempt}/${maxRetries} запуска polling не удалась:`, error.message);
+      }
       
       if (attempt === maxRetries) {
         console.error('❌ Не удалось запустить polling после всех попыток');

@@ -3,6 +3,7 @@
  */
 const dataManager = require('../utils/data-manager');
 const fileManager = require('../utils/file-manager');
+const logger = require('../utils/logger');
 
 /**
  * Добавление новой работы
@@ -443,54 +444,79 @@ async function handlePhoto(bot, msg, userStates) {
   const chatId = msg.chat.id;
   const state = userStates[chatId];
   
-  if (!state) return;
+  if (!state) {
+    logger.warn('Получено фото без активного состояния', { chatId });
+    return;
+  }
   
   try {
     const photo = msg.photo[msg.photo.length - 1];
     const fileId = photo.file_id;
-    
+
+    logger.info(`📸 Получено фото`, { 
+      fileId: fileId.substring(0, 20) + '...', 
+      fileSize: photo.file_size, 
+      step: state.step,
+      chatId 
+    });
+
     if (photo.file_size > 10 * 1024 * 1024) {
+      logger.warn('Файл слишком большой', { fileSize: photo.file_size, maxSize: 10 * 1024 * 1024 });
       return bot.sendMessage(chatId, '❌ Файл слишком большой. Максимальный размер: 10 МБ');
     }
-    
+
     // Безопасная загрузка файла с повторными попытками
-    const { stream: fileStream, fileInfo } = await fileManager.getFileFromTelegram(bot, fileId);
+    logger.debug('Начинаем загрузку файла через getFileFromTelegram', { fileId: fileId.substring(0, 20) + '...' });
+    const { buffer, fileInfo } = await fileManager.getFileFromTelegram(bot, fileId);
+    logger.debug('Файл успешно загружен, получаем имя файла', { filePath: fileInfo.file_path, bufferSize: buffer.length });
     const fileName = fileInfo.file_path;
-    
+
     if (state.step === 'main_image') {
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'works');
+      logger.debug('Сохранение главного фото', { fileName, bufferSize: buffer.length });
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'works');
       state.data.mainImage = imagePath;
       state.step = 'gallery';
+      logger.info(`✅ Главное фото сохранено`, { imagePath, chatId });
       await bot.sendMessage(
         chatId,
         `✅ Главное фото сохранено\n\n8️⃣ 📷 Отправьте фото для галереи (можно несколько).\nКогда закончите, отправьте /done`,
         { parse_mode: 'HTML' }
       );
     } else if (state.step === 'gallery') {
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'works');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'works');
       state.data.gallery.push(imagePath);
+      console.log(`✅ Фото добавлено в галерею: ${imagePath}`);
       await bot.sendMessage(
         chatId,
         `✅ Фото добавлено в галерею (всего: ${state.data.gallery.length})\nОтправьте ещё фото или /done для завершения`
       );
     } else if (state.step === 'edit_main_image') {
       // Редактирование главного фото
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'works');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'works');
+      console.log(`✅ Главное фото обновлено: ${imagePath}`);
       await updateWorkField(chatId, state.selectedWork.id, 'mainImage', imagePath, bot);
       delete userStates[chatId];
     } else if (state.step === 'edit_gallery_add' || state.step === 'edit_gallery_replace') {
       // Добавление фото в галерею при редактировании
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'works');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'works');
       state.tempGallery = state.tempGallery || [];
       state.tempGallery.push(imagePath);
+      console.log(`✅ Фото добавлено в temp галерею: ${imagePath}`);
       await bot.sendMessage(
         chatId,
         `✅ Фото добавлено (всего: ${state.tempGallery.length})\nОтправьте ещё фото или /done для завершения`
       );
+    } else {
+      console.warn(`⚠️ Фото получено на неожиданном шаге: ${state.step}`);
+      await bot.sendMessage(chatId, '❌ Фото не ожидается на этом шаге. Продолжите ввод текста или /cancel');
     }
   } catch (error) {
-    console.error('Ошибка загрузки фото:', error);
-    await bot.sendMessage(chatId, '❌ Ошибка при сохранении фото. Попробуйте ещё раз или /cancel');
+    logger.error('❌ Ошибка загрузки фото', error, { chatId, step: state?.step });
+    try {
+      await bot.sendMessage(chatId, `❌ Ошибка при сохранении фото: ${error.message}\n\nПопробуйте ещё раз или /cancel`);
+    } catch (sendError) {
+      logger.error('❌ Ошибка отправки сообщения об ошибке', sendError, { chatId });
+    }
   }
 }
 

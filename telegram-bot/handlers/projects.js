@@ -452,12 +452,12 @@ async function handlePhoto(bot, msg, userStates) {
     }
     
     // Безопасная загрузка файла с повторными попытками
-    const { stream: fileStream, fileInfo } = await fileManager.getFileFromTelegram(bot, fileId);
+    const { buffer, fileInfo } = await fileManager.getFileFromTelegram(bot, fileId);
     const fileName = fileInfo.file_path;
     
     if (state.step === 'main_image') {
       // Сохраняем главное фото
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'projects');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'projects');
       state.data.mainImage = imagePath;
       state.step = 'gallery';
       await bot.sendMessage(
@@ -467,7 +467,7 @@ async function handlePhoto(bot, msg, userStates) {
       );
     } else if (state.step === 'gallery') {
       // Добавляем в галерею
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'projects');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'projects');
       state.data.gallery.push(imagePath);
       await bot.sendMessage(
         chatId,
@@ -475,12 +475,12 @@ async function handlePhoto(bot, msg, userStates) {
       );
     } else if (state.step === 'edit_main_image') {
       // Редактирование главного фото
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'projects');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'projects');
       await updateProjectField(chatId, state.selectedProject.id, 'mainImage', imagePath, bot);
       delete userStates[chatId];
     } else if (state.step === 'edit_gallery_add' || state.step === 'edit_gallery_replace') {
       // Добавление фото в галерею при редактировании
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'projects');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'projects');
       state.tempGallery = state.tempGallery || [];
       state.tempGallery.push(imagePath);
       await bot.sendMessage(

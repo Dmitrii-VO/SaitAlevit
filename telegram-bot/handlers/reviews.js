@@ -434,11 +434,11 @@ async function handlePhoto(bot, msg, userStates) {
     }
 
     // Безопасная загрузка файла с повторными попытками
-    const { stream: fileStream, fileInfo } = await fileManager.getFileFromTelegram(bot, fileId);
+    const { buffer, fileInfo } = await fileManager.getFileFromTelegram(bot, fileId);
     const fileName = fileInfo.file_path;
 
     if (state.step === 'photo') {
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'reviews');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'reviews');
       state.data.clientPhoto = imagePath;
       state.step = 'status';
       await bot.sendMessage(
@@ -448,7 +448,7 @@ async function handlePhoto(bot, msg, userStates) {
       );
     } else if (state.step === 'edit_client_photo') {
       // Редактирование фото клиента
-      const imagePath = await fileManager.saveFile(fileStream, fileName, 'reviews');
+      const imagePath = await fileManager.saveFile(buffer, fileName, 'reviews');
       await updateReviewField(chatId, state.selectedReview.id, 'clientPhoto', imagePath, bot);
       delete userStates[chatId];
     }
