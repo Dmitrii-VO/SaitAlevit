@@ -27,7 +27,17 @@ const config = {
   maxFileSize: 10 * 1024 * 1024,
   
   // Разрешенные типы изображений
-  allowedImageTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
+  allowedImageTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'],
+
+  // Настройки прокси (опционально, для обхода блокировок)
+  proxy: {
+    enabled: process.env.PROXY_ENABLED === 'true',
+    protocol: process.env.PROXY_PROTOCOL || 'http', // http, https, socks4, socks5
+    host: process.env.PROXY_HOST || '',
+    port: process.env.PROXY_PORT ? parseInt(process.env.PROXY_PORT) : 0,
+    username: process.env.PROXY_USERNAME || '',
+    password: process.env.PROXY_PASSWORD || ''
+  }
 };
 
 // Валидация конфигурации

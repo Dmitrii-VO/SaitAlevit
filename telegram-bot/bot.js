@@ -19,13 +19,12 @@ fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{metho
 let bot;
 try {
   // #region agent log
-  fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'bot.js:20',message:'Initializing TelegramBot',data:{polling:true},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'A'})}).catch(()=>{});
+  fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'bot.js:20',message:'Initializing TelegramBot',data:{polling:true,proxyEnabled:config.proxy.enabled},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'A'})}).catch(()=>{});
   // #endregion
-  
+
   // Настройки для более надежного подключения
   // В WSL/Windows могут быть проблемы с таймаутами, поэтому используем более консервативные значения
-  // Используем только опции polling, так как библиотека может не поддерживать все опции request
-  bot = new TelegramBot(config.botToken, { 
+  const botOptions = {
     polling: {
       interval: 1000, // 1 секунда между запросами
       autoStart: false,
@@ -33,7 +32,24 @@ try {
         timeout: 10 // 10 секунд таймаут для long polling
       }
     }
-  });
+  };
+
+  // Добавляем настройки прокси, если включены
+  if (config.proxy.enabled && config.proxy.host && config.proxy.port) {
+    let proxyUrl = `${config.proxy.protocol}://`;
+    if (config.proxy.username && config.proxy.password) {
+      proxyUrl += `${config.proxy.username}:${config.proxy.password}@`;
+    }
+    proxyUrl += `${config.proxy.host}:${config.proxy.port}`;
+
+    botOptions.request = {
+      proxy: proxyUrl
+    };
+
+    console.log(`🔐 Прокси включен: ${config.proxy.protocol}://${config.proxy.host}:${config.proxy.port}`);
+  }
+
+  bot = new TelegramBot(config.botToken, botOptions);
   
   // #region agent log
   fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'bot.js:26',message:'Bot instance created',data:{success:true},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'A'})}).catch(()=>{});
