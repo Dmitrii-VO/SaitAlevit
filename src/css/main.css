@@ -35,6 +35,8 @@
 @import './components/floating-buttons.css';
 @import './components/cta-buttons-after-sections.css';
 @import './components/improved-cta-form.css';
+@import './components/privacy-modal.css';
+@import './components/privacy-page.css';
 
 /* Утилиты */
 @import './utilities/helpers.css';

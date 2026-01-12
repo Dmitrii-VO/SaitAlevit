@@ -45,21 +45,25 @@
                     </div>
                     <div class="cta__form-group">
                         <label for="cta-name" class="cta__form-label">Ваше имя</label>
-                        <input type="text" id="cta-name" name="name" class="cta__form-input" placeholder="Иван Иванов" required>
+                        <input type="text" id="cta-name" name="name" class="cta__form-input" placeholder="Иван Иванов" required aria-describedby="cta-name-error" aria-invalid="false">
+                        <span class="cta__form-error" id="cta-name-error" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="cta__form-group">
                         <label for="cta-phone" class="cta__form-label">Телефон</label>
-                        <input type="tel" id="cta-phone" name="phone" class="cta__form-input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                        <input type="tel" id="cta-phone" name="phone" class="cta__form-input" placeholder="+7 (XXX) XXX-XX-XX" required aria-describedby="cta-phone-error" aria-invalid="false">
+                        <span class="cta__form-error" id="cta-phone-error" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="cta__form-group">
-                        <label for="cta-area" class="cta__form-label">Желаемая площадь (м²)</label>
-                        <input type="number" id="cta-area" name="area" class="cta__form-input" placeholder="120" min="20" max="500">
+                        <label for="cta-area" class="cta__form-label">Желаемая площадь (от 20 м²)</label>
+                        <input type="number" id="cta-area" name="area" class="cta__form-input" placeholder="120" min="20" max="500" aria-describedby="cta-area-error" aria-invalid="false">
+                        <span class="cta__form-error" id="cta-area-error" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="cta__form-group">
                         <label class="cta__form-checkbox">
-                            <input type="checkbox" name="agreement" required>
-                            <span>Я согласен на <a href="#" class="cta__form-link">обработку персональных данных</a></span>
+                            <input type="checkbox" name="agreement" id="cta-agreement" required aria-describedby="cta-agreement-error" aria-invalid="false">
+                            <span>Я согласен на <a href="#" class="cta__form-link" data-privacy-modal>обработку персональных данных</a></span>
                         </label>
+                        <span class="cta__form-error" id="cta-agreement-error" role="alert" aria-live="polite"></span>
                     </div>
                     <button type="submit" class="btn btn--primary cta__form-submit">
                         <span class="cta__form-submit-text">Получить бесплатный проект</span>

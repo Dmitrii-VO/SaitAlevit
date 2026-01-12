@@ -28,6 +28,13 @@
                                     <option value="turnkey">Под ключ</option>
                                 </select>
                             </div>
+                            <div class="calculator__form-group">
+                                <label class="calculator__form-checkbox">
+                                    <input type="checkbox" name="agreement" id="calc-agreement" required aria-describedby="calc-agreement-error" aria-invalid="false">
+                                    <span>Я согласен на <a href="#" class="calculator__form-link" data-privacy-modal>обработку персональных данных</a></span>
+                                </label>
+                                <span class="calculator__form-error" id="calc-agreement-error" role="alert" aria-live="polite"></span>
+                            </div>
                             <button type="submit" class="btn btn--primary calculator__form-submit">Рассчитать стоимость</button>
                         </form>
                     </div>

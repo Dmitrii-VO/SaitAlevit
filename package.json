@@ -21,6 +21,8 @@
     "watch:js": "webpack --mode=development --watch",
     "split:html": "node scripts/split-html.js",
     "check:network": "node scripts/check-network.js",
+    "test:env": "node scripts/test-env.js",
+    "test:telegram": "node scripts/test-telegram-send.js",
     "lint": "eslint src/js/**/*.js",
     "format": "prettier --write src/**/*.{html,css,js}",
     "test": "jest"

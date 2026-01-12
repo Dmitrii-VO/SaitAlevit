@@ -21,6 +21,28 @@
       ],
       "status": "published",
       "createdAt": "2026-01-10T23:18:14.983Z"
+    },
+    {
+      "id": "2",
+      "title": "Дом 2",
+      "area": 44,
+      "format": "коробка",
+      "workStatus": "построен",
+      "description": "фыфыв",
+      "address": "",
+      "mainImage": "images/works/photos_file_19-1768092403486.jpg",
+      "gallery": [
+        "images/works/photos_file_14-1768092419284.jpg",
+        "images/works/photos_file_20-1768092419749.jpg",
+        "images/works/photos_file_17-1768092420154.jpg",
+        "images/works/photos_file_16-1768092420199.jpg",
+        "images/works/photos_file_12-1768092420219.jpg",
+        "images/works/photos_file_19-1768092421831.jpg",
+        "images/works/photos_file_21-1768092422314.jpg",
+        "images/works/photos_file_22-1768092422439.jpg"
+      ],
+      "status": "published",
+      "createdAt": "2026-01-11T00:47:12.923Z"
     }
   ]
 }

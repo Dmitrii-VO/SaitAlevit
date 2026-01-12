@@ -1,0 +1,135 @@
+/* ============================================ */
+/* PRIVACY PAGE - СТРАНИЦА ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ */
+/* ============================================ */
+
+.privacy {
+    padding: var(--spacing-xxl) var(--container-padding);
+    min-height: calc(100vh - 200px);
+    background-color: var(--color-white);
+}
+
+.privacy__container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.privacy__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-black);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+.privacy__subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-gold);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    font-weight: 600;
+}
+
+.privacy__content {
+    background-color: var(--color-white);
+    padding: var(--spacing-xxl);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+.privacy__date {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    font-style: italic;
+}
+
+.privacy__section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.privacy__section:last-child {
+    margin-bottom: 0;
+}
+
+.privacy__section-title {
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    color: var(--color-black);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-gold);
+}
+
+.privacy__section p {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-dark);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+}
+
+.privacy__section p:last-child {
+    margin-bottom: 0;
+}
+
+.privacy__section strong {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.privacy__list {
+    margin: var(--spacing-md) 0;
+    padding-left: var(--spacing-xl);
+    list-style-type: disc;
+}
+
+.privacy__list li {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-dark);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-sm);
+}
+
+.privacy__list li:last-child {
+    margin-bottom: 0;
+}
+
+.privacy__section a {
+    color: var(--color-gold);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.privacy__section a:hover {
+    color: var(--color-gold-dark);
+}
+
+.privacy__footer {
+    margin-top: var(--spacing-xxl);
+    text-align: center;
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-gray-light);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .privacy {
+        padding: var(--spacing-lg) var(--container-padding);
+    }
+
+    .privacy__content {
+        padding: var(--spacing-lg);
+    }
+
+    .privacy__title {
+        font-size: var(--font-size-h2);
+    }
+
+    .privacy__section-title {
+        font-size: var(--font-size-h4);
+    }
+
+    .privacy__list {
+        padding-left: var(--spacing-lg);
+    }
+}

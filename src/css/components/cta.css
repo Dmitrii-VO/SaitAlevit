@@ -145,8 +145,36 @@
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
 }
 
+/* Анимация тряски для полей с ошибками */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+.cta__form-input.shake,
+.cta__form-checkbox.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
 .cta__form-input::placeholder {
     color: var(--color-gray);
+}
+
+.cta__form-error {
+    display: block;
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-red);
+    min-height: 1.25rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.cta__form-error:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .cta__form-checkbox {
@@ -162,6 +190,17 @@
     margin-top: 4px;
     flex-shrink: 0;
     cursor: pointer;
+}
+
+.cta__form-checkbox.invalid {
+    color: var(--color-red);
+}
+
+.cta__form-checkbox.invalid input {
+    accent-color: var(--color-red);
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 .cta__form-link {

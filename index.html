@@ -14,21 +14,21 @@
     <meta property="og:url" content="https://alevit-stroy.ru/">
     <meta property="og:title" content="АЛЕВИТ СТРОЙ - Дома под ключ в Белгороде | Гарантия 5 лет">
     <meta property="og:description" content="Строительство домов под ключ в Белгороде. Опыт 6+ лет, 60+ домов. Фиксированная цена по договору, гарантия 5 лет. Проект бесплатно!">
-    <meta property="og:image" content="https://alevit-stroy.ru/logo.png">
+    <meta property="og:image" content="https://alevit-stroy.ru/images/logo.png">
     <meta property="og:locale" content="ru_RU">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="АЛЕВИТ СТРОЙ - Дома под ключ в Белгороде | Гарантия 5 лет">
     <meta name="twitter:description" content="Строительство домов под ключ в Белгороде. Опыт 6+ лет, 60+ домов. Фиксированная цена по договору, гарантия 5 лет.">
-    <meta name="twitter:image" content="https://alevit-stroy.ru/logo.png">
+    <meta name="twitter:image" content="https://alevit-stroy.ru/images/logo.png">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://alevit-stroy.ru/">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -61,7 +61,7 @@
       "@type": "Organization",
       "name": "АЛЕВИТ СТРОЙ",
       "url": "https://alevit-stroy.ru",
-      "logo": "https://alevit-stroy.ru/logo.png",
+      "logo": "https://alevit-stroy.ru/images/logo.png",
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+7XXXXXXXXXX",
@@ -112,7 +112,7 @@
         <nav class="nav">
             <div class="nav__container">
                 <a href="#" class="nav__logo">
-                    <img src="3.png" alt="АЛЕВИТ СТРОЙ" class="nav__logo-img">
+                    <img src="images/3.png" alt="АЛЕВИТ СТРОЙ" class="nav__logo-img">
                     <span class="nav__logo-text">АЛЕВИТ СТРОЙ</span>
                 </a>
                 <ul class="nav__menu">
@@ -553,6 +553,13 @@
                                     <option value="turnkey">Под ключ</option>
                                 </select>
                             </div>
+                            <div class="calculator__form-group">
+                                <label class="calculator__form-checkbox">
+                                    <input type="checkbox" name="agreement" id="calc-agreement" required aria-describedby="calc-agreement-error" aria-invalid="false">
+                                    <span>Я согласен на <a href="#" class="calculator__form-link" data-privacy-modal>обработку персональных данных</a></span>
+                                </label>
+                                <span class="calculator__form-error" id="calc-agreement-error" role="alert" aria-live="polite"></span>
+                            </div>
                             <button type="submit" class="btn btn--primary calculator__form-submit">Рассчитать стоимость</button>
                         </form>
                     </div>
@@ -694,21 +701,25 @@
                     </div>
                     <div class="cta__form-group">
                         <label for="cta-name" class="cta__form-label">Ваше имя</label>
-                        <input type="text" id="cta-name" name="name" class="cta__form-input" placeholder="Иван Иванов" required>
+                        <input type="text" id="cta-name" name="name" class="cta__form-input" placeholder="Иван Иванов" required aria-describedby="cta-name-error" aria-invalid="false">
+                        <span class="cta__form-error" id="cta-name-error" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="cta__form-group">
                         <label for="cta-phone" class="cta__form-label">Телефон</label>
-                        <input type="tel" id="cta-phone" name="phone" class="cta__form-input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                        <input type="tel" id="cta-phone" name="phone" class="cta__form-input" placeholder="+7 (XXX) XXX-XX-XX" required aria-describedby="cta-phone-error" aria-invalid="false">
+                        <span class="cta__form-error" id="cta-phone-error" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="cta__form-group">
-                        <label for="cta-area" class="cta__form-label">Желаемая площадь (м²)</label>
-                        <input type="number" id="cta-area" name="area" class="cta__form-input" placeholder="120" min="20" max="500">
+                        <label for="cta-area" class="cta__form-label">Желаемая площадь (от 20 м²)</label>
+                        <input type="number" id="cta-area" name="area" class="cta__form-input" placeholder="120" min="20" max="500" aria-describedby="cta-area-error" aria-invalid="false">
+                        <span class="cta__form-error" id="cta-area-error" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="cta__form-group">
                         <label class="cta__form-checkbox">
-                            <input type="checkbox" name="agreement" required>
-                            <span>Я согласен на <a href="#" class="cta__form-link">обработку персональных данных</a></span>
+                            <input type="checkbox" name="agreement" id="cta-agreement" required aria-describedby="cta-agreement-error" aria-invalid="false">
+                            <span>Я согласен на <a href="#" class="cta__form-link" data-privacy-modal>обработку персональных данных</a></span>
                         </label>
+                        <span class="cta__form-error" id="cta-agreement-error" role="alert" aria-live="polite"></span>
                     </div>
                     <button type="submit" class="btn btn--primary cta__form-submit">
                         <span class="cta__form-submit-text">Получить бесплатный проект</span>
@@ -746,14 +757,14 @@
         <div class="footer__container">
             <div class="footer__content">
                 <div class="footer__logo">
-                    <img src="logo.png" alt="АЛЕВИТ СТРОЙ" class="footer__logo-img">
+                    <img src="images/logo.png" alt="АЛЕВИТ СТРОЙ" class="footer__logo-img">
                 </div>
                 <div class="footer__info">
                     <p class="footer__text">ООО «АЛЕВИТ СТРОЙ»</p>
                     <p class="footer__text">Строительство домов под ключ в Белгородской области</p>
                 </div>
                 <div class="footer__links">
-                    <a href="#" class="footer__link">Политика конфиденциальности</a>
+                    <a href="/privacy.html" class="footer__link">Политика конфиденциальности</a>
                 </div>
             </div>
             <div class="footer__copyright">
@@ -818,6 +829,56 @@
             <div class="gallery-modal__thumbnails" id="gallery-thumbnails" role="tablist" aria-label="Миниатюры фотографий"></div>
         </div>
     </div>
+    <!-- Модальное окно согласия на обработку персональных данных -->
+<div class="privacy-modal" id="privacy-modal" role="dialog" aria-labelledby="privacy-modal-title" aria-modal="true" style="display: none;">
+    <div class="privacy-modal__overlay" aria-label="Закрыть модальное окно"></div>
+    <div class="privacy-modal__content">
+        <button class="privacy-modal__close" aria-label="Закрыть модальное окно">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div class="privacy-modal__body">
+            <h2 class="privacy-modal__title" id="privacy-modal-title">Согласие на обработку персональных данных</h2>
+            
+            <div class="privacy-modal__text">
+                <p><strong>Оператор персональных данных:</strong> ООО «АЛЕВИТ СТРОЙ»</p>
+                <p><strong>Адрес:</strong> Белгородская область, Белгородский район, с. Пушкарное-78, ул. Кузнечная, д. 9</p>
+                <p><strong>Email:</strong> <a href="mailto:info@alevit-stroy.ru">info@alevit-stroy.ru</a></p>
+                <p><strong>Телефон:</strong> <a href="tel:+79999999999">+7 (999) 999-99-99</a></p>
+                
+                <p>Я даю согласие ООО «АЛЕВИТ СТРОЙ» на обработку моих персональных данных, указанных в форме заявки на сайте <strong>alevit-stroy.ru</strong>, в целях:</p>
+                
+                <ul>
+                    <li>Обработки заявок на строительство домов</li>
+                    <li>Предоставления консультаций по услугам компании</li>
+                    <li>Связи со мной для уточнения деталей заявки</li>
+                </ul>
+                
+                <p><strong>Перечень персональных данных, на обработку которых дается согласие:</strong></p>
+                <ul>
+                    <li>Имя</li>
+                    <li>Номер телефона</li>
+                    <li>Email (при указании)</li>
+                    <li>Площадь дома (при указании в форме калькулятора)</li>
+                </ul>
+                
+                <p>Согласие дается на совершение следующих действий с персональными данными: сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (предоставление, доступ), обезличивание, блокирование, удаление, уничтожение.</p>
+                
+                <p>Обработка персональных данных осуществляется с использованием средств автоматизации и без использования таких средств.</p>
+                
+                <p>Согласие действует до момента его отзыва путем направления письменного уведомления на адрес электронной почты: <a href="mailto:info@alevit-stroy.ru">info@alevit-stroy.ru</a></p>
+                
+                <p>Я подтверждаю, что ознакомлен(а) с <a href="/privacy.html" target="_blank">Политикой конфиденциальности</a> и даю согласие на обработку персональных данных в соответствии с указанными в ней условиями.</p>
+            </div>
+            
+            <div class="privacy-modal__actions">
+                <a href="/privacy.html" class="privacy-modal__link" target="_blank">Полный текст Политики конфиденциальности</a>
+                <button class="btn btn--primary privacy-modal__accept">Понятно</button>
+            </div>
+        </div>
+    </div>
+</div>
     
     <script src="js/main.js"></script>
 </body>

@@ -79,6 +79,57 @@
     color: var(--color-gray);
 }
 
+.calculator__form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-dark);
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+.calculator__form-checkbox input[type="checkbox"] {
+    margin-top: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: var(--color-gold);
+}
+
+.calculator__form-checkbox:hover {
+    color: var(--color-black);
+}
+
+.calculator__form-checkbox.invalid {
+    color: var(--color-red);
+}
+
+.calculator__form-checkbox.invalid input[type="checkbox"] {
+    accent-color: var(--color-red);
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.calculator__form-link {
+    color: var(--color-gold);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.calculator__form-link:hover {
+    color: var(--color-gold-dark);
+}
+
+.calculator__form-error {
+    display: block;
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-small);
+    color: var(--color-red);
+    min-height: 1.2em;
+}
+
 .calculator__form-submit {
     width: 100%;
     margin-top: var(--spacing-lg);

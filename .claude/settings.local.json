@@ -9,7 +9,10 @@
       "Bash(ls:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(node -c:*)",
+      "Bash(npm run build:js:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": []
   }

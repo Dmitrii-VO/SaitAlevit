@@ -2448,6 +2448,16 @@ textarea {
 .cta__form-input.invalid:focus {
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
 }
+/* Анимация тряски для полей с ошибками */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+.cta__form-input.shake,
+.cta__form-checkbox.shake {
+    animation: shake 0.5s ease-in-out;
+}
 .cta__form-input::-moz-placeholder {
     color: #808080;
     color: var(--color-gray);
@@ -2455,6 +2465,23 @@ textarea {
 .cta__form-input::placeholder {
     color: #808080;
     color: var(--color-gray);
+}
+.cta__form-error {
+    display: block;
+    margin-top: 0.5rem;
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: #dc3545;
+    color: var(--color-red);
+    min-height: 1.25rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+.cta__form-error:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
 }
 .cta__form-checkbox {
     display: flex;
@@ -2470,6 +2497,18 @@ textarea {
     margin-top: 4px;
     flex-shrink: 0;
     cursor: pointer;
+}
+.cta__form-checkbox.invalid {
+    color: #dc3545;
+    color: var(--color-red);
+}
+.cta__form-checkbox.invalid input {
+    accent-color: #dc3545;
+    accent-color: var(--color-red);
+    outline: 2px solid #dc3545;
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 .cta__form-link {
     color: #d4af37;
@@ -2901,6 +2940,62 @@ textarea {
     font-size: var(--font-size-small);
     color: #808080;
     color: var(--color-gray);
+}
+.calculator__form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: #333333;
+    color: var(--color-gray-dark);
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+.calculator__form-checkbox input[type="checkbox"] {
+    margin-top: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: #d4af37;
+    accent-color: var(--color-gold);
+}
+.calculator__form-checkbox:hover {
+    color: #000000;
+    color: var(--color-black);
+}
+.calculator__form-checkbox.invalid {
+    color: #dc3545;
+    color: var(--color-red);
+}
+.calculator__form-checkbox.invalid input[type="checkbox"] {
+    accent-color: #dc3545;
+    accent-color: var(--color-red);
+    outline: 2px solid #dc3545;
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+.calculator__form-link {
+    color: #d4af37;
+    color: var(--color-gold);
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+.calculator__form-link:hover {
+    color: #b8860b;
+    color: var(--color-gold-dark);
+}
+.calculator__form-error {
+    display: block;
+    margin-top: 0.5rem;
+    margin-top: var(--spacing-xs);
+    font-size: 0.875rem;
+    font-size: var(--font-size-small);
+    color: #dc3545;
+    color: var(--color-red);
+    min-height: 1.2em;
 }
 .calculator__form-submit {
     width: 100%;
@@ -3573,6 +3668,362 @@ textarea {
 }
 .cta__form-submit-loading {
     display: inline-block;
+}
+/* ============================================ */
+/* PRIVACY MODAL - МОДАЛЬНОЕ ОКНО СОГЛАСИЯ */
+/* ============================================ */
+.privacy-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    padding: var(--spacing-md);
+    box-sizing: border-box;
+}
+.privacy-modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+.privacy-modal__content {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    background-color: #ffffff;
+    background-color: var(--color-white);
+    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.privacy-modal__close {
+    position: absolute;
+    top: 1.5rem;
+    top: var(--spacing-md);
+    right: 1.5rem;
+    right: var(--spacing-md);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    background-color: var(--color-gray-light);
+    border: none;
+    border-radius: 50%;
+    color: #000000;
+    color: var(--color-black);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+}
+.privacy-modal__close:hover {
+    background-color: #808080;
+    background-color: var(--color-gray);
+    transform: rotate(90deg);
+}
+.privacy-modal__close:focus {
+    outline: 2px solid #d4af37;
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+}
+.privacy-modal__body {
+    padding: 4rem;
+    padding: var(--spacing-xxl);
+    overflow-y: auto;
+    flex: 1;
+}
+.privacy-modal__title {
+    font-size: 2rem;
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    color: #000000;
+    color: var(--color-black);
+    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-lg);
+    padding-right: 3rem;
+    padding-right: var(--spacing-xl);
+}
+.privacy-modal__text {
+    font-size: 1rem;
+    font-size: var(--font-size-base);
+    color: #333333;
+    color: var(--color-gray-dark);
+    line-height: 1.6;
+}
+.privacy-modal__text p {
+    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
+}
+.privacy-modal__text p:last-child {
+    margin-bottom: 0;
+}
+.privacy-modal__text strong {
+    color: #000000;
+    color: var(--color-black);
+    font-weight: 600;
+}
+.privacy-modal__text ul {
+    margin: 1.5rem 0;
+    margin: var(--spacing-md) 0;
+    padding-left: 2rem;
+    padding-left: var(--spacing-lg);
+    list-style-type: disc;
+}
+.privacy-modal__text li {
+    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+.privacy-modal__text a {
+    color: #d4af37;
+    color: var(--color-gold);
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+.privacy-modal__text a:hover {
+    color: #b8860b;
+    color: var(--color-gold-dark);
+}
+.privacy-modal__actions {
+    padding: 2rem 4rem;
+    padding: var(--spacing-lg) var(--spacing-xxl);
+    border-top: 1px solid #f5f5f5;
+    border-top: 1px solid var(--color-gray-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    gap: var(--spacing-md);
+    background-color: #f5f5f5;
+    background-color: var(--color-gray-light);
+}
+.privacy-modal__link {
+    color: #d4af37;
+    color: var(--color-gold);
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    font-size: var(--font-size-sm);
+    transition: color 0.3s ease;
+}
+.privacy-modal__link:hover {
+    color: #b8860b;
+    color: var(--color-gold-dark);
+}
+.privacy-modal__accept {
+    min-width: 120px;
+}
+/* Адаптивность */
+@media (max-width: 768px) {
+    .privacy-modal {
+        padding: 1rem;
+        padding: var(--spacing-sm);
+    }
+
+    .privacy-modal__content {
+        max-height: 95vh;
+    }
+
+    .privacy-modal__body {
+        padding: 2rem;
+        padding: var(--spacing-lg);
+    }
+
+    .privacy-modal__title {
+        font-size: 1.5rem;
+        font-size: var(--font-size-h3);
+        padding-right: 2rem;
+        padding-right: var(--spacing-lg);
+    }
+
+    .privacy-modal__actions {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.5rem;
+        padding: var(--spacing-md);
+    }
+
+    .privacy-modal__accept {
+        width: 100%;
+    }
+
+    .privacy-modal__close {
+        top: 1rem;
+        top: var(--spacing-sm);
+        right: 1rem;
+        right: var(--spacing-sm);
+        width: 36px;
+        height: 36px;
+    }
+}
+/* ============================================ */
+/* PRIVACY PAGE - СТРАНИЦА ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ */
+/* ============================================ */
+.privacy {
+    padding: 4rem 1rem;
+    padding: var(--spacing-xxl) var(--container-padding);
+    min-height: calc(100vh - 200px);
+    background-color: #ffffff;
+    background-color: var(--color-white);
+}
+.privacy__container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.privacy__title {
+    font-size: max(2rem, min(4vw, 3rem));
+    font-weight: 700;
+    color: #000000;
+    color: var(--color-black);
+    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+.privacy__subtitle {
+    font-size: 1.25rem;
+    font-size: var(--font-size-lg);
+    color: #d4af37;
+    color: var(--color-gold);
+    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    font-weight: 600;
+}
+.privacy__content {
+    background-color: #ffffff;
+    background-color: var(--color-white);
+    padding: 4rem;
+    padding: var(--spacing-xxl);
+    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
+}
+.privacy__date {
+    font-size: var(--font-size-sm);
+    color: #808080;
+    color: var(--color-gray);
+    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    font-style: italic;
+}
+.privacy__section {
+    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-xl);
+}
+.privacy__section:last-child {
+    margin-bottom: 0;
+}
+.privacy__section-title {
+    font-size: 1.5rem;
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    color: #000000;
+    color: var(--color-black);
+    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: 1rem;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid #d4af37;
+    border-bottom: 2px solid var(--color-gold);
+}
+.privacy__section p {
+    font-size: 1rem;
+    font-size: var(--font-size-base);
+    color: #333333;
+    color: var(--color-gray-dark);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
+}
+.privacy__section p:last-child {
+    margin-bottom: 0;
+}
+.privacy__section strong {
+    color: #000000;
+    color: var(--color-black);
+    font-weight: 600;
+}
+.privacy__list {
+    margin: 1.5rem 0;
+    margin: var(--spacing-md) 0;
+    padding-left: 3rem;
+    padding-left: var(--spacing-xl);
+    list-style-type: disc;
+}
+.privacy__list li {
+    font-size: 1rem;
+    font-size: var(--font-size-base);
+    color: #333333;
+    color: var(--color-gray-dark);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-sm);
+}
+.privacy__list li:last-child {
+    margin-bottom: 0;
+}
+.privacy__section a {
+    color: #d4af37;
+    color: var(--color-gold);
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+.privacy__section a:hover {
+    color: #b8860b;
+    color: var(--color-gold-dark);
+}
+.privacy__footer {
+    margin-top: 4rem;
+    margin-top: var(--spacing-xxl);
+    text-align: center;
+    padding-top: 3rem;
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid #f5f5f5;
+    border-top: 1px solid var(--color-gray-light);
+}
+/* Адаптивность */
+@media (max-width: 768px) {
+    .privacy {
+        padding: 2rem 1rem;
+        padding: var(--spacing-lg) var(--container-padding);
+    }
+
+    .privacy__content {
+        padding: 2rem;
+        padding: var(--spacing-lg);
+    }
+
+    .privacy__title {
+        font-size: 2rem;
+        font-size: var(--font-size-h2);
+    }
+
+    .privacy__section-title {
+        font-size: 1.25rem;
+        font-size: var(--font-size-h4);
+    }
+
+    .privacy__list {
+        padding-left: 2rem;
+        padding-left: var(--spacing-lg);
+    }
 }
 /* Утилиты */
 /* ============================================ */

@@ -7,6 +7,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { sendFormNotification } = require('../telegram-bot/utils/notifications');
 
 const PORT = 3000;
 const HOST = '0.0.0.0'; // Доступен по сети
@@ -47,7 +48,106 @@ function getLocalIP() {
     return 'localhost';
 }
 
-const server = http.createServer((req, res) => {
+/**
+ * Парсит тело POST запроса
+ * @param {http.IncomingMessage} req - Запрос
+ * @returns {Promise<Object>} Распарсенные данные
+ */
+function parseRequestBody(req) {
+    return new Promise((resolve, reject) => {
+        let body = '';
+        
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                resolve(data);
+            } catch (error) {
+                reject(new Error('Invalid JSON'));
+            }
+        });
+        
+        req.on('error', reject);
+    });
+}
+
+/**
+ * Отправляет JSON ответ
+ * @param {http.ServerResponse} res - Ответ
+ * @param {number} statusCode - Код статуса
+ * @param {Object} data - Данные для отправки
+ */
+function sendJSON(res, statusCode, data) {
+    const json = JSON.stringify(data);
+    res.writeHead(statusCode, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+    });
+    res.end(json);
+}
+
+const server = http.createServer(async (req, res) => {
+    // Обработка OPTIONS запросов (CORS preflight)
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200, {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        });
+        res.end();
+        return;
+    }
+
+    // Обработка API запросов
+    if (req.method === 'POST' && req.url === '/api/submit-form') {
+        console.log('📨 Получен запрос на отправку заявки');
+        try {
+            const formData = await parseRequestBody(req);
+            console.log('📋 Данные заявки:', JSON.stringify(formData, null, 2));
+            
+            // Валидация данных
+            if (!formData.name || !formData.phone) {
+                console.warn('⚠️ Валидация не пройдена: отсутствуют имя или телефон');
+                return sendJSON(res, 400, {
+                    success: false,
+                    error: 'Имя и телефон обязательны для заполнения'
+                });
+            }
+
+            console.log('📤 Отправка уведомления в Telegram...');
+            // Отправка уведомления в Telegram
+            const sent = await sendFormNotification(formData);
+            
+            if (sent) {
+                console.log('✅ Заявка успешно обработана');
+                sendJSON(res, 200, {
+                    success: true,
+                    message: 'Заявка успешно отправлена'
+                });
+            } else {
+                console.error('❌ Не удалось отправить уведомление');
+                sendJSON(res, 500, {
+                    success: false,
+                    error: 'Ошибка при отправке заявки. Попробуйте позже.'
+                });
+            }
+        } catch (error) {
+            console.error('❌ Ошибка обработки заявки:', error);
+            console.error('   Stack:', error.stack);
+            sendJSON(res, 500, {
+                success: false,
+                error: 'Внутренняя ошибка сервера'
+            });
+        }
+        return;
+    }
+
+    // Обработка статических файлов
     // Убираем query string и нормализуем путь
     let filePath = req.url.split('?')[0];
     
@@ -107,17 +207,6 @@ function serveFile(filePath, res) {
     });
 }
 
-// Обработка OPTIONS запросов (для CORS)
-server.on('request', (req, res) => {
-    if (req.method === 'OPTIONS') {
-        res.writeHead(200, {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type'
-        });
-        res.end();
-    }
-});
 
 server.listen(PORT, HOST, () => {
     const ip = getLocalIP();
