@@ -23,7 +23,14 @@ export function updateFloatingButtons(contacts) {
     // WhatsApp
     const whatsappButton = document.querySelector('.floating-button--whatsapp');
     if (whatsappButton && contacts.whatsapp && contacts.whatsapp !== '#') {
-        whatsappButton.setAttribute('href', contacts.whatsapp);
+        // Если это номер телефона, преобразуем в ссылку WhatsApp
+        let whatsappHref = contacts.whatsapp;
+        if (whatsappHref.startsWith('+') || /^\d/.test(whatsappHref)) {
+            // Убираем все нецифровые символы, кроме +
+            const phoneNumber = whatsappHref.replace(/[^\d+]/g, '').replace(/^\+/, '');
+            whatsappHref = `https://wa.me/${phoneNumber}`;
+        }
+        whatsappButton.setAttribute('href', whatsappHref);
     }
 }
 

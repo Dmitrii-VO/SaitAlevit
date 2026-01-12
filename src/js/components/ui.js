@@ -100,13 +100,21 @@ export function initSmoothScroll() {
     const anchors = document.querySelectorAll('a[href^="#"]');
     anchors.forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            // Пропускаем пустые якоря и якоря только с #
+            if (!href || href === '#' || href === '#!') {
+                return;
+            }
+            
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
+            } else {
+                console.warn(`Элемент с ID ${href} не найден`);
             }
         });
     });
