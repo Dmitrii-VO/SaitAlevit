@@ -195,6 +195,36 @@
     width: 100%;
 }
 
+/* Примерные цены под калькулятором */
+
+.calculator__prices {
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-lg);
+}
+
+.calculator__prices-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: var(--font-size-small);
+    color: var(--color-white);
+    opacity: 0.9;
+}
+
+.calculator__prices-label {
+    color: var(--color-white);
+}
+
+.calculator__prices-value {
+    font-weight: 600;
+    color: var(--color-gold);
+}
+
 @media (max-width: 768px) {
     .calculator__wrapper {
         grid-template-columns: 1fr;
@@ -209,5 +239,9 @@
     .calculator__result {
         position: relative;
         top: 0;
+    }
+
+    .calculator__prices {
+        padding-top: var(--spacing-sm);
     }
 }

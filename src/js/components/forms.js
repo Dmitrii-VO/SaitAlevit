@@ -392,59 +392,43 @@ export function initContactForm(form) {
 }
 
 /**
- * Цены за м² по типам домов и форматам отделки
+ * Цены за м² по типам домов, этажности и форматам отделки
+ * Отдельные цены для 1 и 2 этажей, так как двухэтажные дома требуют
+ * больше материалов, более сложную конструкцию и дополнительные работы
  */
 const CALCULATOR_PRICES = {
-    'gas-block': { box: 25000, clean: 35000, turnkey: 45000 },
-    'brick': { box: 30000, clean: 40000, turnkey: 50000 },
-    'frame': { box: 20000, clean: 30000, turnkey: 40000 }
+    'gas-block': {
+        '1': { box: 25000, clean: 35000, turnkey: 45000 },
+        '2': { box: 35000, clean: 48000, turnkey: 62000 }
+    },
+    'brick': {
+        '1': { box: 30000, clean: 40000, turnkey: 50000 },
+        '2': { box: 40000, clean: 55000, turnkey: 70000 }
+    }
 };
 
 /**
  * Рассчитывает стоимость дома
  * @param {number} area - Площадь в м²
  * @param {string} type - Тип дома
+ * @param {string} floors - Этажность ("1" или "2")
  * @param {string} finish - Формат отделки
  * @returns {number|null} Рассчитанная цена или null при невалидных данных
  */
-function calculateHousePrice(area, type, finish) {
+function calculateHousePrice(area, type, floors, finish) {
     if (area < 20 || area > 500) {
         return null;
     }
     
-    const pricePerM2 = CALCULATOR_PRICES[type]?.[finish] || 25000;
+    // Получаем цену за м² с учётом этажности
+    // Используем отдельные цены для 1 и 2 этажей
+    const pricePerM2 = CALCULATOR_PRICES[type]?.[floors]?.[finish] || 
+                       CALCULATOR_PRICES[type]?.['1']?.[finish] || 
+                       25000;
+    
     const totalPrice = area * pricePerM2;
+    // Применяем скидку 10% для показа "от" цены
     return Math.round(totalPrice * 0.9);
-}
-
-/**
- * Валидирует чекбокс согласия в форме калькулятора
- * @param {HTMLInputElement} checkbox - Чекбокс согласия
- * @param {boolean} showError - Показывать ли сообщение об ошибке
- * @returns {boolean} true если валидный, false если нет
- */
-function validateCalculatorAgreement(checkbox, showError = false) {
-    const errorElement = document.getElementById('calc-agreement-error');
-    const isValid = checkbox.checked;
-
-    // Очищаем предыдущее сообщение об ошибке
-    if (errorElement) {
-        errorElement.textContent = '';
-    }
-
-    // Визуальная индикация
-    if (isValid) {
-        checkbox.setAttribute('aria-invalid', 'false');
-        checkbox.closest('.calculator__form-checkbox')?.classList.remove('invalid');
-    } else {
-        checkbox.setAttribute('aria-invalid', 'true');
-        checkbox.closest('.calculator__form-checkbox')?.classList.add('invalid');
-        if (showError && errorElement) {
-            errorElement.textContent = 'Необходимо дать согласие на обработку персональных данных';
-        }
-    }
-
-    return isValid;
 }
 
 /**
@@ -453,42 +437,32 @@ function validateCalculatorAgreement(checkbox, showError = false) {
  * @returns {Promise<void>}
  */
 async function handleCalculatorSubmit(form) {
-    const agreementCheckbox = form.querySelector('#calc-agreement');
-    
-    // Валидация согласия
-    if (agreementCheckbox && !validateCalculatorAgreement(agreementCheckbox, true)) {
-        return;
-    }
-
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     
-    // Если есть согласие, отправляем заявку в Telegram
-    if (agreementCheckbox && agreementCheckbox.checked) {
-        try {
-            // Создаём данные для отправки (имя и телефон не обязательны для калькулятора)
-            const submitData = {
-                formType: 'calculator',
-                area: data.area,
-                type: data.type,
-                finish: data.finish,
-                name: 'Не указано',
-                phone: 'Не указан'
-            };
+    // Отправляем заявку в Telegram (не блокируем UI, отправляем в фоне)
+    try {
+        const submitData = {
+            formType: 'calculator',
+            area: data.area,
+            type: data.type,
+            floors: data.floors,
+            finish: data.finish,
+            name: 'Не указано',
+            phone: 'Не указан'
+        };
 
-            // Отправляем в Telegram (не блокируем UI, отправляем в фоне)
-            fetch('/api/submit-form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(submitData)
-            }).catch(error => {
-                console.error('Ошибка отправки заявки из калькулятора:', error);
-            });
-        } catch (error) {
-            console.error('Ошибка подготовки данных калькулятора:', error);
-        }
+        fetch('/api/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(submitData)
+        }).catch(error => {
+            console.error('Ошибка отправки заявки из калькулятора:', error);
+        });
+    } catch (error) {
+        console.error('Ошибка подготовки данных калькулятора:', error);
     }
     
     // Прокрутка к форме CTA
@@ -518,9 +492,10 @@ export function initCalculator() {
     function updatePrice() {
         const area = parseFloat(document.querySelector('#calc-area').value) || 0;
         const type = document.querySelector('#calc-type').value;
+        const floors = document.querySelector('#calc-floors').value;
         const finish = document.querySelector('#calc-finish').value;
         
-        const price = calculateHousePrice(area, type, finish);
+        const price = calculateHousePrice(area, type, floors, finish);
         
         if (price === null) {
             resultPrice.textContent = '—';
@@ -529,16 +504,29 @@ export function initCalculator() {
         }
     }
     
-    // Добавляем валидацию для чекбокса согласия
-    const agreementCheckbox = calculatorForm.querySelector('#calc-agreement');
-    if (agreementCheckbox) {
-        agreementCheckbox.addEventListener('change', () => {
-            validateCalculatorAgreement(agreementCheckbox);
-        });
-    }
-
+    // Обработчики для всех полей формы
     calculatorForm.addEventListener('input', updatePrice);
     calculatorForm.addEventListener('change', updatePrice);
+    
+    // Явные обработчики для select элементов (гарантируем срабатывание)
+    const areaInput = document.querySelector('#calc-area');
+    const typeSelect = document.querySelector('#calc-type');
+    const floorsSelect = document.querySelector('#calc-floors');
+    const finishSelect = document.querySelector('#calc-finish');
+    
+    if (areaInput) {
+        areaInput.addEventListener('input', updatePrice);
+        areaInput.addEventListener('change', updatePrice);
+    }
+    if (typeSelect) {
+        typeSelect.addEventListener('change', updatePrice);
+    }
+    if (floorsSelect) {
+        floorsSelect.addEventListener('change', updatePrice);
+    }
+    if (finishSelect) {
+        finishSelect.addEventListener('change', updatePrice);
+    }
     calculatorForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         await handleCalculatorSubmit(this);

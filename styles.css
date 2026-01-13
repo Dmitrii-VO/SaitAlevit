@@ -3155,6 +3155,38 @@ textarea {
 .calculator__result-cta {
     width: 100%;
 }
+/* Примерные цены под калькулятором */
+.calculator__prices {
+    margin-top: 2rem;
+    margin-top: var(--spacing-lg);
+    padding-top: 1rem;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    gap: var(--spacing-lg);
+}
+.calculator__prices-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 0.875rem;
+    font-size: var(--font-size-small);
+    color: #ffffff;
+    color: var(--color-white);
+    opacity: 0.9;
+}
+.calculator__prices-label {
+    color: #ffffff;
+    color: var(--color-white);
+}
+.calculator__prices-value {
+    font-weight: 600;
+    color: #d4af37;
+    color: var(--color-gold);
+}
 @media (max-width: 768px) {
     .calculator__wrapper {
         grid-template-columns: 1fr;
@@ -3171,6 +3203,11 @@ textarea {
     .calculator__result {
         position: relative;
         top: 0;
+    }
+
+    .calculator__prices {
+        padding-top: 1rem;
+        padding-top: var(--spacing-sm);
     }
 }
 /* ============================================ */

@@ -225,3 +225,36 @@ export async function loadWorks() {
         console.error('Ошибка загрузки работ:', error);
     }
 }
+
+/**
+ * Загружает и отображает примерные цены за м² под калькулятором
+ * @returns {Promise<void>}
+ */
+export async function loadPrices() {
+    try {
+        const data = await fetchJSON('data/prices.json');
+        if (!data || !data.prices) return;
+
+        const { shell, clean, turnkey } = data.prices;
+        const formatPrice = (value) => {
+            if (!value || isNaN(value)) return null;
+            return `${new Intl.NumberFormat('ru-RU').format(value)} ₽/м²`;
+        };
+
+        const shellEl = document.querySelector('[data-price-key="shell"]');
+        const cleanEl = document.querySelector('[data-price-key="clean"]');
+        const turnkeyEl = document.querySelector('[data-price-key="turnkey"]');
+
+        if (shellEl && formatPrice(shell)) {
+            shellEl.textContent = formatPrice(shell);
+        }
+        if (cleanEl && formatPrice(clean)) {
+            cleanEl.textContent = formatPrice(clean);
+        }
+        if (turnkeyEl && formatPrice(turnkey)) {
+            turnkeyEl.textContent = formatPrice(turnkey);
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки цен калькулятора:', error);
+    }
+}

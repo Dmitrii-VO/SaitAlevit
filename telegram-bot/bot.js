@@ -10,6 +10,7 @@ const projectsHandler = require('./handlers/projects');
 const worksHandler = require('./handlers/works');
 const reviewsHandler = require('./handlers/reviews');
 const contactsHandler = require('./handlers/contacts');
+const pricesHandler = require('./handlers/prices');
 
 // #region agent log
 fetch('http://127.0.0.1:7243/ingest/7fdb07ad-effa-4787-9e01-77043e8a757f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'bot.js:15',message:'Creating bot instance',data:{tokenLength:config.botToken.length,tokenPrefix:config.botToken.substring(0,10) + '...',hasToken:!!config.botToken},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'A'})}).catch(()=>{});
@@ -108,6 +109,10 @@ function showMainMenu(chatId) {
 📞 <b>Контакты</b>
 /contacts_view - Просмотр контактов
 /contacts_edit - Редактировать контакты
+
+💰 <b>Цены калькулятора</b>
+/prices_view - Просмотреть цены
+/prices_edit - Изменить цены
 
 /help - Помощь
 /cancel - Отменить текущую операцию
@@ -260,6 +265,15 @@ bot.onText(/\/contacts_edit/, (msg) => {
   requireAuth(msg, (msg) => contactsHandler.handleEdit(bot, msg, userStates));
 });
 
+// Регистрация обработчиков команд для цен калькулятора
+bot.onText(/\/prices_view/, (msg) => {
+  requireAuth(msg, (msg) => pricesHandler.handleView(bot, msg));
+});
+
+bot.onText(/\/prices_edit/, (msg) => {
+  requireAuth(msg, (msg) => pricesHandler.handleEdit(bot, msg, userStates));
+});
+
 // Команда /done для завершения загрузки галереи
 bot.onText(/\/done/, (msg) => {
   const chatId = msg.chat.id;
@@ -301,6 +315,8 @@ bot.on('message', (msg) => {
     reviewsHandler.handleMessage(bot, msg, userStates);
   } else if (state.type && state.type.startsWith('contacts_')) {
     contactsHandler.handleMessage(bot, msg, userStates);
+  } else if (state.type && state.type.startsWith('prices_')) {
+    pricesHandler.handleMessage(bot, msg, userStates);
   }
 });
 

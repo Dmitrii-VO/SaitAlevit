@@ -4,7 +4,7 @@
  */
 
 // Импорты модулей
-import { loadProjects, loadContacts, loadReviews, loadWorks } from './components/data-loader.js';
+import { loadProjects, loadContacts, loadReviews, loadWorks, loadPrices } from './components/data-loader.js';
 import { showNotification } from './components/notifications.js';
 import { initCTAForm, initCalculator, initContactForm } from './components/forms.js';
 import { initSmoothScroll, initFloatingButtons, initScrollAnimation, initMobileMenu, initFAQ } from './components/ui.js';
@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     loadWorks().catch(error => {
         console.error('❌ Ошибка при загрузке работ:', error);
+    });
+
+    loadPrices().catch(error => {
+        console.error('❌ Ошибка при загрузке цен калькулятора:', error);
     });
     
     // Инициализация UI компонентов

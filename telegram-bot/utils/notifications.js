@@ -97,7 +97,7 @@ function getAdminIds() {
  * @returns {string} Отформатированное сообщение
  */
 function formatFormMessage(formData) {
-  const { name, phone, area, type, finish, formType = 'CTA' } = formData;
+  const { name, phone, area, type, floors, finish, formType = 'CTA' } = formData;
   
   const formTypeNames = {
     'CTA': '📋 Заявка на бесплатный проект',
@@ -107,8 +107,7 @@ function formatFormMessage(formData) {
   
   const houseTypes = {
     'gas-block': 'Газобетон',
-    'brick': 'Кирпич',
-    'frame': 'Каркас'
+    'brick': 'Кирпич'
   };
   
   const finishTypes = {
@@ -135,6 +134,10 @@ function formatFormMessage(formData) {
     }
     if (type && houseTypes[type]) {
       message += `🏗️ <b>Тип дома:</b> ${houseTypes[type]}\n`;
+    }
+    if (floors) {
+      const floorsText = floors === '1' ? '1 этаж' : floors === '2' ? '2 этажа' : floors;
+      message += `🏠 <b>Этажность:</b> ${floorsText}\n`;
     }
     if (finish && finishTypes[finish]) {
       message += `🔨 <b>Отделка:</b> ${finishTypes[finish]}\n`;

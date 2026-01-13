@@ -73,6 +73,13 @@ function getDefaultStructure(dataType) {
       address: "Белгородская область, Белгородский район, с. Пушкарное-78, ул. Кузнечная, д. 9",
       whatsapp: "#",
       telegram: "#"
+    },
+    prices: {
+      prices: {
+        shell: 45000,
+        clean: 65000,
+        turnkey: 80000
+      }
     }
   };
   

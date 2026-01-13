@@ -17,7 +17,13 @@
                                 <select id="calc-type" name="type" class="calculator__form-select" required>
                                     <option value="gas-block">Газобетон</option>
                                     <option value="brick">Кирпич</option>
-                                    <option value="frame">Каркас</option>
+                                </select>
+                            </div>
+                            <div class="calculator__form-group">
+                                <label for="calc-floors" class="calculator__form-label">Этажность</label>
+                                <select id="calc-floors" name="floors" class="calculator__form-select" required>
+                                    <option value="1">1 этаж</option>
+                                    <option value="2">2 этажа</option>
                                 </select>
                             </div>
                             <div class="calculator__form-group">
@@ -27,13 +33,6 @@
                                     <option value="clean">Чистовая отделка</option>
                                     <option value="turnkey">Под ключ</option>
                                 </select>
-                            </div>
-                            <div class="calculator__form-group">
-                                <label class="calculator__form-checkbox">
-                                    <input type="checkbox" name="agreement" id="calc-agreement" required aria-describedby="calc-agreement-error" aria-invalid="false">
-                                    <span>Я согласен на <a href="#" class="calculator__form-link" data-privacy-modal>обработку персональных данных</a></span>
-                                </label>
-                                <span class="calculator__form-error" id="calc-agreement-error" role="alert" aria-live="polite"></span>
                             </div>
                             <button type="submit" class="btn btn--primary calculator__form-submit">Рассчитать стоимость</button>
                         </form>
@@ -48,6 +47,21 @@
                             </div>
                             <p class="calculator__result-note">Точную стоимость рассчитаем после консультации</p>
                             <a href="#cta" class="btn btn--secondary calculator__result-cta">Получить точный расчёт</a>
+
+                            <div class="calculator__prices" id="calculator-prices">
+                                <div class="calculator__prices-row">
+                                    <span class="calculator__prices-label">Под самоотделку</span>
+                                    <span class="calculator__prices-value" data-price-key="shell">45 000 ₽/м²</span>
+                                </div>
+                                <div class="calculator__prices-row">
+                                    <span class="calculator__prices-label">Чистовая отделка</span>
+                                    <span class="calculator__prices-value" data-price-key="clean">65 000 ₽/м²</span>
+                                </div>
+                                <div class="calculator__prices-row">
+                                    <span class="calculator__prices-label">Под ключ</span>
+                                    <span class="calculator__prices-value" data-price-key="turnkey">80 000 ₽/м²</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

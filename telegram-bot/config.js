@@ -17,7 +17,8 @@ const config = {
     projects: './data/projects.json',
     works: './data/works.json',
     reviews: './data/reviews.json',
-    contacts: './data/contacts.json'
+    contacts: './data/contacts.json',
+    prices: './data/prices.json'
   },
   
   // Путь для сохранения загруженных изображений
