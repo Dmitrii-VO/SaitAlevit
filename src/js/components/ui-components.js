@@ -56,6 +56,128 @@ export function createContactItem(type, title, value, href, isText = false) {
 }
 
 /**
+ * Создает элемент контакта для hero-блока (компактный формат)
+ * @param {string} type - Тип контакта: 'phone', 'email'
+ * @param {string} value - Значение контакта
+ * @param {string|null} href - Ссылка для клика
+ * @returns {HTMLElement} Созданный элемент контакта
+ */
+export function createHeroContactItem(type, value, href) {
+    const item = document.createElement(href ? 'a' : 'div');
+    item.className = 'hero__contacts-item';
+    if (href) {
+        item.href = href;
+    }
+    
+    const escapedValue = escapeHtml(value);
+    const iconPath = CONTACT_ICONS[type] || '';
+    
+    item.innerHTML = `
+        <div class="hero__contacts-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                ${iconPath}
+            </svg>
+        </div>
+        <span class="hero__contacts-item-text">${escapedValue}</span>
+    `;
+    
+    return item;
+}
+
+/**
+ * Создает выпадающее меню контактов для hero-блока
+ * @param {Object} contacts - Объект с контактами
+ * @param {string} contacts.phone - Телефон
+ * @param {string} contacts.email - Email
+ * @param {string} contacts.whatsapp - WhatsApp
+ * @param {string} contacts.telegram - Telegram
+ * @returns {HTMLElement} Созданный контейнер с выпадающим меню
+ */
+export function createHeroContactsDropdown(contacts) {
+    const container = document.createElement('div');
+    container.className = 'hero__contacts-dropdown';
+    
+    // Основной элемент - телефон (всегда видимый)
+    const phoneItem = document.createElement('a');
+    phoneItem.className = 'hero__contacts-main';
+    phoneItem.href = contacts.phone ? `tel:${contacts.phone.replace(/\D/g, '')}` : '#';
+    
+    const phoneIcon = CONTACT_ICONS.phone || '';
+    const phoneValue = escapeHtml(contacts.phone || '');
+    
+    phoneItem.innerHTML = `
+        <div class="hero__contacts-main-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                ${phoneIcon}
+            </svg>
+        </div>
+        <span class="hero__contacts-main-text">${phoneValue}</span>
+        <svg class="hero__contacts-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    `;
+    
+    // Выпадающее меню
+    const dropdown = document.createElement('div');
+    dropdown.className = 'hero__contacts-menu';
+    
+    let menuItems = '';
+    
+    if (contacts.email) {
+        const emailIcon = CONTACT_ICONS.email || '';
+        const emailValue = escapeHtml(contacts.email);
+        menuItems += `
+            <a href="mailto:${escapeHtml(contacts.email)}" class="hero__contacts-menu-item">
+                <div class="hero__contacts-menu-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        ${emailIcon}
+                    </svg>
+                </div>
+                <span>${emailValue}</span>
+            </a>
+        `;
+    }
+    
+    if (contacts.whatsapp && contacts.whatsapp !== '#') {
+        menuItems += `
+            <a href="${escapeHtml(contacts.whatsapp)}" class="hero__contacts-menu-item" target="_blank">
+                <div class="hero__contacts-menu-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382C17.231 14.283 15.243 13.432 14.875 13.305C14.507 13.178 14.273 13.115 14.04 13.385C13.806 13.655 13.011 14.477 12.81 14.699C12.608 14.921 12.406 14.958 12.165 14.859C11.925 14.76 10.876 14.449 9.593 13.305C8.556 12.38 7.83 11.237 7.628 10.967C7.427 10.697 7.593 10.562 7.765 10.395C7.914 10.25 8.084 10.03 8.215 9.85C8.346 9.67 8.409 9.53 8.508 9.33C8.607 9.13 8.545 8.95 8.446 8.8C8.347 8.65 7.496 6.662 7.195 5.87C6.899 5.09 6.6 5.19 6.435 5.18C6.27 5.17 6.08 5.17 5.89 5.17C5.7 5.17 5.445 5.23 5.225 5.48C5.005 5.73 4.405 6.33 4.405 7.63C4.405 8.93 5.305 10.17 5.425 10.35C5.545 10.53 7.183 13.305 9.703 14.5C10.483 14.9 11.063 15.12 11.483 15.27C12.023 15.47 12.503 15.45 12.883 15.38C13.303 15.3 14.333 14.7 14.583 14.05C14.833 13.4 14.833 12.82 14.733 12.68C14.633 12.54 14.473 12.48 14.232 12.38H17.472Z" fill="currentColor"/>
+                        <path d="M12 0C5.373 0 0 5.373 0 12C0 13.894 0.48 15.67 1.32 17.21L0 24L6.79 22.68C8.33 23.52 10.106 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM12 21.6C10.39 21.6 8.88 21.12 7.6 20.28L7.2 20.04L3.12 21.12L4.2 17.16L3.96 16.76C3.12 15.48 2.64 13.97 2.64 12.36C2.64 6.756 6.756 2.64 12.36 2.64C17.964 2.64 22.08 6.756 22.08 12.36C22.08 17.964 17.964 22.08 12.36 22.08H12Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <span>WhatsApp</span>
+            </a>
+        `;
+    }
+    
+    if (contacts.telegram && contacts.telegram !== '#') {
+        menuItems += `
+            <a href="${escapeHtml(contacts.telegram)}" class="hero__contacts-menu-item" target="_blank">
+                <div class="hero__contacts-menu-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.894 8.221L15.68 17.896C15.68 17.896 15.474 18.5 14.842 18.5C14.21 18.5 13.789 18.105 13.789 18.105L10.842 15.526L9.263 14.105L6.316 11.158C6.316 11.158 5.737 10.579 6.316 10C6.895 9.421 7.474 9.421 7.474 9.421L14.842 13.263L17.789 10.316C17.789 10.316 18.368 9.737 17.789 9.158C17.21 8.579 16.421 8.579 16.421 8.579L8.421 11.526L6.316 10.737C6.316 10.737 5.737 10.368 6.316 9.789C6.895 9.21 7.684 9.21 7.684 9.21L17.684 7.684C17.684 7.684 18.5 7.263 17.894 8.221Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <span>Telegram</span>
+            </a>
+        `;
+    }
+    
+    if (menuItems) {
+        dropdown.innerHTML = menuItems;
+        container.appendChild(phoneItem);
+        container.appendChild(dropdown);
+    } else {
+        // Если нет дополнительных контактов, просто показываем телефон
+        container.appendChild(phoneItem);
+    }
+    
+    return container;
+}
+
+/**
  * Создает блок мессенджеров (WhatsApp, Telegram)
  * @param {string|null} whatsapp - Ссылка на WhatsApp
  * @param {string|null} telegram - Ссылка на Telegram

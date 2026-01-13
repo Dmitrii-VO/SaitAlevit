@@ -5,7 +5,7 @@
 
 import { fetchJSON } from '../utils/fetch.js';
 import { getWorkStatusBadge } from '../utils/format.js';
-import { createContactItem, createSocialLinks, createProjectCard, createVideoReviewCard, createTextReviewItem, createWorkCard } from './ui-components.js';
+import { createContactItem, createSocialLinks, createProjectCard, createVideoReviewCard, createTextReviewItem, createWorkCard, createHeroContactItem, createHeroContactsDropdown } from './ui-components.js';
 import { updateFloatingButtons, updateSchemaOrg } from './contacts.js';
 import { initProjectsCarousel, initProjectsGalleryButtons, initWorksCarousel, initWorksGalleryButtons, resetWorksCarousel } from './carousels.js';
 
@@ -69,48 +69,61 @@ export async function loadContacts() {
         const contacts = await fetchJSON('data/contacts.json');
         if (!contacts) return;
         
+        // Загрузка контактов в основной блок контактов
         const container = document.getElementById('contacts-info');
         if (!container) {
             console.error('Элемент #contacts-info не найден');
-            return;
+        } else {
+            container.innerHTML = '';
+            
+            if (contacts.phone) {
+                const phoneItem = createContactItem(
+                    'phone',
+                    'Телефон',
+                    contacts.phone,
+                    `tel:${contacts.phone.replace(/\D/g, '')}`
+                );
+                container.appendChild(phoneItem);
+            }
+            
+            if (contacts.email) {
+                const emailItem = createContactItem(
+                    'email',
+                    'Email',
+                    contacts.email,
+                    `mailto:${contacts.email}`
+                );
+                container.appendChild(emailItem);
+            }
+            
+            if (contacts.address) {
+                const addressItem = createContactItem(
+                    'address',
+                    'Адрес',
+                    contacts.address,
+                    null,
+                    true
+                );
+                container.appendChild(addressItem);
+            }
+            
+            const socialContainer = createSocialLinks(contacts.whatsapp, contacts.telegram);
+            if (socialContainer) {
+                container.appendChild(socialContainer);
+            }
         }
         
-        container.innerHTML = '';
-        
-        if (contacts.phone) {
-            const phoneItem = createContactItem(
-                'phone',
-                'Телефон',
-                contacts.phone,
-                `tel:${contacts.phone.replace(/\D/g, '')}`
-            );
-            container.appendChild(phoneItem);
-        }
-        
-        if (contacts.email) {
-            const emailItem = createContactItem(
-                'email',
-                'Email',
-                contacts.email,
-                `mailto:${contacts.email}`
-            );
-            container.appendChild(emailItem);
-        }
-        
-        if (contacts.address) {
-            const addressItem = createContactItem(
-                'address',
-                'Адрес',
-                contacts.address,
-                null,
-                true
-            );
-            container.appendChild(addressItem);
-        }
-        
-        const socialContainer = createSocialLinks(contacts.whatsapp, contacts.telegram);
-        if (socialContainer) {
-            container.appendChild(socialContainer);
+        // Загрузка контактов в hero-блок (выпадающее меню)
+        const heroContainer = document.getElementById('hero-contacts');
+        if (!heroContainer) {
+            console.error('Элемент #hero-contacts не найден');
+        } else {
+            heroContainer.innerHTML = '';
+            
+            if (contacts.phone) {
+                const contactsDropdown = createHeroContactsDropdown(contacts);
+                heroContainer.appendChild(contactsDropdown);
+            }
         }
         
         updateFloatingButtons(contacts);

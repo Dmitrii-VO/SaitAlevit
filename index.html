@@ -122,6 +122,9 @@
                     <li class="nav__item"><a href="#about" class="nav__link">О компании</a></li>
                     <li class="nav__item"><a href="#contacts" class="nav__link">Контакты</a></li>
                 </ul>
+                <div class="hero__contacts" id="hero-contacts">
+                    <!-- Контакты будут загружены динамически из data/contacts.json -->
+                </div>
                 <button class="nav__burger" aria-label="Открыть меню">
                     <span></span>
                     <span></span>
@@ -141,7 +144,10 @@
             </div>
             <div class="hero__container">
                 <div class="hero__content">
-                    <h1 class="hero__title">Строительство домов в г.&nbsp;Белгород и Белгородском районе</h1>
+                    <h1 class="hero__title">
+                        <span class="hero__title-line">Строительство домов</span>
+                        <span class="hero__title-line">в г. Белгороде и Белгородском районе</span>
+                    </h1>
                     <div class="hero__badge">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
@@ -172,26 +178,6 @@
                         <a href="#calculator" class="btn btn--primary">Рассчитать стоимость</a>
                         <a href="#cta" class="btn btn--secondary">Получить бесплатный проект</a>
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- TRUST - Блок доверия (цифры, опыт, гарантия) -->
-        <!-- ============================================ -->
-        <section class="trust" id="trust">
-            <div class="trust__container">
-                <h2 class="trust__title">Почему нам доверяют</h2>
-                <div class="trust__grid">
-                    <div class="trust__item">
-                        <div class="trust__number"><strong>60+</strong></div>
-                        <p class="trust__text">построенных домов</p>
-                    </div>
-                    <div class="trust__item">
-                        <div class="trust__number"><strong>5</strong></div>
-                        <p class="trust__text">лет гарантии</p>
-                    </div>
-                </div>
-                <div class="trust__cta">
-                    <a href="#cta" class="btn btn--primary">Узнать точную цену</a>
                 </div>
             </div>
         </section>
@@ -236,52 +222,16 @@
                         <h3 class="advantages__item-title">Гарантия 5 лет</h3>
                         <p class="advantages__item-text">Официальная гарантия на все виды работ. Защита ваших инвестиций.</p>
                     </div>
+                    <div class="advantages__item">
+                        <div class="advantages__icon">
+                            <img src="images/icons/icon-houses-completed.png" alt="Более 60 построенных домов и счастливых семей" class="advantages__icon-img">
+                        </div>
+                        <h3 class="advantages__item-title">Более 60 построенных домов и счастливых семей</h3>
+                        <p class="advantages__item-text">Реальный опыт и доверие наших клиентов</p>
+                    </div>
                 </div>
                 <div class="advantages__cta">
                     <a href="#calculator" class="btn btn--secondary">Задать вопрос специалисту</a>
-                </div>
-            </div>
-        </section>
-        <!-- PRICING - Форматы домов и цены -->
-        <!-- ============================================ -->
-        <section class="pricing" id="pricing">
-            <div class="pricing__container">
-                <h2 class="pricing__title">Форматы домов и цены</h2>
-                <p class="pricing__subtitle">Цена за м² в зависимости от типа дома и формата отделки</p>
-                <div class="pricing__grid">
-                    <div class="pricing__card">
-                        <h3 class="pricing__card-title">Газобетон</h3>
-                        <div class="pricing__card-price">
-                            <span class="pricing__card-price-label">от</span>
-                            <data value="25000" class="pricing__card-price-value">25 000</data>
-                            <span class="pricing__card-price-currency">₽/м²</span>
-                        </div>
-                        <p class="pricing__card-description">Коробка</p>
-                    </div>
-                    <div class="pricing__card">
-                        <h3 class="pricing__card-title">Кирпич</h3>
-                        <div class="pricing__card-price">
-                            <span class="pricing__card-price-label">от</span>
-                            <data value="30000" class="pricing__card-price-value">30 000</data>
-                            <span class="pricing__card-price-currency">₽/м²</span>
-                        </div>
-                        <p class="pricing__card-description">Коробка</p>
-                    </div>
-                    <div class="pricing__card">
-                        <h3 class="pricing__card-title">Каркас</h3>
-                        <div class="pricing__card-price">
-                            <span class="pricing__card-price-label">от</span>
-                            <data value="20000" class="pricing__card-price-value">20 000</data>
-                            <span class="pricing__card-price-currency">₽/м²</span>
-                        </div>
-                        <p class="pricing__card-description">Коробка</p>
-                    </div>
-                </div>
-                <aside class="pricing__note">
-                    <p>Точную стоимость рассчитаем после уточнения параметров. Используйте калькулятор или оставьте заявку.</p>
-                </aside>
-                <div class="pricing__cta">
-                    <a href="#calculator" class="btn btn--primary">Уточнить стоимость вашего проекта</a>
                 </div>
             </div>
         </section>

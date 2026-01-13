@@ -312,6 +312,7 @@ textarea {
     gap: 1.5rem;
     gap: var(--spacing-md);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
 }
 .nav__link {
     display: block;
@@ -434,6 +435,7 @@ textarea {
         padding: 0.5rem 0.75rem 0.5rem;
         padding: var(--spacing-xs) 0.75rem var(--spacing-xs);
         gap: 0.5rem;
+        position: relative;
     }
     
     /* Адаптация логотипа для мобильных */
@@ -650,6 +652,12 @@ textarea {
     color: var(--color-white);
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     text-shadow: var(--shadow-text);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.hero__title-line {
+    display: block;
 }
 .hero__subtitle {
     font-size: max(1rem, min(2vw, 1.4rem));
@@ -767,6 +775,188 @@ textarea {
     color: #000000;
     color: var(--color-black);
 }
+/* Контакты в nav-блоке */
+.hero__contacts {
+    position: absolute;
+    top: 1.5rem;
+    top: var(--spacing-md);
+    right: 1rem;
+    right: var(--container-padding);
+    z-index: 11;
+}
+.hero__contacts-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.hero__contacts-main {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    gap: var(--spacing-xs);
+    padding: 0.625rem 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #ffffff;
+    color: var(--color-white);
+    font-size: 0.875rem;
+    font-weight: 500;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    transition: all var(--transition-slow);
+    white-space: nowrap;
+}
+.hero__contacts-main:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: rgba(212, 175, 55, 0.5);
+    color: #d4af37;
+    color: var(--color-gold);
+}
+.hero__contacts-main-icon {
+    width: 1rem;
+    height: 1rem;
+    color: #d4af37;
+    color: var(--color-gold);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero__contacts-main-icon svg {
+    width: 100%;
+    height: 100%;
+}
+.hero__contacts-main-text {
+    white-space: nowrap;
+}
+.hero__contacts-arrow {
+    width: 1rem;
+    height: 1rem;
+    color: #d4af37;
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    margin-left: var(--spacing-xs);
+    transition: transform 0.3s ease;
+    transition: transform var(--transition-slow);
+}
+.hero__contacts-dropdown:hover .hero__contacts-arrow {
+    transform: rotate(180deg);
+}
+.hero__contacts-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    min-width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    transition: all var(--transition-slow);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    z-index: 101;
+}
+.hero__contacts-dropdown:hover .hero__contacts-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.hero__contacts-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    gap: var(--spacing-sm);
+    padding: 0.75rem 1.25rem;
+    color: #ffffff;
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+.hero__contacts-menu-item:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: #d4af37;
+    color: var(--color-gold);
+}
+.hero__contacts-menu-item:first-child {
+    border-top-left-radius: 0.5rem;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: 0.5rem;
+    border-top-right-radius: var(--border-radius);
+}
+.hero__contacts-menu-item:last-child {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-right-radius: var(--border-radius);
+}
+.hero__contacts-menu-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: #d4af37;
+    color: var(--color-gold);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero__contacts-menu-icon svg {
+    width: 100%;
+    height: 100%;
+}
+@media (max-width: 768px) {
+    .hero__contacts {
+        position: static;
+        transform: none;
+        top: auto;
+        right: auto;
+        margin-left: auto;
+        margin-right: 0.5rem;
+    }
+    
+    .hero__contacts-main {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    .hero__contacts-main-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+    }
+    
+    .hero__contacts-main-text {
+        font-size: 0.75rem;
+    }
+    
+    .hero__contacts-arrow {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+    
+    .hero__contacts-menu {
+        right: 0;
+        left: auto;
+    }
+    
+    .hero__contacts-menu-item {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
 /* ============================================ */
 /* BUTTONS */
 /* ============================================ */
@@ -828,49 +1018,6 @@ textarea {
     background-color: var(--color-black);
     color: #ffffff;
     color: var(--color-white);
-}
-/* ============================================ */
-/* TRUST */
-/* ============================================ */
-.trust {
-    padding: 4rem 1rem;
-    padding: var(--spacing-xxl) var(--container-padding);
-    background-color: #f5f5f5;
-    background-color: var(--color-gray-light);
-}
-.trust__container {
-    max-width: 1200px;
-    max-width: var(--container-width);
-    margin: 0 auto;
-}
-.trust__title {
-    text-align: center;
-    margin-bottom: 3rem;
-    margin-bottom: var(--spacing-xl);
-}
-.trust__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 2rem;
-    grid-gap: var(--spacing-lg);
-    gap: 2rem;
-    gap: var(--spacing-lg);
-}
-.trust__item {
-    text-align: center;
-}
-.trust__number {
-    font-size: 2.5rem;
-    font-size: var(--font-size-h1);
-    font-weight: 700;
-    color: #d4af37;
-    color: var(--color-gold);
-    margin-bottom: 0.5rem;
-    margin-bottom: var(--spacing-xs);
-}
-.trust__text {
-    font-size: 1.125rem;
-    font-size: var(--font-size-large);
 }
 /* ============================================ */
 /* ADVANTAGES */
@@ -968,70 +1115,6 @@ textarea {
     color: #333333;
     color: var(--color-gray-dark);
     margin: 0;
-}
-/* ============================================ */
-/* PRICING */
-/* ============================================ */
-.pricing {
-    padding: 4rem 1rem;
-    padding: var(--spacing-xxl) var(--container-padding);
-    background-color: #f5f5f5;
-    background-color: var(--color-gray-light);
-}
-.pricing__container {
-    max-width: 1200px;
-    max-width: var(--container-width);
-    margin: 0 auto;
-}
-.pricing__title {
-    text-align: center;
-    margin-bottom: 1rem;
-    margin-bottom: var(--spacing-sm);
-}
-.pricing__subtitle {
-    text-align: center;
-    margin-bottom: 3rem;
-    margin-bottom: var(--spacing-xl);
-}
-.pricing__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 2rem;
-    grid-gap: var(--spacing-lg);
-    gap: 2rem;
-    gap: var(--spacing-lg);
-    margin-bottom: 2rem;
-    margin-bottom: var(--spacing-lg);
-}
-.pricing__card {
-    background-color: #ffffff;
-    background-color: var(--color-white);
-    padding: 2rem;
-    padding: var(--spacing-lg);
-    text-align: center;
-}
-.pricing__card-title {
-    margin-bottom: 1.5rem;
-    margin-bottom: var(--spacing-md);
-}
-.pricing__card-price {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.5rem;
-    gap: var(--spacing-xs);
-    margin-bottom: 1rem;
-    margin-bottom: var(--spacing-sm);
-}
-.pricing__card-price-value {
-    font-size: 2rem;
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-    color: #d4af37;
-    color: var(--color-gold);
-}
-.pricing__note {
-    text-align: center;
 }
 /* ============================================ */
 /* PROJECTS */
@@ -3602,9 +3685,7 @@ textarea {
 /* ============================================ */
 /* CTA BUTTONS AFTER SECTIONS */
 /* ============================================ */
-.trust__cta,
 .advantages__cta,
-.pricing__cta,
 .works__cta,
 .reviews__cta,
 .about__cta {
