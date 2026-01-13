@@ -660,15 +660,13 @@ textarea {
     display: block;
 }
 .hero__subtitle {
-    font-size: max(1rem, min(2vw, 1.4rem));
-    line-height: 1.5;
+    font-size: max(1.125rem, min(2.3vw, 1.6rem));
+    line-height: 1.6;
     font-weight: 500;
-    margin-bottom: 2rem;
-    color: #ffffff;
-    color: var(--color-white);
-    opacity: 0.95;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-    text-shadow: var(--shadow-text-sm);
+    margin-bottom: 2.5rem;
+    color: var(--color-gold);
+    text-shadow: var(--shadow-text);
+    letter-spacing: 0.03em;
 }
 .hero__badge {
     display: inline-flex;
@@ -711,6 +709,22 @@ textarea {
     border-radius: 0.5rem;
     border-radius: var(--border-radius);
     border: 1px solid rgba(212, 175, 55, 0.3);
+}
+.hero__proof-payment {
+    flex-basis: 100%;
+    text-align: center;
+    max-width: 40rem;
+    margin: var(--spacing-sm) auto 0;
+    padding-top: var(--spacing-sm);
+    font-size: max(0.95rem, min(1.9vw, 1.25rem));
+    line-height: 1.7;
+    font-family: 'Playfair Display', 'Cinzel', serif;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-shadow: var(--shadow-text-sm);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
 }
 .hero__proof-item {
     display: flex;
