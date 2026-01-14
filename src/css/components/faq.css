@@ -29,7 +29,7 @@
 .faq__list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 0.25rem;
 }
 
 .faq__item {
@@ -50,7 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-md);
     background: none;
     border: none;
     text-align: left;
@@ -67,7 +67,7 @@
 
 .faq__question span {
     flex: 1;
-    padding-right: var(--spacing-md);
+    padding-right: var(--spacing-sm);
 }
 
 .faq__icon {
@@ -90,7 +90,7 @@
 
 .faq__item.active .faq__answer {
     max-height: 500px;
-    padding: 0 var(--spacing-lg) var(--spacing-lg);
+    padding: 0 var(--spacing-md) var(--spacing-md);
 }
 
 .faq__answer p {
@@ -102,12 +102,12 @@
 
 @media (max-width: 768px) {
     .faq__question {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm);
         font-size: var(--font-size-small);
     }
 
     .faq__item.active .faq__answer {
-        padding: 0 var(--spacing-md) var(--spacing-md);
+        padding: 0 var(--spacing-sm) var(--spacing-sm);
     }
 
     .faq__answer p {

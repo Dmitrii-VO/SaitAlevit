@@ -3,35 +3,145 @@
         <section class="about" id="about">
             <div class="about__container">
                 <h2 class="about__title">О компании</h2>
-                <p class="about__subtitle">Надёжный партнёр в строительстве вашего дома</p>
                 
-                <div class="about__content">
-                    <div class="about__text">
-                        <p class="about__description">ООО «АЛЕВИТ СТРОЙ» — строительная компания с опытом более 6 лет. Мы строим частные дома под ключ в Белгородской области, гарантируя качество, сроки и фиксированную цену по договору.</p>
-                        <p class="about__description">Наша философия — строить дома, в которых хочется жить. Мы используем только проверенные материалы, соблюдаем технологии и контролируем каждый этап строительства. Каждый проект для нас — это ответственность перед клиентом и репутация компании.</p>
-                        <p class="about__description">Мы работаем прозрачно: фиксированная цена в договоре, гарантия 5 лет на все виды работ, поэтапная оплата. Наша цель — чтобы вы получили дом своей мечты без лишних хлопот и переплат.</p>
+                <div class="about__grid">
+                    <!-- Левая колонка: информация о компании -->
+                    <div class="about__left">
+                        <div class="about__intro">
+                            <div class="about__logo-wrapper">
+                                <div class="about__logo">
+                                    <img src="images/3.png" alt="Логотип компании АЛЕВИТ СТРОЙ" class="about__logo-img" loading="lazy">
+                                </div>
+                                <div class="about__team-info">
+                                    <p class="about__team-names">Алексей Г. И Петр П.</p>
+                                    <h3 class="about__team-title">Руководство компании ООО "Алевит строй"</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="about__text">
+                            <p class="about__description">Для нас важны 3 принципа - это: сроки, цена и качество.</p>
+                            <p class="about__description">Искренне считаем, что они позволили нашей команде за 5 лет работы получить свыше 150 отзывов от довольных клиентов, 50% из которых пришли по рекомендации.</p>
+                            <p class="about__description">Наши специалисты всегда остаются в курсе последних технологий, совершенствуют свои навыки. За счет этого мы можем гарантировать долговечность выполненных нами проектов.</p>
+                            
+                            <ul class="about__advantages">
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Финансовая выгода:</strong> Ипотека. Помощь в оформлении и использовании маткапитала. Эскроу-счета для вашей безопасности. Рассрочка платежа от нашей компании на услуги строительства домов – поэтапная оплата.</span>
+                                </li>
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Официально работаем с государственными сертификатами для переселенцев.</strong> Мы берем на себя все бюрократические процессы и гарантируем прозрачность сделок, чтобы вы без лишних хлопот получили готовый дом под ключ.</span>
+                                </li>
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Рекордные сроки:</strong> От фундамента до новоселья - 2-3 месяца.</span>
+                                </li>
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Прозрачность:</strong> Фиксированная смета без сюрпризов, авторский надзор, контроль качества по чек-листу, персональный прораб и онлайн-наблюдение за строительством дома (по желанию).</span>
+                                </li>
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Управление рисками и гарантии:</strong> Полный пакет документов для регистрации дома и ввода в эксплуатацию. Гарантия 5 лет на дом, 2 года на внутренние работы.</span>
+                                </li>
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Комфортный процесс:</strong> Дом под ключ - от проекта до дизайна. Вам не нужно искать отдельно подрядчиков. В штате свой архитектор и дизайнер. Индивидуальный проект дома - бесплатно при заключении договора.</span>
+                                </li>
+                                <li class="about__advantage-item">
+                                    <span class="about__advantage-icon">✅</span>
+                                    <span class="about__advantage-text"><strong>Тепло и экономия:</strong> Современные материалы и технологии утепления. Экономия на отоплении до 40%.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="about__contacts">
+                            <h3 class="about__contacts-title">Контакты</h3>
+                            <p class="about__contacts-subtitle">Свяжитесь с нами удобным способом</p>
+                            <div class="contacts__content">
+                                <div class="contacts__info" id="contacts-info">
+                                    <!-- Контакты будут загружены динамически из data/contacts.json -->
+                                </div>
+                                <div class="contacts__map">
+                                    <div class="contacts__map-placeholder">
+                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <p class="contacts__map-text">Карта загружается...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Правая колонка: карточки преимуществ -->
+                    <div class="about__right">
+                        <div class="about__cards">
+                            <div class="about__card">
+                                <div class="about__card-icon">
+                                    <img src="images/icons/about-professionalism.png" alt="Профессионализм и опыт" class="about__card-icon-img" loading="lazy">
+                                </div>
+                                <div class="about__card-content">
+                                    <h3 class="about__card-title">Профессионализм и опыт</h3>
+                                    <p class="about__card-text">Наша команда состоит из квалифицированных специалистов с богатым опытом в строительстве, что гарантирует высокое качество выполнения работ. Мы учитываем все нюансы и тонкости, чтобы обеспечить завершение проекта в срок и без лишних затрат.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about__card">
+                                <div class="about__card-icon">
+                                    <img src="images/icons/about-project-designers.png" alt="Проектировщики в штате" class="about__card-icon-img" loading="lazy">
+                                </div>
+                                <div class="about__card-content">
+                                    <h3 class="about__card-title">Проектировщики в штате</h3>
+                                    <p class="about__card-text">Мы понимаем, что каждый клиент уникален, поэтому разрабатываем индивидуальные решения для каждого проекта. Это позволяет создать дом, который будет соответствовать вашим потребностям, стилю жизни и предпочтениям.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about__card">
+                                <div class="about__card-icon">
+                                    <img src="images/icons/about-quality-guarantee.png" alt="Гарантия качества" class="about__card-icon-img" loading="lazy">
+                                </div>
+                                <div class="about__card-content">
+                                    <h3 class="about__card-title">Гарантия качества</h3>
+                                    <p class="about__card-text">Мы уверены в качестве наших услуг и материалов. Мы предоставляем гарантию на выполненные работы и используемые материалы, что обеспечивает долгосрочную эксплуатацию и минимальные затраты на обслуживание.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about__card">
+                                <div class="about__card-icon">
+                                    <img src="images/icons/about-deadlines.png" alt="Соблюдение сроков" class="about__card-icon-img" loading="lazy">
+                                </div>
+                                <div class="about__card-content">
+                                    <h3 class="about__card-title">Соблюдение сроков</h3>
+                                    <p class="about__card-text">Мы ценим время наших клиентов и ориентируемся на выполнение всех этапов строительства в оговоренные сроки. Наша организация процессов и контроль на всех этапах дают возможность избежать задержек.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about__card">
+                                <div class="about__card-icon">
+                                    <img src="images/icons/about-complex-services.png" alt="Комплексные услуги" class="about__card-icon-img" loading="lazy">
+                                </div>
+                                <div class="about__card-content">
+                                    <h3 class="about__card-title">Комплексные услуги</h3>
+                                    <p class="about__card-text">Наша компания предлагает полный спектр услуг — от проектирования и получения разрешений до строительства и последующего обслуживания. Это позволяет клиентам не тратить время на поиск отдельных специалистов и сосредоточиться на своих задачах.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="about__card">
+                                <div class="about__card-icon">
+                                    <img src="images/icons/about-transparency.png" alt="Прозрачность и честность" class="about__card-icon-img" loading="lazy">
+                                </div>
+                                <div class="about__card-content">
+                                    <h3 class="about__card-title">Прозрачность и честность</h3>
+                                    <p class="about__card-text">Мы предоставляем полную информацию о всех этапах строительства, включая смету и возможные изменения в процессе. Такой подход формирует доверие и уверенность у клиентов в том, что они получают именно то, за что платят.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="about__team">
-                    <h3 class="about__team-title">Руководство компании</h3>
-                    <div class="about__team-grid">
-                        <div class="about__team-member">
-                            <div class="about__team-photo">
-                                <img src="images/logo.png" alt="Логотип компании АЛЕВИТ СТРОЙ" class="about__team-img" loading="lazy">
-                            </div>
-                            <h4 class="about__team-name">Руководитель</h4>
-                            <p class="about__team-position">Основатель компании</p>
-                        </div>
-                        <div class="about__team-member">
-                            <div class="about__team-photo">
-                                <img src="images/logo.png" alt="Логотип компании АЛЕВИТ СТРОЙ" class="about__team-img" loading="lazy">
-                            </div>
-                            <h4 class="about__team-name">Руководитель</h4>
-                            <p class="about__team-position">Директор по строительству</p>
-                        </div>
-                    </div>
-                </div>
                 <div class="about__cta">
                     <a href="#cta" class="btn btn--primary">Начать строительство</a>
                 </div>

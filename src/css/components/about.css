@@ -14,129 +14,112 @@
 
 .about__title {
     text-align: center;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xxl);
     font-size: clamp(2rem, 4vw, 3rem);
     color: var(--color-black);
+    font-weight: 700;
 }
 
-.about__subtitle {
-    text-align: center;
-    margin-bottom: var(--spacing-xxl);
-    font-size: var(--font-size-lg);
-    color: var(--color-gray);
-}
-
-.about__content {
+/* Двухколоночная сетка */
+.about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xxl);
     margin-bottom: var(--spacing-xxl);
 }
 
-.about__text {
-    max-width: 800px;
-    margin: 0 auto;
+@media (max-width: 1024px) {
+    .about__grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
 }
 
-.about__description {
-    font-size: var(--font-size-base);
-    color: var(--color-gray);
-    line-height: 1.8;
-    margin-bottom: var(--spacing-lg);
-    text-align: center;
+/* Левая колонка */
+.about__left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxl);
 }
 
-.about__description:last-child {
+.about__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.about__logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
     margin-bottom: 0;
 }
 
-.about__stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xxl);
-    padding: var(--spacing-xxl) 0;
-    border-top: 1px solid var(--color-gray-light);
-    border-bottom: 1px solid var(--color-gray-light);
-}
-
-.about__stats-item {
-    text-align: center;
-    padding: var(--spacing-lg);
-}
-
-.about__stats-number {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    color: var(--color-gold);
-    margin-bottom: var(--spacing-xs);
-    line-height: 1;
-}
-
-.about__stats-label {
-    font-size: var(--font-size-base);
-    color: var(--color-gray);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing);
-    font-weight: 500;
-}
-
-.about__team {
-    margin-top: var(--spacing-xxl);
-}
-
-.about__team-title {
-    text-align: center;
-    font-size: var(--font-size-h2);
-    color: var(--color-black);
-    margin-bottom: var(--spacing-xl);
-    font-weight: 600;
-}
-
-.about__team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-xl);
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.about__team-member {
-    text-align: center;
-    padding: var(--spacing-lg);
-    background-color: var(--color-gray-light);
-    border-radius: var(--border-radius);
-    transition: all var(--transition-slow);
-}
-
-.about__team-member:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.about__team-photo {
-    width: var(--size-team-photo);
-    height: var(--size-team-photo);
-    margin: 0 auto var(--spacing-md);
-    border-radius: 50%;
-    overflow: hidden;
-    border: var(--border-width-thick) solid var(--color-gold);
-    background-color: var(--color-gray-light);
+.about__logo {
+    width: 240px;
+    height: 240px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
 }
 
-.about__team-img {
+.about__logo-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-slow);
+    object-fit: contain;
 }
 
-.about__team-member:hover .about__team-img {
-    transform: scale(1.05);
+.about__team-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.about__team {
+    margin-top: 0;
+}
+
+.about__team-title {
+    font-size: calc(var(--font-size-base) * 0.9);
+    color: var(--color-black);
+    margin-bottom: 0;
+    font-weight: 300;
+    text-align: left;
+}
+
+.about__team-names {
+    font-size: var(--font-size-h3);
+    color: var(--color-gray-dark);
+    margin: 0;
+    text-align: left;
+    font-weight: 600;
+}
+
+.about__team-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.about__team-member {
+    text-align: left;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    transition: none;
+}
+
+.about__team-member:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 .about__team-name {
-    font-size: var(--font-size-h3);
+    font-size: var(--font-size-lg);
     color: var(--color-black);
     margin-bottom: var(--spacing-xs);
     font-weight: 600;
@@ -144,8 +127,166 @@
 
 .about__team-position {
     font-size: var(--font-size-base);
+    color: var(--color-gray);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.about__text {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-top: calc(var(--spacing-lg) * -1);
+}
+
+.about__description {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-dark);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    text-align: left;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+}
+
+.about__description:last-of-type {
+    margin-bottom: var(--spacing-md);
+}
+
+.about__advantages {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-md) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.about__advantage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) 0;
+}
+
+.about__advantage-icon {
+    flex-shrink: 0;
+    font-size: 1.2em;
+    line-height: 1.5;
+    margin-top: 0.1em;
+}
+
+.about__advantage-text {
+    flex: 1;
+    font-size: var(--font-size-base);
+    color: var(--color-gray-dark);
+    line-height: 1.6;
+}
+
+.about__advantage-text strong {
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.about__contacts {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-gray-light);
+}
+
+.about__contacts-title {
+    text-align: left;
+    font-size: var(--font-size-h3);
+    color: var(--color-black);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.about__contacts-subtitle {
+    text-align: left;
+    font-size: var(--font-size-base);
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Правая колонка */
+.about__right {
+    display: flex;
+    flex-direction: column;
+}
+
+.about__cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.about__card {
+    padding: var(--spacing-md);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-light);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-slow);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+.about__card:hover {
+    border-color: var(--color-gold);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.about__card-icon {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--color-gold);
-    font-weight: 500;
+}
+
+.about__card-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.about__card-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.about__card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.about__card-title {
+    font-size: var(--font-size-base);
+    color: var(--color-black);
+    margin-bottom: var(--spacing-xs);
+    margin-top: 0;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing);
+}
+
+.about__card-text {
+    font-size: calc(var(--font-size-base) * 0.9);
+    color: var(--color-gray-dark);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CTA */
+.about__cta {
+    text-align: center;
+    margin-top: var(--spacing-xxl);
+    padding-top: var(--spacing-xxl);
+    border-top: 1px solid var(--color-gray-light);
 }
