@@ -4,21 +4,9 @@
             <div class="works__container">
                 <h2 class="works__title">Наши работы</h2>
                 <p class="works__subtitle">Реальные дома, построенные нашей компанией. Каждый проект — это результат нашей работы и доверие наших клиентов.</p>
-                <div class="works__carousel">
-                    <button class="works__arrow works__arrow--prev" aria-label="Предыдущий слайд">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <div class="works__track" id="works-track">
-                        <!-- Работы будут загружены динамически из data/works.json -->
-                    </div>
-                    <button class="works__arrow works__arrow--next" aria-label="Следующий слайд">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <div class="works__indicators" id="works-indicators" role="tablist" aria-label="Навигация по работам"></div>
+                <!-- Сетка работ -->
+                <div class="works__grid" id="works-grid">
+                    <!-- Работы будут загружены динамически из data/works.json -->
                 </div>
                 <div class="works__cta">
                     <a href="#cta" class="btn btn--primary">Построить такой же дом</a>

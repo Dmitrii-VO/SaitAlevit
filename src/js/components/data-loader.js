@@ -7,7 +7,7 @@ import { fetchJSON } from '../utils/fetch.js';
 import { getWorkStatusBadge } from '../utils/format.js';
 import { createContactItem, createSocialLinks, createProjectCard, createVideoReviewCard, createTextReviewItem, createWorkCard, createHeroContactItem, createHeroContactsDropdown } from './ui-components.js';
 import { updateFloatingButtons, updateSchemaOrg } from './contacts.js';
-import { initProjectsGalleryButtons, initWorksCarousel, initWorksGalleryButtons, resetWorksCarousel } from './carousels.js';
+import { initProjectsGalleryButtons, initWorksGalleryButtons } from './carousels.js';
 
 /**
  * Фильтрует опубликованные элементы из массива
@@ -279,34 +279,30 @@ export async function loadWorks() {
         if (!data) return;
         
         const works = data.works || [];
-        const track = document.getElementById('works-track');
-        if (!track) {
-            console.error('Элемент #works-track не найден');
+        const grid = document.getElementById('works-grid');
+        if (!grid) {
+            console.error('Элемент #works-grid не найден');
             return;
         }
         
-        track.innerHTML = '';
-        resetWorksCarousel();
+        grid.innerHTML = '';
         
         const publishedWorks = filterPublished(works);
         
         if (publishedWorks.length === 0) {
-            track.innerHTML = '<div class="works__empty"><p>Работы появятся здесь скоро</p></div>';
+            grid.innerHTML = '<div class="works__empty"><p>Работы появятся здесь скоро</p></div>';
             return;
         }
         
         publishedWorks.forEach(work => {
             const card = createWorkCard(work, getWorkStatusBadge);
             if (card) {
-                track.appendChild(card);
+                grid.appendChild(card);
             }
         });
         
         if (publishedWorks.length > 0) {
-            setTimeout(() => {
-                initWorksCarousel();
-                initWorksGalleryButtons();
-            }, 100);
+            initWorksGalleryButtons();
         }
     } catch (error) {
         console.error('Ошибка загрузки работ:', error);
