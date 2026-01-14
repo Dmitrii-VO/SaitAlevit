@@ -3,11 +3,45 @@
 /* ============================================ */
 
 .about {
+    position: relative;
     padding: var(--spacing-xxl) var(--container-padding);
-    background-color: var(--color-white);
+    overflow: hidden;
+}
+
+.about__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.about__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.about__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(245, 245, 245, 0.92) 50%,
+        rgba(255, 255, 255, 0.95) 100%
+    );
+    z-index: 2;
 }
 
 .about__container {
+    position: relative;
+    z-index: 3;
     max-width: var(--container-width);
     margin: 0 auto;
 }
