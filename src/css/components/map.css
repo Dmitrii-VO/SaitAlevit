@@ -5,11 +5,13 @@
 .map {
     padding: var(--spacing-xxl) var(--container-padding);
     background-color: var(--color-gray-light);
+    width: 100%;
 }
 
 .map__container {
-    max-width: var(--container-width);
+    max-width: 100%;
     margin: 0 auto;
+    width: 100%;
 }
 
 .map__title {
@@ -36,10 +38,16 @@
     gap: var(--spacing-xs);
 }
 
+.map__legend-text {
+    font-size: var(--font-size-small);
+    color: var(--color-gray-dark);
+}
+
 .map__legend-color {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .map__legend-color--green {
@@ -54,14 +62,32 @@
     background-color: var(--color-red);
 }
 
+/* Узкая и длинная карта на всю ширину */
 .map__content {
-    min-height: 400px;
+    width: 100%;
+    min-height: 500px;
+    height: 500px;
     background-color: var(--color-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
-.map__placeholder {
-    color: var(--color-gray);
+/* Адаптивность */
+@media (max-width: 768px) {
+    .map {
+        padding: var(--spacing-xl) var(--container-padding);
+    }
+    
+    .map__content {
+        min-height: 400px;
+        height: 400px;
+    }
+    
+    .map__legend {
+        gap: var(--spacing-md);
+    }
+    
+    .map__legend-item {
+        font-size: var(--font-size-small);
+    }
 }

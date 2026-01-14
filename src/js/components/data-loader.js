@@ -203,6 +203,48 @@ export async function loadContacts() {
             updateProcessConsultationPhone();
         }
         
+        // Загрузка контактов в блок "О компании"
+        const aboutContainer = document.getElementById('about-contacts-info');
+        if (aboutContainer) {
+            aboutContainer.innerHTML = '';
+            
+            if (contacts.phone) {
+                const phoneItem = createContactItem(
+                    'phone',
+                    'Телефон',
+                    contacts.phone,
+                    `tel:${contacts.phone.replace(/\D/g, '')}`
+                );
+                aboutContainer.appendChild(phoneItem);
+            }
+            
+            if (contacts.email) {
+                const emailItem = createContactItem(
+                    'email',
+                    'Email',
+                    contacts.email,
+                    `mailto:${contacts.email}`
+                );
+                aboutContainer.appendChild(emailItem);
+            }
+            
+            if (contacts.address) {
+                const addressItem = createContactItem(
+                    'address',
+                    'Адрес',
+                    contacts.address,
+                    null,
+                    true
+                );
+                aboutContainer.appendChild(addressItem);
+            }
+            
+            const socialContainer = createSocialLinks(contacts.whatsapp, contacts.telegram);
+            if (socialContainer) {
+                aboutContainer.appendChild(socialContainer);
+            }
+        }
+        
         // Загрузка контактов в hero-блок (выпадающее меню)
         const heroContainer = document.getElementById('hero-contacts');
         if (!heroContainer) {

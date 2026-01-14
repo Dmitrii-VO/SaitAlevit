@@ -10,6 +10,7 @@ import { initCTAForm, initCalculator, initContactForm } from './components/forms
 import { initSmoothScroll, initFloatingButtons, initScrollAnimation, initMobileMenu, initFAQ } from './components/ui.js';
 import { initGalleryModal } from './components/gallery.js';
 import { initPrivacyModal } from './components/privacy-modal.js';
+import { initMap } from './components/map.js';
 
 /**
  * Инициализация приложения при загрузке DOM
@@ -60,4 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация калькулятора
     initCalculator();
+    
+    // Инициализация карты объектов
+    initMap();
 });

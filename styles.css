@@ -1721,11 +1721,12 @@ textarea {
     padding: var(--spacing-xxl) var(--container-padding);
     background-color: #f5f5f5;
     background-color: var(--color-gray-light);
+    width: 100%;
 }
 .map__container {
-    max-width: 1200px;
-    max-width: var(--container-width);
+    max-width: 100%;
     margin: 0 auto;
+    width: 100%;
 }
 .map__title {
     text-align: center;
@@ -1752,10 +1753,17 @@ textarea {
     gap: 0.5rem;
     gap: var(--spacing-xs);
 }
+.map__legend-text {
+    font-size: 0.875rem;
+    font-size: var(--font-size-small);
+    color: #333333;
+    color: var(--color-gray-dark);
+}
 .map__legend-color {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 .map__legend-color--green {
     background-color: #28a745;
@@ -1769,17 +1777,38 @@ textarea {
     background-color: #dc3545;
     background-color: var(--color-red);
 }
+/* Узкая и длинная карта на всю ширину */
 .map__content {
-    min-height: 400px;
+    width: 100%;
+    min-height: 500px;
+    height: 500px;
     background-color: #ffffff;
     background-color: var(--color-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
-.map__placeholder {
-    color: #808080;
-    color: var(--color-gray);
+/* Адаптивность */
+@media (max-width: 768px) {
+    .map {
+        padding: 3rem 1rem;
+        padding: var(--spacing-xl) var(--container-padding);
+    }
+    
+    .map__content {
+        min-height: 400px;
+        height: 400px;
+    }
+    
+    .map__legend {
+        gap: 1.5rem;
+        gap: var(--spacing-md);
+    }
+    
+    .map__legend-item {
+        font-size: 0.875rem;
+        font-size: var(--font-size-small);
+    }
 }
 /* ============================================ */
 /* SERVICES */
@@ -2351,6 +2380,13 @@ textarea {
     color: var(--color-gray);
     margin-bottom: 2rem;
     margin-bottom: var(--spacing-lg);
+}
+/* Контакты внутри блока about */
+.about__contacts .contacts__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    gap: var(--spacing-lg);
 }
 /* Правая колонка */
 .about__right {

@@ -104,6 +104,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Playfair+Display:wght@700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Яндекс Карты API -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" defer></script>
 </head>
 <body>
     <!-- HEADER - Навигация -->
@@ -577,19 +580,8 @@
                         <div class="about__contacts">
                             <h3 class="about__contacts-title">Контакты</h3>
                             <p class="about__contacts-subtitle">Свяжитесь с нами удобным способом</p>
-                            <div class="contacts__content">
-                                <div class="contacts__info" id="contacts-info">
-                                    <!-- Контакты будут загружены динамически из data/contacts.json -->
-                                </div>
-                                <div class="contacts__map">
-                                    <div class="contacts__map-placeholder">
-                                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <p class="contacts__map-text">Карта загружается...</p>
-                                    </div>
-                                </div>
+                            <div class="contacts__info" id="about-contacts-info">
+                                <!-- Контакты будут загружены динамически из data/contacts.json -->
                             </div>
                         </div>
                     </div>
@@ -852,6 +844,33 @@
                     </button>
                     <p class="cta__form-note">Нажимая кнопку, вы даёте согласие на обработку персональных данных</p>
                 </form>
+            </div>
+        </section>
+        <!-- MAP - Карта объектов -->
+        <!-- ============================================ -->
+        <section class="map" id="map">
+            <div class="map__container">
+                <h2 class="map__title">Карта объектов</h2>
+                <p class="map__subtitle">Наши построенные и строящиеся дома на карте Белгорода и области</p>
+                
+                <!-- Легенда -->
+                <div class="map__legend">
+                    <div class="map__legend-item">
+                        <span class="map__legend-color map__legend-color--green"></span>
+                        <span class="map__legend-text">Построенные, сданы в эксплуатацию</span>
+                    </div>
+                    <div class="map__legend-item">
+                        <span class="map__legend-color map__legend-color--orange"></span>
+                        <span class="map__legend-text">Строящиеся дома</span>
+                    </div>
+                    <div class="map__legend-item">
+                        <span class="map__legend-color map__legend-color--red"></span>
+                        <span class="map__legend-text">Этап строительства, можно заказать</span>
+                    </div>
+                </div>
+                
+                <!-- Контейнер для Яндекс Карт -->
+                <div class="map__content" id="yandex-map"></div>
             </div>
         </section>
     </main>

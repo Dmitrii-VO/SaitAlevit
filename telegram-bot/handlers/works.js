@@ -199,10 +199,45 @@ async function handleMessage(bot, msg, userStates) {
         } else {
           state.data.address = msg.text.trim();
         }
+        state.step = 'coordinates';
+        await bot.sendMessage(
+          chatId,
+          `7️⃣ 📍 Введите координаты для карты (широта,долгота) или /skip для пропуска:\n\n` +
+          `Пример: 50.5957,36.5872\n` +
+          `Или отправьте /skip, если координаты неизвестны`,
+          { parse_mode: 'HTML' }
+        );
+        break;
+        
+      case 'coordinates':
+        const coordsText = msg.text.trim().toLowerCase();
+        if (coordsText === '/skip' || coordsText === 'skip') {
+          state.data.coordinates = null;
+        } else {
+          // Парсим координаты в формате "lat,lng" или "lat, lng"
+          const coordsMatch = msg.text.trim().match(/^(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)$/);
+          if (coordsMatch) {
+            const lat = parseFloat(coordsMatch[1]);
+            const lng = parseFloat(coordsMatch[2]);
+            if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+              state.data.coordinates = { lat, lng };
+            } else {
+              return bot.sendMessage(
+                chatId,
+                '❌ Некорректные координаты. Широта должна быть от -90 до 90, долгота от -180 до 180.\nПопробуйте ещё раз или /skip:'
+              );
+            }
+          } else {
+            return bot.sendMessage(
+              chatId,
+              '❌ Неверный формат координат. Используйте формат: широта,долгота (например: 50.5957,36.5872)\nПопробуйте ещё раз или /skip:'
+            );
+          }
+        }
         state.step = 'main_image';
         await bot.sendMessage(
           chatId,
-          `7️⃣ 📸 Отправьте главное фото работы:`,
+          `8️⃣ 📸 Отправьте главное фото работы:`,
           { parse_mode: 'HTML' }
         );
         break;
@@ -252,7 +287,7 @@ async function handleMessage(bot, msg, userStates) {
           state.selectedWork = selectedWork;
           await bot.sendMessage(
             chatId,
-            `Выбрана работа: <b>${selectedWork.title}</b>\n\nЧто хотите изменить?\nВведите название поля (название, площадь, формат, статус работы, описание, адрес, главное фото, галерея, статус публикации) или /cancel:`,
+            `Выбрана работа: <b>${selectedWork.title}</b>\n\nЧто хотите изменить?\nВведите название поля (название, площадь, формат, статус работы, описание, адрес, координаты, главное фото, галерея, статус публикации) или /cancel:`,
             { parse_mode: 'HTML' }
           );
         }
@@ -310,6 +345,17 @@ async function handleMessage(bot, msg, userStates) {
             `Текущий адрес: <b>${work.address || 'отсутствует'}</b>\n\nВведите новый адрес (или /skip для очистки):`,
             { parse_mode: 'HTML' }
           );
+        } else if (field === 'координаты' || field === 'coordinates' || field === 'координат') {
+          state.step = 'edit_value';
+          state.editField = 'coordinates';
+          const currentCoords = work.coordinates 
+            ? `${work.coordinates.lat},${work.coordinates.lng}` 
+            : 'отсутствуют';
+          await bot.sendMessage(
+            chatId,
+            `Текущие координаты: <b>${currentCoords}</b>\n\nВведите новые координаты (широта,долгота) или /skip для очистки:\nПример: 50.5957,36.5872`,
+            { parse_mode: 'HTML' }
+          );
         } else if (field === 'статус публикации' || field === 'статус' || field === 'status') {
           state.step = 'edit_value';
           state.editField = 'status';
@@ -341,7 +387,7 @@ async function handleMessage(bot, msg, userStates) {
           await bot.sendMessage(
             chatId,
             '❌ Неверное поле. Доступные поля:\n' +
-            'название, площадь, формат, статус работы, описание, адрес, главное фото, галерея, статус публикации\n\n' +
+            'название, площадь, формат, статус работы, описание, адрес, координаты, главное фото, галерея, статус публикации\n\n' +
             'Попробуйте ещё раз или /cancel:'
           );
         }
@@ -370,6 +416,30 @@ async function handleMessage(bot, msg, userStates) {
           }
         } else if ((editField === 'description' || editField === 'address') && (newValue.toLowerCase() === '/skip' || newValue.toLowerCase() === 'skip')) {
           newValue = '';
+        } else if (editField === 'coordinates') {
+          if (newValue.toLowerCase() === '/skip' || newValue.toLowerCase() === 'skip') {
+            newValue = null;
+          } else {
+            // Парсим координаты в формате "lat,lng" или "lat, lng"
+            const coordsMatch = newValue.match(/^(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)$/);
+            if (coordsMatch) {
+              const lat = parseFloat(coordsMatch[1]);
+              const lng = parseFloat(coordsMatch[2]);
+              if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+                newValue = { lat, lng };
+              } else {
+                return bot.sendMessage(
+                  chatId,
+                  '❌ Некорректные координаты. Широта должна быть от -90 до 90, долгота от -180 до 180.\nПопробуйте ещё раз или /skip:'
+                );
+              }
+            } else {
+              return bot.sendMessage(
+                chatId,
+                '❌ Неверный формат координат. Используйте формат: широта,долгота (например: 50.5957,36.5872)\nПопробуйте ещё раз или /skip:'
+              );
+            }
+          }
         }
 
         // Обновляем работу
@@ -557,6 +627,7 @@ async function saveWork(chatId, workData, bot) {
       workStatus: workData.workStatus,
       description: workData.description || '',
       address: workData.address || '',
+      coordinates: workData.coordinates || null,
       mainImage: workData.mainImage || '',
       gallery: workData.gallery || [],
       status: workData.status || 'published',
@@ -631,6 +702,7 @@ async function updateWorkField(chatId, workId, field, value, bot) {
       workStatus: 'Статус работы',
       description: 'Описание',
       address: 'Адрес',
+      coordinates: 'Координаты',
       status: 'Статус публикации',
       mainImage: 'Главное фото',
       gallery: 'Галерея'
@@ -644,6 +716,12 @@ async function updateWorkField(chatId, workId, field, value, bot) {
       message += `Новое главное фото загружено`;
     } else if (field === 'gallery') {
       message += `Галерея содержит ${value.length} фото`;
+    } else if (field === 'coordinates') {
+      if (value === null) {
+        message += `Координаты очищены`;
+      } else {
+        message += `Новые координаты: ${value.lat}, ${value.lng}`;
+      }
     } else {
       message += `Новое значение: ${value}`;
     }
