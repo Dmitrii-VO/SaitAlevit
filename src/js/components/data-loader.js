@@ -7,7 +7,7 @@ import { fetchJSON } from '../utils/fetch.js';
 import { getWorkStatusBadge } from '../utils/format.js';
 import { createContactItem, createSocialLinks, createProjectCard, createVideoReviewCard, createTextReviewItem, createWorkCard, createHeroContactItem, createHeroContactsDropdown } from './ui-components.js';
 import { updateFloatingButtons, updateSchemaOrg } from './contacts.js';
-import { initProjectsCarousel, initProjectsGalleryButtons, initWorksCarousel, initWorksGalleryButtons, resetWorksCarousel } from './carousels.js';
+import { initProjectsGalleryButtons, initWorksCarousel, initWorksGalleryButtons, resetWorksCarousel } from './carousels.js';
 
 /**
  * Фильтрует опубликованные элементы из массива
@@ -22,6 +22,106 @@ function filterPublished(items) {
 }
 
 /**
+ * Определяет категорию проекта по количеству этажей
+ * @param {Object} project - Объект проекта
+ * @returns {string} Категория проекта ('1' или '2')
+ */
+function getProjectCategory(project) {
+    const floors = (project.floors || '').toString().toLowerCase();
+    if (floors.includes('2') || floors.includes('два') || floors.includes('двух')) {
+        return '2';
+    }
+    return '1'; // По умолчанию 1 этаж
+}
+
+/**
+ * Сохраняет все опубликованные проекты
+ */
+let allProjects = [];
+
+/**
+ * Отображает проекты выбранной категории
+ * @param {string} category - Категория ('1' или '2')
+ */
+function renderProjectsByCategory(category) {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) {
+        console.error('Элемент #projects-grid не найден');
+        return;
+    }
+    
+    // Фильтруем проекты по категории
+    const filteredProjects = allProjects.filter(project => {
+        return getProjectCategory(project) === category;
+    });
+    
+    // Добавляем класс для анимации исчезновения
+    grid.classList.add('projects__grid--fade-out');
+    
+    // После завершения анимации обновляем контент
+    setTimeout(() => {
+        grid.innerHTML = '';
+        
+        if (filteredProjects.length === 0) {
+            grid.innerHTML = '<div class="projects__empty"><p>В этой категории пока нет проектов</p></div>';
+        } else {
+            filteredProjects.forEach(project => {
+                const card = createProjectCard(project);
+                if (card) {
+                    grid.appendChild(card);
+                }
+            });
+            
+            // Инициализируем кнопки галереи после добавления карточек
+            initProjectsGalleryButtons();
+        }
+        
+        // Убираем класс анимации для появления
+        grid.classList.remove('projects__grid--fade-out');
+    }, 200);
+}
+
+/**
+ * Инициализирует переключатели категорий проектов
+ */
+function initProjectsTabs() {
+    const tabs = document.querySelectorAll('.projects__tab');
+    const grid = document.getElementById('projects-grid');
+    
+    if (!tabs.length || !grid) return;
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Обновляем активный таб
+            tabs.forEach(t => {
+                t.classList.remove('projects__tab--active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            
+            this.classList.add('projects__tab--active');
+            this.setAttribute('aria-selected', 'true');
+            
+            // Обновляем aria-labelledby у grid
+            grid.setAttribute('aria-labelledby', this.id);
+            
+            // Отображаем проекты выбранной категории
+            renderProjectsByCategory(category);
+        });
+    });
+    
+    // По умолчанию показываем категорию "1 этаж"
+    const defaultTab = document.querySelector('.projects__tab[data-category="1"]');
+    if (defaultTab) {
+        defaultTab.classList.add('projects__tab--active');
+        defaultTab.setAttribute('aria-selected', 'true');
+        grid.setAttribute('aria-labelledby', defaultTab.id);
+        renderProjectsByCategory('1');
+    }
+}
+
+/**
  * Загружает проекты из JSON файла
  * @returns {Promise<void>}
  */
@@ -31,30 +131,17 @@ export async function loadProjects() {
         if (!data) return;
         
         const projects = data.projects || [];
-        const track = document.getElementById('projects-track');
-        if (!track) {
-            console.error('Элемент #projects-track не найден');
+        const grid = document.getElementById('projects-grid');
+        if (!grid) {
+            console.error('Элемент #projects-grid не найден');
             return;
         }
         
-        track.innerHTML = '';
+        // Сохраняем все опубликованные проекты
+        allProjects = filterPublished(projects);
         
-        const publishedProjects = filterPublished(projects);
-        
-        if (publishedProjects.length === 0) {
-            track.innerHTML = '<div class="projects__empty"><p>Проекты появятся здесь скоро</p></div>';
-            return;
-        }
-        
-        publishedProjects.forEach(project => {
-            const card = createProjectCard(project);
-            if (card) {
-                track.appendChild(card);
-            }
-        });
-        
-        initProjectsCarousel();
-        initProjectsGalleryButtons();
+        // Инициализируем табы и показываем проекты по умолчанию
+        initProjectsTabs();
     } catch (error) {
         console.error('Ошибка загрузки проектов:', error);
     }

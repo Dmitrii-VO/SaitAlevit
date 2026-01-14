@@ -4,21 +4,30 @@
             <div class="projects__container">
                 <h2 class="projects__title">Типовые проекты домов</h2>
                 <p class="projects__subtitle">Выберите готовый проект или закажите индивидуальное проектирование</p>
-                <div class="projects__carousel">
-                    <button class="projects__arrow projects__arrow--prev" aria-label="Предыдущий слайд">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                
+                <!-- Переключатели категорий -->
+                <div class="projects__tabs" role="tablist" aria-label="Выбор категории проектов">
+                    <button class="projects__tab projects__tab--active" 
+                            data-category="1" 
+                            role="tab" 
+                            aria-selected="true"
+                            aria-controls="projects-grid"
+                            id="projects-tab-1">
+                        1 этаж
                     </button>
-                    <div class="projects__track" id="projects-track">
-                        <!-- Проекты будут загружены динамически из data/projects.json -->
-                    </div>
-                    <button class="projects__arrow projects__arrow--next" aria-label="Следующий слайд">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <button class="projects__tab" 
+                            data-category="2" 
+                            role="tab" 
+                            aria-selected="false"
+                            aria-controls="projects-grid"
+                            id="projects-tab-2">
+                        2 этажа
                     </button>
-                    <div class="projects__indicators" id="projects-indicators" role="tablist" aria-label="Навигация по проектам"></div>
+                </div>
+                
+                <!-- Сетка проектов -->
+                <div class="projects__grid" id="projects-grid" role="tabpanel" aria-labelledby="projects-tab-1">
+                    <!-- Проекты будут загружены динамически из data/projects.json -->
                 </div>
             </div>
         </section>
