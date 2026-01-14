@@ -6,7 +6,7 @@
 import { fetchJSON } from '../utils/fetch.js';
 import { getWorkStatusBadge } from '../utils/format.js';
 import { createContactItem, createSocialLinks, createProjectCard, createVideoReviewCard, createTextReviewItem, createWorkCard, createHeroContactItem, createHeroContactsDropdown } from './ui-components.js';
-import { updateFloatingButtons, updateSchemaOrg } from './contacts.js';
+import { updateFloatingButtons, updateSchemaOrg, updateProcessConsultationPhone } from './contacts.js';
 import { initProjectsGalleryButtons, initWorksGalleryButtons } from './carousels.js';
 
 /**
@@ -198,6 +198,9 @@ export async function loadContacts() {
             if (socialContainer) {
                 container.appendChild(socialContainer);
             }
+            
+            // Обновляем телефон в шаге "Консультация" из DOM
+            updateProcessConsultationPhone();
         }
         
         // Загрузка контактов в hero-блок (выпадающее меню)

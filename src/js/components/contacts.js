@@ -42,6 +42,32 @@ export function updateFloatingButtons(contacts) {
  * @param {string} contacts.address - Адрес
  * @returns {void}
  */
+/**
+ * Обновляет телефон в шаге "Консультация" блока "Этапы строительства"
+ * Получает телефон из блока контактов (#contacts-info)
+ * @returns {void}
+ */
+export function updateProcessConsultationPhone() {
+    // Получаем телефон из первого элемента контактов (обычно это телефон)
+    const contactsInfo = document.getElementById('contacts-info');
+    if (!contactsInfo) return;
+    
+    const firstContactItem = contactsInfo.querySelector('.contacts__item');
+    if (!firstContactItem) return;
+    
+    const phoneLink = firstContactItem.querySelector('.contacts__item-link');
+    if (!phoneLink) return;
+    
+    const phoneText = phoneLink.textContent.trim();
+    if (!phoneText) return;
+    
+    // Обновляем телефон в шаге "Консультация"
+    const processPhoneElement = document.getElementById('process-consultation-phone');
+    if (processPhoneElement) {
+        processPhoneElement.textContent = phoneText;
+    }
+}
+
 export function updateSchemaOrg(contacts) {
     if (!contacts) return;
     
