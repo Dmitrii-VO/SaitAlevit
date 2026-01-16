@@ -276,6 +276,7 @@ export function createProjectCard(project) {
         </div>
         <div class="projects__card-content">
             <h3 class="projects__card-title">${escapeHtml(project.title)}</h3>
+            <p class="projects__card-description">${escapeHtml(description)}</p>
             <ul class="projects__card-specs">
                 <li class="projects__card-spec">
                     <span class="projects__card-spec-label">Этажность:</span>
@@ -290,7 +291,7 @@ export function createProjectCard(project) {
                     <span class="projects__card-spec-value"><strong>${formattedPrice}</strong> ₽</span>
                 </li>
             </ul>
-            <button class="btn btn--primary projects__gallery-btn" 
+            <button class="btn btn--gold projects__gallery-btn" 
                     data-project-id="${escapeHtml(project.id)}" 
                     data-project-title="${escapeHtml(project.title)}"
                     data-images='${images}'>

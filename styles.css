@@ -1160,6 +1160,21 @@ textarea {
     color: #ffffff;
     color: var(--color-white);
 }
+.btn--gold {
+    background-color: #d4af37;
+    background-color: var(--color-gold);
+    color: #000000;
+    color: var(--color-black);
+    border-color: #d4af37;
+    border-color: var(--color-gold);
+}
+.btn--gold:hover {
+    background-color: #b8860b;
+    background-color: var(--color-gold-dark);
+    border-color: #b8860b;
+    border-color: var(--color-gold-dark);
+    transform: translateY(-2px);
+}
 /* ============================================ */
 /* ADVANTAGES */
 /* ============================================ */
@@ -1327,6 +1342,32 @@ textarea {
     );
     z-index: 2;
 }
+/* Паттерн/текстура на фоне */
+.projects__overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(212, 175, 55, 0.03) 2px,
+            rgba(212, 175, 55, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(212, 175, 55, 0.03) 2px,
+            rgba(212, 175, 55, 0.03) 4px
+        );
+    opacity: 0.5;
+    pointer-events: none;
+}
 .projects__container {
     position: relative;
     z-index: 3;
@@ -1488,13 +1529,28 @@ textarea {
     font-size: 1.25rem;
     font-size: var(--font-size-h4);
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-sm);
     color: #000000;
     color: var(--color-black);
     text-transform: uppercase;
     letter-spacing: 0.03125rem;
     letter-spacing: var(--letter-spacing);
+}
+.projects__card-description {
+    font-size: 1rem;
+    font-size: var(--font-size-base);
+    color: #808080;
+    color: var(--color-gray);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3rem; /* Высота для 2 строк */
 }
 .projects__card-specs {
     list-style: none;
@@ -1536,6 +1592,14 @@ textarea {
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
     border-width: 2px;
+}
+/* Кнопка "Смотреть все фото" - жёлтая, на всю ширину */
+.projects__gallery-btn {
+    width: 100%;
+    font-weight: 600;
+}
+.projects__gallery-btn:hover {
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 /* Пустое состояние */
 .projects__empty {

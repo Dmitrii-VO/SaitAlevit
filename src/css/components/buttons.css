@@ -50,3 +50,15 @@
     background-color: var(--color-black);
     color: var(--color-white);
 }
+
+.btn--gold {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+    border-color: var(--color-gold);
+}
+
+.btn--gold:hover {
+    background-color: var(--color-gold-dark);
+    border-color: var(--color-gold-dark);
+    transform: translateY(-2px);
+}
