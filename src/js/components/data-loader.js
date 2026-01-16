@@ -245,19 +245,6 @@ export async function loadContacts() {
             }
         }
         
-        // Загрузка контактов в hero-блок (выпадающее меню)
-        const heroContainer = document.getElementById('hero-contacts');
-        if (!heroContainer) {
-            console.error('Элемент #hero-contacts не найден');
-        } else {
-            heroContainer.innerHTML = '';
-            
-            if (contacts.phone) {
-                const contactsDropdown = createHeroContactsDropdown(contacts);
-                heroContainer.appendChild(contactsDropdown);
-            }
-        }
-        
         updateFloatingButtons(contacts);
         updateSchemaOrg(contacts);
     } catch (error) {

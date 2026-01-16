@@ -488,18 +488,19 @@ textarea {
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.95);
         flex-direction: column;
-        padding: 3rem;
-        padding: var(--spacing-xl);
-        padding-top: 6rem;
+        padding: 0 3rem;
+        padding: 0 var(--spacing-xl);
+        padding-top: 0.5rem;
+        padding-bottom: 2rem;
+        padding-bottom: var(--spacing-lg);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         box-shadow: var(--shadow-lg);
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         transition: transform var(--transition-slow);
         z-index: 999;
-        gap: 1.5rem;
-        gap: var(--spacing-md);
-        align-items: flex-start;
+        gap: 0;
+        align-items: stretch;
         justify-content: flex-start;
         overflow-y: auto;
     }
@@ -515,12 +516,13 @@ textarea {
     .nav__link {
         display: block;
         width: 100%;
-        padding: 1.5rem;
-        padding: var(--spacing-md);
+        padding: 1rem 1.5rem;
+        padding: 1rem var(--spacing-md);
         color: #ffffff;
         color: var(--color-white);
         font-size: 1.1rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        line-height: 1.4;
     }
     
     .nav__link:hover {
@@ -528,8 +530,7 @@ textarea {
         color: var(--color-gold);
         border-bottom-color: #d4af37;
         border-bottom-color: var(--color-gold);
-        padding-bottom: 1.5rem;
-        padding-bottom: var(--spacing-md);
+        padding-bottom: 1rem;
     }
 }
 /* Дополнительная адаптация для очень маленьких экранов */
@@ -3020,12 +3021,47 @@ textarea {
 /* CONTACTS */
 /* ============================================ */
 .contacts {
+    position: relative;
     padding: 4rem 1rem;
     padding: var(--spacing-xxl) var(--container-padding);
     background-color: #ffffff;
     background-color: var(--color-white);
+    min-height: 100vh;
+}
+.contacts__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+.contacts__image {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
+}
+.contacts__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+    z-index: 1;
 }
 .contacts__container {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     max-width: var(--container-width);
     margin: 0 auto;
@@ -3035,8 +3071,10 @@ textarea {
     margin-bottom: 1rem;
     margin-bottom: var(--spacing-sm);
     font-size: max(2rem, min(4vw, 3rem));
-    color: #000000;
-    color: var(--color-black);
+    color: #ffffff;
+    color: var(--color-white);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    text-shadow: var(--shadow-text);
 }
 .contacts__subtitle {
     text-align: center;
@@ -3044,8 +3082,7 @@ textarea {
     margin-bottom: var(--spacing-xxl);
     font-size: 1.25rem;
     font-size: var(--font-size-lg);
-    color: #808080;
-    color: var(--color-gray);
+    color: rgba(255, 255, 255, 0.9);
 }
 .contacts__content {
     display: grid;
@@ -3069,18 +3106,20 @@ textarea {
     gap: var(--spacing-md);
     padding: 2rem;
     padding: var(--spacing-lg);
-    background-color: #f5f5f5;
-    background-color: var(--color-gray-light);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 0.5rem;
     border-radius: var(--border-radius);
     transition: all 0.3s ease;
     transition: all var(--transition-slow);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
 }
 .contacts__item:hover {
     background-color: #ffffff;
     background-color: var(--color-white);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
 }
 .contacts__item-icon {
@@ -3147,10 +3186,12 @@ textarea {
 .contacts__social {
     padding: 2rem;
     padding: var(--spacing-lg);
-    background-color: #f5f5f5;
-    background-color: var(--color-gray-light);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 0.5rem;
     border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
 }
 .contacts__social-title {
     font-size: 1rem;

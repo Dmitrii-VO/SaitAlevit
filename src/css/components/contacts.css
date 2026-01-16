@@ -3,11 +3,47 @@
 /* ============================================ */
 
 .contacts {
+    position: relative;
     padding: var(--spacing-xxl) var(--container-padding);
     background-color: var(--color-white);
+    min-height: 100vh;
+}
+
+.contacts__image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.contacts__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.contacts__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+    z-index: 1;
 }
 
 .contacts__container {
+    position: relative;
+    z-index: 2;
     max-width: var(--container-width);
     margin: 0 auto;
 }
@@ -16,14 +52,15 @@
     text-align: center;
     margin-bottom: var(--spacing-sm);
     font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--color-black);
+    color: var(--color-white);
+    text-shadow: var(--shadow-text);
 }
 
 .contacts__subtitle {
     text-align: center;
     margin-bottom: var(--spacing-xxl);
     font-size: var(--font-size-lg);
-    color: var(--color-gray);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .contacts__content {
@@ -44,14 +81,16 @@
     align-items: flex-start;
     gap: var(--spacing-md);
     padding: var(--spacing-lg);
-    background-color: var(--color-gray-light);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: var(--border-radius);
     transition: all var(--transition-slow);
+    box-shadow: var(--shadow-md);
 }
 
 .contacts__item:hover {
     background-color: var(--color-white);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
 }
 
@@ -107,8 +146,10 @@
 
 .contacts__social {
     padding: var(--spacing-lg);
-    background-color: var(--color-gray-light);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
 }
 
 .contacts__social-title {
