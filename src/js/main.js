@@ -65,4 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация карты объектов
     initMap();
+    
+    // Установка текущего года в футере
+    const yearElement = document.getElementById('footer-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 });

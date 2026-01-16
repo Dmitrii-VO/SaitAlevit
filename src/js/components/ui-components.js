@@ -215,13 +215,32 @@ export function createSocialLinks(whatsapp, telegram) {
 
 /**
  * Создает HTML для ссылки WhatsApp
- * @param {string} href - Ссылка на WhatsApp
+ * @param {string} phoneNumber - Номер телефона для WhatsApp
  * @returns {string} HTML разметка
  */
-function createWhatsAppLink(href) {
+function createWhatsAppLink(phoneNumber) {
+    // Форматируем номер телефона для WhatsApp (убираем все нецифровые символы, кроме +)
+    let formattedNumber = phoneNumber.replace(/[^\d+]/g, '');
+    // Если номер начинается с +7, убираем + для wa.me
+    if (formattedNumber.startsWith('+7')) {
+        formattedNumber = formattedNumber.substring(1); // Убираем +, оставляем 7
+    } else if (formattedNumber.startsWith('8')) {
+        formattedNumber = '7' + formattedNumber.substring(1); // Заменяем 8 на 7
+    } else if (formattedNumber.startsWith('+')) {
+        formattedNumber = formattedNumber.substring(1); // Убираем + если есть
+    }
+    
+    // Если это уже полная ссылка wa.me, используем её
+    let href = phoneNumber;
+    if (phoneNumber.startsWith('http://') || phoneNumber.startsWith('https://')) {
+        href = phoneNumber;
+    } else {
+        href = `https://wa.me/${formattedNumber}`;
+    }
+    
     const escapedHref = escapeHtml(href);
     return `
-        <a href="${escapedHref}" class="contacts__social-link contacts__social-link--whatsapp" aria-label="WhatsApp" target="_blank">
+        <a href="${escapedHref}" class="contacts__social-link contacts__social-link--whatsapp" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.472 14.382C17.231 14.283 15.243 13.432 14.875 13.305C14.507 13.178 14.273 13.115 14.04 13.385C13.806 13.655 13.011 14.477 12.81 14.699C12.608 14.921 12.406 14.958 12.165 14.859C11.925 14.76 10.876 14.449 9.593 13.305C8.556 12.38 7.83 11.237 7.628 10.967C7.427 10.697 7.593 10.562 7.765 10.395C7.914 10.25 8.084 10.03 8.215 9.85C8.346 9.67 8.409 9.53 8.508 9.33C8.607 9.13 8.545 8.95 8.446 8.8C8.347 8.65 7.496 6.662 7.195 5.87C6.899 5.09 6.6 5.19 6.435 5.18C6.27 5.17 6.08 5.17 5.89 5.17C5.7 5.17 5.445 5.23 5.225 5.48C5.005 5.73 4.405 6.33 4.405 7.63C4.405 8.93 5.305 10.17 5.425 10.35C5.545 10.53 7.183 13.305 9.703 14.5C10.483 14.9 11.063 15.12 11.483 15.27C12.023 15.47 12.503 15.45 12.883 15.38C13.303 15.3 14.333 14.7 14.583 14.05C14.833 13.4 14.833 12.82 14.733 12.68C14.633 12.54 14.473 12.48 14.232 12.38H17.472Z" fill="currentColor"/>
                 <path d="M12 0C5.373 0 0 5.373 0 12C0 13.894 0.48 15.67 1.32 17.21L0 24L6.79 22.68C8.33 23.52 10.106 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM12 21.6C10.39 21.6 8.88 21.12 7.6 20.28L7.2 20.04L3.12 21.12L4.2 17.16L3.96 16.76C3.12 15.48 2.64 13.97 2.64 12.36C2.64 6.756 6.756 2.64 12.36 2.64C17.964 2.64 22.08 6.756 22.08 12.36C22.08 17.964 17.964 22.08 12.36 22.08H12Z" fill="currentColor"/>
@@ -233,13 +252,43 @@ function createWhatsAppLink(href) {
 
 /**
  * Создает HTML для ссылки Telegram
- * @param {string} href - Ссылка на Telegram
+ * @param {string} telegramData - Username, номер телефона или ссылка на Telegram
  * @returns {string} HTML разметка
  */
-function createTelegramLink(href) {
+function createTelegramLink(telegramData) {
+    let href = '#';
+    
+    if (!telegramData || telegramData === '#') {
+        return '';
+    }
+    
+    const telegramUrl = telegramData.trim();
+    
+    // Если это уже полная ссылка, используем её
+    if (telegramUrl.startsWith('http://') || telegramUrl.startsWith('https://')) {
+        href = telegramUrl;
+    } 
+    // Если это username (с @ или без), формируем ссылку t.me
+    else if (telegramUrl.startsWith('@') || /^[a-zA-Z0-9_]+$/.test(telegramUrl)) {
+        const username = telegramUrl.replace('@', '').replace('https://t.me/', '').replace('http://t.me/', '');
+        href = `https://t.me/${username}`;
+    }
+    // Если это номер телефона, используем https://t.me/+номер (универсальный формат)
+    else if (/^\+?[\d\s\-()]+$/.test(telegramUrl)) {
+        const phoneNumber = telegramUrl.replace(/\D/g, '');
+        // Если номер начинается с 8, заменяем на 7
+        if (phoneNumber.startsWith('8')) {
+            href = `https://t.me/+7${phoneNumber.substring(1)}`;
+        } else if (phoneNumber.startsWith('7')) {
+            href = `https://t.me/+${phoneNumber}`;
+        } else {
+            href = `https://t.me/+7${phoneNumber}`;
+        }
+    }
+    
     const escapedHref = escapeHtml(href);
     return `
-        <a href="${escapedHref}" class="contacts__social-link contacts__social-link--telegram" aria-label="Telegram" target="_blank">
+        <a href="${escapedHref}" class="contacts__social-link contacts__social-link--telegram" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.894 8.221L15.68 17.896C15.68 17.896 15.474 18.5 14.842 18.5C14.21 18.5 13.789 18.105 13.789 18.105L10.842 15.526L9.263 14.105L6.316 11.158C6.316 11.158 5.737 10.579 6.316 10C6.895 9.421 7.474 9.421 7.474 9.421L14.842 13.263L17.789 10.316C17.789 10.316 18.368 9.737 17.789 9.158C17.21 8.579 16.421 8.579 16.421 8.579L8.421 11.526L6.316 10.737C6.316 10.737 5.737 10.368 6.316 9.789C6.895 9.21 7.684 9.21 7.684 9.21L17.684 7.684C17.684 7.684 18.5 7.263 17.894 8.221Z" fill="currentColor"/>
             </svg>

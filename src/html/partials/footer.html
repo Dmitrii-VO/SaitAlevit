@@ -1,19 +1,124 @@
 <footer class="footer">
         <div class="footer__container">
             <div class="footer__content">
-                <div class="footer__logo">
-                    <img src="images/logo.png" alt="АЛЕВИТ СТРОЙ" class="footer__logo-img">
+                <!-- Блок 1: Логотип и информация о компании -->
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <img src="images/logo.png" alt="АЛЕВИТ СТРОЙ" class="footer__logo-img">
+                    </div>
+                    <div class="footer__info">
+                        <p class="footer__text footer__text--company">ООО «АЛЕВИТ СТРОЙ»</p>
+                        <p class="footer__text">Строительство домов под ключ в Белгороде и Белгородском районе</p>
+                    </div>
                 </div>
-                <div class="footer__info">
-                    <p class="footer__text">ООО «АЛЕВИТ СТРОЙ»</p>
-                    <p class="footer__text">Строительство домов под ключ в Белгороде и Белгородском районе</p>
+
+                <!-- Блок 2: Навигация - Услуги -->
+                <nav class="footer__nav" aria-label="Навигация по услугам">
+                    <h3 class="footer__nav-title">Услуги</h3>
+                    <ul class="footer__nav-list">
+                        <li class="footer__nav-item">
+                            <a href="#services" class="footer__nav-link">Ипотека</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#services" class="footer__nav-link">Подбор участка</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#services" class="footer__nav-link">Проектирование</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#calculator" class="footer__nav-link">Калькулятор стоимости</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Блок 3: Навигация - Компания -->
+                <nav class="footer__nav" aria-label="Навигация по разделам компании">
+                    <h3 class="footer__nav-title">Компания</h3>
+                    <ul class="footer__nav-list">
+                        <li class="footer__nav-item">
+                            <a href="#about" class="footer__nav-link">О компании</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#works" class="footer__nav-link">Наши работы</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#projects" class="footer__nav-link">Проекты</a>
+                        </li>
+                        <li class="footer__nav-item">
+                            <a href="#reviews" class="footer__nav-link">Отзывы</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Блок 4: Контакты -->
+                <div class="footer__contacts">
+                    <h3 class="footer__contacts-title">Контакты</h3>
+                    <div class="footer__contacts-list" id="footer-contacts">
+                        <!-- Контакты будут загружены динамически из data/contacts.json -->
+                        <div class="footer__contact-item">
+                            <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 16.92V19.92C22 20.52 21.52 21 20.92 21C9.4 21 0 11.6 0 0.08C0 -0.52 0.48 -1 1.08 -1H4.08C4.68 -1 5.16 -0.52 5.16 0.08C5.16 1.08 5.36 2.04 5.72 2.92C5.88 3.32 5.84 3.8 5.6 4.16L3.88 6.88C4.6 9.24 6.76 11.4 9.12 12.12L11.84 10.4C12.2 10.16 12.68 10.12 13.08 10.28C13.96 10.64 14.92 10.84 15.92 10.84C16.52 10.84 17 11.32 17 11.92V14.92C17 15.52 16.52 16 15.92 16H22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <a href="tel:+79999999999" class="footer__contact-link" id="footer-phone">+7 (999) 999-99-99</a>
+                        </div>
+                        <div class="footer__contact-item">
+                            <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <a href="mailto:milk66899@gmail.com" class="footer__contact-link" id="footer-email">milk66899@gmail.com</a>
+                        </div>
+                        <div class="footer__contact-item">
+                            <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 7.61 4.91 5.5 7.29 5.5C8.97 5.5 10.4 6.5 12 8.5C13.6 6.5 15.03 5.5 16.71 5.5C19.09 5.5 21 7.61 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="footer__contact-text" id="footer-address">Белгородская область, Белгородский район, с. Пушкарное-78, ул. Кузнечная, д. 9</span>
+                        </div>
+                        <div class="footer__contact-item">
+                            <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382C17.231 14.283 15.243 13.432 14.875 13.305C14.507 13.178 14.273 13.115 14.04 13.385C13.806 13.655 13.011 14.477 12.81 14.699C12.608 14.921 12.406 14.958 12.165 14.859C11.925 14.76 10.876 14.449 9.593 13.305C8.556 12.38 7.83 11.237 7.628 10.967C7.427 10.697 7.593 10.562 7.765 10.395C7.914 10.25 8.084 10.03 8.215 9.85C8.346 9.67 8.409 9.53 8.508 9.33C8.607 9.13 8.545 8.95 8.446 8.8C8.347 8.65 7.496 6.662 7.195 5.87C6.899 5.09 6.6 5.19 6.435 5.18C6.27 5.17 6.08 5.17 5.89 5.17C5.7 5.17 5.445 5.23 5.225 5.48C5.005 5.73 4.405 6.33 4.405 7.63C4.405 8.93 5.305 10.17 5.425 10.35C5.545 10.53 7.183 13.305 9.703 14.5C10.483 14.9 11.063 15.12 11.483 15.27C12.023 15.47 12.503 15.45 12.883 15.38C13.303 15.3 14.333 14.7 14.583 14.05C14.833 13.4 14.833 12.82 14.733 12.68C14.633 12.54 14.473 12.48 14.232 12.38H17.472Z" fill="currentColor"/>
+                                <path d="M12 0C5.373 0 0 5.373 0 12C0 13.894 0.48 15.67 1.32 17.21L0 24L6.79 22.68C8.33 23.52 10.106 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM12 21.6C10.39 21.6 8.88 21.12 7.6 20.28L7.2 20.04L3.12 21.12L4.2 17.16L3.96 16.76C3.12 15.48 2.64 13.97 2.64 12.36C2.64 6.756 6.756 2.64 12.36 2.64C17.964 2.64 22.08 6.756 22.08 12.36C22.08 17.964 17.964 22.08 12.36 22.08H12Z" fill="currentColor"/>
+                            </svg>
+                            <a href="https://wa.me/79118903372" class="footer__contact-link" target="_blank" rel="noopener noreferrer" id="footer-contacts-whatsapp">WhatsApp</a>
+                        </div>
+                        <div class="footer__contact-item">
+                            <svg class="footer__contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.8 8.2L15.6 16.8C15.4 17.6 14.8 17.8 14.2 17.4L11.2 15.2L9.8 16.6C9.6 16.8 9.4 16.8 9.2 16.6L9.4 13.4L15.6 7.6C15.9 7.3 15.5 7.1 15.1 7.4L7.6 12.6L4.4 11.6C3.6 11.3 3.6 10.6 4.5 10.2L17 5.3C17.6 5 18.3 5.5 18 6.1L17.8 8.2Z" fill="currentColor"/>
+                            </svg>
+                            <a href="#" class="footer__contact-link" target="_blank" rel="noopener noreferrer" id="footer-contacts-telegram">Telegram</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer__links">
-                    <a href="/privacy.html" class="footer__link">Политика конфиденциальности</a>
+
+                <!-- Блок 5: Социальные сети -->
+                <div class="footer__social">
+                    <h3 class="footer__social-title">Мы в соцсетях</h3>
+                    <div class="footer__social-list">
+                        <a href="https://wa.me/79118903372" class="footer__social-link footer__social-link--whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp" id="footer-whatsapp">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382C17.231 14.283 15.243 13.432 14.875 13.305C14.507 13.178 14.273 13.115 14.04 13.385C13.806 13.655 13.011 14.477 12.81 14.699C12.608 14.921 12.406 14.958 12.165 14.859C11.925 14.76 10.876 14.449 9.593 13.305C8.556 12.38 7.83 11.237 7.628 10.967C7.427 10.697 7.593 10.562 7.765 10.395C7.914 10.25 8.084 10.03 8.215 9.85C8.346 9.67 8.409 9.53 8.508 9.33C8.607 9.13 8.545 8.95 8.446 8.8C8.347 8.65 7.496 6.662 7.195 5.87C6.899 5.09 6.6 5.19 6.435 5.18C6.27 5.17 6.08 5.17 5.89 5.17C5.7 5.17 5.445 5.23 5.225 5.48C5.005 5.73 4.405 6.33 4.405 7.63C4.405 8.93 5.305 10.17 5.425 10.35C5.545 10.53 7.183 13.305 9.703 14.5C10.483 14.9 11.063 15.12 11.483 15.27C12.023 15.47 12.503 15.45 12.883 15.38C13.303 15.3 14.333 14.7 14.583 14.05C14.833 13.4 14.833 12.82 14.733 12.68C14.633 12.54 14.473 12.48 14.232 12.38H17.472Z" fill="currentColor"/>
+                                <path d="M12 0C5.373 0 0 5.373 0 12C0 13.894 0.48 15.67 1.32 17.21L0 24L6.79 22.68C8.33 23.52 10.106 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM12 21.6C10.39 21.6 8.88 21.12 7.6 20.28L7.2 20.04L3.12 21.12L4.2 17.16L3.96 16.76C3.12 15.48 2.64 13.97 2.64 12.36C2.64 6.756 6.756 2.64 12.36 2.64C17.964 2.64 22.08 6.756 22.08 12.36C22.08 17.964 17.964 22.08 12.36 22.08H12Z" fill="currentColor"/>
+                            </svg>
+                            <span class="footer__social-text">WhatsApp</span>
+                        </a>
+                        <a href="#" class="footer__social-link footer__social-link--telegram" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" id="footer-telegram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.8 8.2L15.6 16.8C15.4 17.6 14.8 17.8 14.2 17.4L11.2 15.2L9.8 16.6C9.6 16.8 9.4 16.8 9.2 16.6L9.4 13.4L15.6 7.6C15.9 7.3 15.5 7.1 15.1 7.4L7.6 12.6L4.4 11.6C3.6 11.3 3.6 10.6 4.5 10.2L17 5.3C17.6 5 18.3 5.5 18 6.1L17.8 8.2Z" fill="currentColor"/>
+                            </svg>
+                            <span class="footer__social-text">Telegram</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="footer__copyright">
-                <p>&copy; 2024 АЛЕВИТ СТРОЙ. Все права защищены.</p>
+
+            <!-- Блок 6: Copyright и ссылки -->
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    <p class="footer__copyright-text">&copy; <span id="footer-year">2024</span> АЛЕВИТ СТРОЙ. Все права защищены.</p>
+                </div>
+                <div class="footer__legal">
+                    <a href="/privacy.html" class="footer__legal-link">Политика конфиденциальности</a>
+                </div>
             </div>
         </div>
     </footer>

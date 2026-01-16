@@ -335,6 +335,21 @@ high quality, detailed, minimalist design, sophisticated, modern, location and g
 
 ---
 
+### 12. Contacts (Контакты)
+
+**Промпт для Midjourney:**
+```
+Beautiful minimalist background image for contacts section, construction company website, 
+elegant dark theme with subtle golden accents, premium luxury style, abstract architectural 
+elements and communication symbols, connection and contact icons, black (#000000) and gold (#D4AF37) color palette, 
+professional business atmosphere, soft gradients, wide landscape format 16:9, 
+high quality, detailed, minimalist design, sophisticated, modern, connection and trust theme
+```
+
+**Overlay:** Тёмный (чёрный с прозрачностью) - для светлого текста
+
+---
+
 ## 🎯 Типы overlay (градиентов)
 
 ### Тёмный overlay (для секций с светлым текстом):

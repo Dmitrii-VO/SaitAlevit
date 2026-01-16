@@ -203,52 +203,153 @@ export async function loadContacts() {
             updateProcessConsultationPhone();
         }
         
-        // Загрузка контактов в блок "О компании"
-        const aboutContainer = document.getElementById('about-contacts-info');
-        if (aboutContainer) {
-            aboutContainer.innerHTML = '';
-            
-            if (contacts.phone) {
-                const phoneItem = createContactItem(
-                    'phone',
-                    'Телефон',
-                    contacts.phone,
-                    `tel:${contacts.phone.replace(/\D/g, '')}`
-                );
-                aboutContainer.appendChild(phoneItem);
-            }
-            
-            if (contacts.email) {
-                const emailItem = createContactItem(
-                    'email',
-                    'Email',
-                    contacts.email,
-                    `mailto:${contacts.email}`
-                );
-                aboutContainer.appendChild(emailItem);
-            }
-            
-            if (contacts.address) {
-                const addressItem = createContactItem(
-                    'address',
-                    'Адрес',
-                    contacts.address,
-                    null,
-                    true
-                );
-                aboutContainer.appendChild(addressItem);
-            }
-            
-            const socialContainer = createSocialLinks(contacts.whatsapp, contacts.telegram);
-            if (socialContainer) {
-                aboutContainer.appendChild(socialContainer);
-            }
-        }
+        // Загрузка контактов в футер
+        updateFooterContacts(contacts);
         
         updateFloatingButtons(contacts);
         updateSchemaOrg(contacts);
     } catch (error) {
         console.error('Ошибка загрузки контактов:', error);
+    }
+}
+
+/**
+ * Обновляет контакты в футере
+ * @param {Object} contacts - Объект с контактами
+ */
+function updateFooterContacts(contacts) {
+    // Обновляем телефон
+    const phoneLink = document.getElementById('footer-phone');
+    if (phoneLink && contacts.phone) {
+        const phoneNumber = contacts.phone.replace(/\D/g, '');
+        const formattedPhone = phoneNumber.length === 11 
+            ? `+7 (${phoneNumber.slice(1, 4)}) ${phoneNumber.slice(4, 7)}-${phoneNumber.slice(7, 9)}-${phoneNumber.slice(9, 11)}`
+            : contacts.phone;
+        phoneLink.textContent = formattedPhone;
+        phoneLink.href = `tel:${phoneNumber}`;
+    }
+    
+    // Обновляем email
+    const emailLink = document.getElementById('footer-email');
+    if (emailLink && contacts.email) {
+        emailLink.textContent = contacts.email;
+        emailLink.href = `mailto:${contacts.email}`;
+    }
+    
+    // Обновляем адрес
+    const addressText = document.getElementById('footer-address');
+    if (addressText && contacts.address) {
+        addressText.textContent = contacts.address;
+    }
+    
+    // Обновляем контакты в модальном окне privacy-modal
+    const privacyModalPhone = document.getElementById('privacy-modal-phone');
+    if (privacyModalPhone && contacts.phone) {
+        const phoneNumber = contacts.phone.replace(/\D/g, '');
+        const formattedPhone = phoneNumber.length === 11 
+            ? `+7 (${phoneNumber.slice(1, 4)}) ${phoneNumber.slice(4, 7)}-${phoneNumber.slice(7, 9)}-${phoneNumber.slice(9, 11)}`
+            : contacts.phone;
+        privacyModalPhone.textContent = formattedPhone;
+        privacyModalPhone.href = `tel:${phoneNumber}`;
+    }
+    
+    // Обновляем email в модальном окне privacy-modal
+    const privacyModalEmail = document.getElementById('privacy-modal-email');
+    if (privacyModalEmail && contacts.email) {
+        privacyModalEmail.textContent = contacts.email;
+        privacyModalEmail.href = `mailto:${contacts.email}`;
+    }
+    
+    const privacyModalEmail2 = document.getElementById('privacy-modal-email-2');
+    if (privacyModalEmail2 && contacts.email) {
+        privacyModalEmail2.textContent = contacts.email;
+        privacyModalEmail2.href = `mailto:${contacts.email}`;
+    }
+    
+    // Обновляем адрес в модальном окне privacy-modal
+    const privacyModalAddress = document.getElementById('privacy-modal-address');
+    if (privacyModalAddress && contacts.address) {
+        privacyModalAddress.textContent = contacts.address;
+    }
+    
+    // Форматируем номер телефона для WhatsApp
+    let whatsappPhoneNumber = null;
+    if (contacts.whatsapp) {
+        whatsappPhoneNumber = contacts.whatsapp.replace(/[^\d+]/g, '');
+        // Если номер начинается с +7, убираем + для wa.me
+        if (whatsappPhoneNumber.startsWith('+7')) {
+            whatsappPhoneNumber = whatsappPhoneNumber.substring(1); // Убираем +, оставляем 7
+        } else if (whatsappPhoneNumber.startsWith('8')) {
+            whatsappPhoneNumber = '7' + whatsappPhoneNumber.substring(1); // Заменяем 8 на 7
+        } else if (whatsappPhoneNumber.startsWith('+')) {
+            whatsappPhoneNumber = whatsappPhoneNumber.substring(1); // Убираем + если есть
+        }
+    }
+    
+    // Обновляем ссылку WhatsApp в блоке социальных сетей
+    const whatsappLink = document.getElementById('footer-whatsapp');
+    if (whatsappLink && whatsappPhoneNumber) {
+        whatsappLink.href = `https://wa.me/${whatsappPhoneNumber}`;
+    }
+    
+    // Обновляем ссылку WhatsApp в блоке контактов
+    const whatsappContactLink = document.getElementById('footer-contacts-whatsapp');
+    if (whatsappContactLink && whatsappPhoneNumber) {
+        whatsappContactLink.href = `https://wa.me/${whatsappPhoneNumber}`;
+    }
+    
+    // Форматируем ссылку Telegram
+    let telegramUrl = null;
+    if (contacts.telegram && contacts.telegram !== '#') {
+        telegramUrl = contacts.telegram.trim();
+        
+        // Если это уже полная ссылка, используем её
+        if (telegramUrl.startsWith('http://') || telegramUrl.startsWith('https://')) {
+            // Используем как есть
+        } 
+        // Если это username (с @ или без), формируем ссылку t.me
+        else if (telegramUrl.startsWith('@') || /^[a-zA-Z0-9_]+$/.test(telegramUrl)) {
+            const username = telegramUrl.replace('@', '').replace('https://t.me/', '').replace('http://t.me/', '');
+            telegramUrl = `https://t.me/${username}`;
+        }
+        // Если это номер телефона, используем https://t.me/+номер (универсальный формат)
+        else if (/^\+?[\d\s\-()]+$/.test(telegramUrl)) {
+            const phoneNumber = telegramUrl.replace(/\D/g, '');
+            // Если номер начинается с 8, заменяем на 7
+            if (phoneNumber.startsWith('8')) {
+                telegramUrl = `https://t.me/+7${phoneNumber.substring(1)}`;
+            } else if (phoneNumber.startsWith('7')) {
+                telegramUrl = `https://t.me/+${phoneNumber}`;
+            } else {
+                telegramUrl = `https://t.me/+7${phoneNumber}`;
+            }
+        }
+        // Если формат не распознан, сбрасываем
+        else {
+            telegramUrl = null;
+        }
+    }
+    
+    // Обновляем ссылку Telegram в блоке социальных сетей
+    const telegramLink = document.getElementById('footer-telegram');
+    if (telegramLink) {
+        if (telegramUrl) {
+            telegramLink.href = telegramUrl;
+            telegramLink.style.display = '';
+        } else {
+            telegramLink.style.display = 'none';
+        }
+    }
+    
+    // Обновляем ссылку Telegram в блоке контактов
+    const telegramContactLink = document.getElementById('footer-contacts-telegram');
+    if (telegramContactLink) {
+        if (telegramUrl) {
+            telegramContactLink.href = telegramUrl;
+            telegramContactLink.style.display = '';
+        } else {
+            telegramContactLink.style.display = 'none';
+        }
     }
 }
 
