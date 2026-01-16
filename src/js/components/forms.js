@@ -491,9 +491,13 @@ export function initCalculator() {
     
     function updatePrice() {
         const area = parseFloat(document.querySelector('#calc-area').value) || 0;
-        const type = document.querySelector('#calc-type').value;
-        const floors = document.querySelector('#calc-floors').value;
-        const finish = document.querySelector('#calc-finish').value;
+        const typeRadio = calculatorForm.querySelector('input[name="type"]:checked');
+        const floorsRadio = calculatorForm.querySelector('input[name="floors"]:checked');
+        const finishRadio = calculatorForm.querySelector('input[name="finish"]:checked');
+        
+        const type = typeRadio ? typeRadio.value : null;
+        const floors = floorsRadio ? floorsRadio.value : null;
+        const finish = finishRadio ? finishRadio.value : null;
         
         const price = calculateHousePrice(area, type, floors, finish);
         
@@ -508,25 +512,19 @@ export function initCalculator() {
     calculatorForm.addEventListener('input', updatePrice);
     calculatorForm.addEventListener('change', updatePrice);
     
-    // Явные обработчики для select элементов (гарантируем срабатывание)
+    // Явные обработчики для всех элементов формы
     const areaInput = document.querySelector('#calc-area');
-    const typeSelect = document.querySelector('#calc-type');
-    const floorsSelect = document.querySelector('#calc-floors');
-    const finishSelect = document.querySelector('#calc-finish');
+    const radioInputs = calculatorForm.querySelectorAll('input[type="radio"]');
     
     if (areaInput) {
         areaInput.addEventListener('input', updatePrice);
         areaInput.addEventListener('change', updatePrice);
     }
-    if (typeSelect) {
-        typeSelect.addEventListener('change', updatePrice);
-    }
-    if (floorsSelect) {
-        floorsSelect.addEventListener('change', updatePrice);
-    }
-    if (finishSelect) {
-        finishSelect.addEventListener('change', updatePrice);
-    }
+    
+    // Обработчики для радио-кнопок
+    radioInputs.forEach(radio => {
+        radio.addEventListener('change', updatePrice);
+    });
     calculatorForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         await handleCalculatorSubmit(this);

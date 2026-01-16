@@ -258,26 +258,47 @@
                                 <span class="calculator__form-hint">От 20 до 500 м²</span>
                             </div>
                             <div class="calculator__form-group">
-                                <label for="calc-type" class="calculator__form-label">Тип дома</label>
-                                <select id="calc-type" name="type" class="calculator__form-select" required>
-                                    <option value="gas-block">Газобетон</option>
-                                    <option value="brick">Кирпич</option>
-                                </select>
+                                <label class="calculator__form-label">Тип дома</label>
+                                <div class="calculator__form-radio-group">
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="type" value="gas-block" id="calc-type-gas" checked required>
+                                        <span class="calculator__form-radio-label">Газобетон</span>
+                                    </label>
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="type" value="brick" id="calc-type-brick" required>
+                                        <span class="calculator__form-radio-label">Кирпич</span>
+                                    </label>
+                                </div>
                             </div>
                             <div class="calculator__form-group">
-                                <label for="calc-floors" class="calculator__form-label">Этажность</label>
-                                <select id="calc-floors" name="floors" class="calculator__form-select" required>
-                                    <option value="1">1 этаж</option>
-                                    <option value="2">2 этажа</option>
-                                </select>
+                                <label class="calculator__form-label">Этажность</label>
+                                <div class="calculator__form-radio-group">
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="floors" value="1" id="calc-floors-1" checked required>
+                                        <span class="calculator__form-radio-label">1 этаж</span>
+                                    </label>
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="floors" value="2" id="calc-floors-2" required>
+                                        <span class="calculator__form-radio-label">2 этажа</span>
+                                    </label>
+                                </div>
                             </div>
                             <div class="calculator__form-group">
-                                <label for="calc-finish" class="calculator__form-label">Формат отделки</label>
-                                <select id="calc-finish" name="finish" class="calculator__form-select" required>
-                                    <option value="box">Коробка</option>
-                                    <option value="clean">Чистовая отделка</option>
-                                    <option value="turnkey">Под ключ</option>
-                                </select>
+                                <label class="calculator__form-label">Формат отделки</label>
+                                <div class="calculator__form-radio-group">
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="finish" value="box" id="calc-finish-box" required>
+                                        <span class="calculator__form-radio-label">Коробка</span>
+                                    </label>
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="finish" value="clean" id="calc-finish-clean" required>
+                                        <span class="calculator__form-radio-label">Чистовая отделка</span>
+                                    </label>
+                                    <label class="calculator__form-radio">
+                                        <input type="radio" name="finish" value="turnkey" id="calc-finish-turnkey" checked required>
+                                        <span class="calculator__form-radio-label">Под ключ</span>
+                                    </label>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn--primary calculator__form-submit">Рассчитать стоимость</button>
                         </form>
@@ -289,6 +310,7 @@
                                 <span class="calculator__result-price-label">от</span>
                                 <span class="calculator__result-price-value" id="result-price">—</span>
                                 <span class="calculator__result-price-currency">₽</span>
+                                <a href="#projects" class="calculator__result-price-examples">СМ. ПРИМЕРЫ</a>
                             </div>
                             <p class="calculator__result-note">Точную стоимость рассчитаем после консультации</p>
                             <a href="#cta" class="btn btn--secondary calculator__result-cta">Получить точный расчёт</a>
