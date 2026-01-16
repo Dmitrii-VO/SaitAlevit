@@ -388,7 +388,13 @@ export function createWorkCard(work, getBadgeText) {
     const mainImage = work.mainImage || '';
     const images = work.gallery || [mainImage].filter(Boolean);
     const imagesJSON = JSON.stringify(images);
-    const badgeText = getBadgeText ? getBadgeText(work.workStatus) : '';
+    const badgeText = getBadgeText ? getBadgeText(work.workStatus, work.completionDate) : '';
+    
+    // Формируем компактную строку с характеристиками
+    const characteristics = [];
+    if (work.rooms) characteristics.push(`${work.rooms} комн.`);
+    if (work.material) characteristics.push(work.material);
+    const characteristicsText = characteristics.length > 0 ? characteristics.join(' • ') : '';
     
     card.innerHTML = `
         <div class="works__card-image">
@@ -404,21 +410,14 @@ export function createWorkCard(work, getBadgeText) {
                         <span class="works__card-spec-value"><strong>${work.area}</strong> м²</span>
                     </li>
                 ` : ''}
-                ${work.format ? `
+                ${characteristicsText ? `
                     <li class="works__card-spec">
-                        <span class="works__card-spec-label">Формат:</span>
-                        <span class="works__card-spec-value">${escapeHtml(work.format)}</span>
-                    </li>
-                ` : ''}
-                ${work.workStatus ? `
-                    <li class="works__card-spec">
-                        <span class="works__card-spec-label">Статус:</span>
-                        <span class="works__card-spec-value works__card-spec-value--success">${escapeHtml(work.workStatus)}</span>
+                        <span class="works__card-spec-label">Характеристики:</span>
+                        <span class="works__card-spec-value">${escapeHtml(characteristicsText)}</span>
                     </li>
                 ` : ''}
             </ul>
-            ${work.description ? `<p class="works__card-description">${escapeHtml(work.description)}</p>` : ''}
-            ${images.length > 0 ? `<button class="btn btn--primary works__gallery-btn" data-project="${escapeHtml(work.title || 'Работа')}" data-images='${imagesJSON}'>Смотреть все фото</button>` : ''}
+            ${images.length > 0 ? `<button class="btn btn--gold works__gallery-btn" data-project="${escapeHtml(work.title || 'Работа')}" data-images='${imagesJSON}'>Смотреть все фото</button>` : ''}
         </div>
     `;
     

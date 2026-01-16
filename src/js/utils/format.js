@@ -82,18 +82,29 @@ export function parseAddress(address) {
 }
 
 /**
- * Получает текст бейджа по статусу работы
+ * Получает текст бейджа по статусу работы с унифицированным форматом
  * @param {string} workStatus - Статус работы
- * @returns {string} Текст бейджа или исходный статус
+ * @param {string} completionDate - Дата завершения (месяц/год)
+ * @returns {string} Текст бейджа с унифицированным статусом
  */
-export function getWorkStatusBadge(workStatus) {
+export function getWorkStatusBadge(workStatus, completionDate) {
     if (!workStatus) return '';
     const status = workStatus.toLowerCase();
+    let badgeText = '';
+    
+    // Унифицируем статус
     if (status.includes('построен') || status.includes('сдан')) {
-        return 'Построен';
+        badgeText = 'Построен';
+    } else if (status.includes('строит')) {
+        badgeText = 'Строится';
+    } else {
+        badgeText = workStatus;
     }
-    if (status.includes('строит')) {
-        return 'Строится';
+    
+    // Добавляем дату, если есть
+    if (completionDate && (status.includes('построен') || status.includes('сдан'))) {
+        badgeText += ` • ${completionDate}`;
     }
-    return workStatus;
+    
+    return badgeText;
 }

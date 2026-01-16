@@ -6,7 +6,11 @@
       "area": 25,
       "format": "Коробка",
       "workStatus": "сдан в эксплуатацию",
+      "completionDate": "декабрь 2024",
       "description": "хороший дом",
+      "clientComment": "Очень довольны результатом",
+      "rooms": 3,
+      "material": "Газобетон",
       "address": "50.5957,36.5872",
       "mainImage": "images/works/photos_file_10-1768087067427.jpg",
       "gallery": [
@@ -32,7 +36,11 @@
       "area": 44,
       "format": "коробка",
       "workStatus": "построен",
+      "completionDate": "ноябрь 2024",
       "description": "фыфыв",
+      "clientComment": "Качество на высоте",
+      "rooms": 4,
+      "material": "Кирпич",
       "address": "",
       "mainImage": "images/works/photos_file_19-1768092403486.jpg",
       "gallery": [
