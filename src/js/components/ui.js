@@ -172,3 +172,68 @@ export function initScrollAnimation() {
         observer.observe(section);
     });
 }
+
+/**
+ * Инициализирует отслеживание активной секции для навигации
+ * @returns {void}
+ */
+export function initActiveNavigation() {
+    const navLinks = document.querySelectorAll('.nav__link');
+    const sections = document.querySelectorAll('section[id]');
+    
+    if (!navLinks.length || !sections.length) return;
+    
+    /**
+     * Обновляет активное состояние навигации
+     */
+    function updateActiveNav() {
+        let currentSection = '';
+        const scrollPosition = window.pageYOffset + 150; // Отступ для активации
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = sectionId;
+            }
+        });
+        
+        // Удаляем активное состояние у всех ссылок
+        navLinks.forEach(link => {
+            link.classList.remove('nav__link--active');
+        });
+        
+        // Добавляем активное состояние к текущей ссылке
+        if (currentSection) {
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === `#${currentSection}`) {
+                    link.classList.add('nav__link--active');
+                }
+            });
+        } else {
+            // Если мы в начале страницы, делаем первую ссылку активной (если есть)
+            const firstLink = navLinks[0];
+            if (firstLink && window.pageYOffset < 200) {
+                firstLink.classList.add('nav__link--active');
+            }
+        }
+    }
+    
+    // Обновляем при скролле
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateActiveNav();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // Обновляем при загрузке страницы
+    updateActiveNav();
+}

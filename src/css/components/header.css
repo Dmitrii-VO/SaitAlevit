@@ -33,16 +33,42 @@
     display: block;
     padding: var(--spacing-xs) var(--spacing-sm);
     color: var(--color-white);
-    transition: color var(--transition-base);
+    transition: color var(--transition-base), border-bottom var(--transition-base);
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    text-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.8),
+        0 2px 6px rgba(0, 0, 0, 0.6);
+    position: relative;
 }
 
 .nav__link:hover {
     color: var(--color-gold);
     border-bottom: 1px solid var(--color-gold);
     padding-bottom: calc(var(--spacing-xs) - 0.125rem);
+}
+
+/* Активное состояние пункта меню */
+.nav__link--active {
+    color: var(--color-gold);
+    border-bottom: 2px solid var(--color-gold);
+    padding-bottom: calc(var(--spacing-xs) - 0.125rem);
+    font-weight: 600;
+    text-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.9),
+        0 2px 6px rgba(212, 175, 55, 0.4);
+}
+
+.nav__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--color-gold);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
 }
 
 .nav__logo {
@@ -80,7 +106,7 @@
 }
 
 .nav__logo-img {
-    max-height: 6.375rem;
+    max-height: 8.3rem; /* Увеличено на 30% (было 6.375rem) */
     width: auto;
     height: auto;
     object-fit: contain;
@@ -159,7 +185,7 @@
     }
     
     .nav__logo-img {
-        max-height: 2.5rem;
+        max-height: 3.25rem; /* Увеличено на 30% (было 2.5rem) */
         width: auto;
         height: auto;
         flex-shrink: 0;
@@ -195,12 +221,13 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.95);
+        background-color: rgba(0, 0, 0, 0.98); /* Улучшен контраст */
+        backdrop-filter: blur(20px);
         flex-direction: column;
         padding: 0 var(--spacing-xl);
-        padding-top: 0.5rem;
+        padding-top: 0.5rem; /* Отступ сверху для логотипа */
         padding-bottom: var(--spacing-lg);
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-xl);
         transform: translateX(-100%);
         transition: transform var(--transition-slow);
         z-index: 999;
@@ -221,17 +248,27 @@
     .nav__link {
         display: block;
         width: 100%;
-        padding: 1rem var(--spacing-md);
+        padding: 1.25rem var(--spacing-md);
         color: var(--color-white);
-        font-size: 1.1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        line-height: 1.4;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        line-height: 1.5;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: 500;
     }
     
     .nav__link:hover {
         color: var(--color-gold);
         border-bottom-color: var(--color-gold);
-        padding-bottom: 1rem;
+        padding-bottom: 1.25rem;
+        background-color: rgba(212, 175, 55, 0.1);
+    }
+    
+    .nav__link--active {
+        color: var(--color-gold);
+        border-bottom: 2px solid var(--color-gold);
+        background-color: rgba(212, 175, 55, 0.15);
+        font-weight: 600;
     }
 }
 
@@ -248,7 +285,7 @@
     }
     
     .nav__logo-img {
-        max-height: 2rem;
+        max-height: 2.6rem; /* Увеличено на 30% (было 2rem) */
     }
     
     .nav__logo-text {
@@ -273,7 +310,7 @@
     }
     
     .nav__logo-img {
-        max-height: 1.75rem;
+        max-height: 2.275rem; /* Увеличено на 30% (было 1.75rem) */
     }
     
     .nav__logo-text {

@@ -7,7 +7,7 @@
 import { loadProjects, loadContacts, loadReviews, loadWorks, loadPrices } from './components/data-loader.js';
 import { showNotification } from './components/notifications.js';
 import { initCTAForm, initCalculator, initContactForm } from './components/forms.js';
-import { initSmoothScroll, initFloatingButtons, initScrollAnimation, initMobileMenu, initFAQ } from './components/ui.js';
+import { initSmoothScroll, initFloatingButtons, initScrollAnimation, initMobileMenu, initFAQ, initActiveNavigation } from './components/ui.js';
 import { initGalleryModal } from './components/gallery.js';
 import { initPrivacyModal } from './components/privacy-modal.js';
 import { initMap } from './components/map.js';
@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFloatingButtons();
     initScrollAnimation();
     initMobileMenu();
+    initActiveNavigation();
     initFAQ();
     initGalleryModal();
     initPrivacyModal();
