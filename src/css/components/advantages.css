@@ -57,7 +57,8 @@
 .advantages__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-xl);
+    column-gap: 2rem; /* 32px между карточками */
+    row-gap: 2.5rem; /* 40px между рядами */
     max-width: var(--container-width);
     margin: 0 auto;
 }
@@ -66,7 +67,7 @@
     text-align: center;
     padding: var(--spacing-xl);
     border: 1px solid var(--color-gray-light);
-    background-color: var(--color-white);
+    background-color: #F9F9F9; /* Лёгкий бэкграунд вместо чистого белого */
     transition: all var(--transition-base);
 }
 
@@ -91,25 +92,26 @@
 }
 
 .advantages__icon-img {
-    width: 180%;
-    height: 180%;
+    width: 207%; /* Увеличение на 15% (180% * 1.15) */
+    height: 207%; /* Увеличение на 15% (180% * 1.15) */
     object-fit: contain;
     display: block;
     max-width: 9rem;
     max-height: 9rem;
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1)); /* Тень для глубины */
 }
 
 .advantages__item-title {
     margin-bottom: var(--spacing-md);
     font-size: var(--font-size-h4);
     font-weight: 600;
-    color: var(--color-black);
+    color: #D4AF37; /* Жёлтый цвет для заголовков карточек */
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing);
 }
 
 .advantages__item-text {
-    font-size: var(--font-size-base);
+    font-size: 0.9375rem; /* 15px вместо 16px (14px было указано, но в коде было 16px) */
     line-height: 1.6;
     color: var(--color-gray-dark);
     margin: 0;
