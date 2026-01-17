@@ -292,12 +292,6 @@ function updateFooterContacts(contacts) {
         whatsappLink.href = `https://wa.me/${whatsappPhoneNumber}`;
     }
     
-    // Обновляем ссылку WhatsApp в блоке контактов
-    const whatsappContactLink = document.getElementById('footer-contacts-whatsapp');
-    if (whatsappContactLink && whatsappPhoneNumber) {
-        whatsappContactLink.href = `https://wa.me/${whatsappPhoneNumber}`;
-    }
-    
     // Форматируем ссылку Telegram
     let telegramUrl = null;
     if (contacts.telegram && contacts.telegram !== '#') {
@@ -338,17 +332,6 @@ function updateFooterContacts(contacts) {
             telegramLink.style.display = '';
         } else {
             telegramLink.style.display = 'none';
-        }
-    }
-    
-    // Обновляем ссылку Telegram в блоке контактов
-    const telegramContactLink = document.getElementById('footer-contacts-telegram');
-    if (telegramContactLink) {
-        if (telegramUrl) {
-            telegramContactLink.href = telegramUrl;
-            telegramContactLink.style.display = '';
-        } else {
-            telegramContactLink.style.display = 'none';
         }
     }
 }
