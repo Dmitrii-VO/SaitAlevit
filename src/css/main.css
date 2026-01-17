@@ -35,6 +35,7 @@
 @import './components/improved-cta-form.css';
 @import './components/privacy-modal.css';
 @import './components/privacy-page.css';
+@import './components/builder-character.css';
 
 /* Утилиты */
 @import './utilities/helpers.css';

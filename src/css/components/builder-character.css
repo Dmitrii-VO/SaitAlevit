@@ -1,0 +1,135 @@
+/* ============================================ */
+/* BUILDER CHARACTER - один div, без смены src */
+/* ============================================ */
+
+.builder-character {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    z-index: 1000;
+    pointer-events: none;
+    will-change: transform;
+
+    /* Базовые стили для всех состояний */
+    background-color: transparent; /* Убираем фон */
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    /* Плавный переход для background-image (но не для running состояния) */
+    transition: background-image 0.15s ease;
+    
+    /* Предотвращение мерцания при перерисовке */
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Бег (running) - JavaScript анимация с отдельными изображениями */
+/* ============================================ */
+.builder-character--running {
+    /* Начальное изображение будет установлено через JavaScript */
+    background-image: url('/images/builders/builder-running-1.png');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    
+    /* Отключаем transition для background-image при анимации */
+    transition: none;
+    
+    /* Оптимизация рендеринга */
+    image-rendering: auto;
+    will-change: background-image, transform;
+    backface-visibility: hidden;
+    
+    /* Анимация управляется через JavaScript, переключение background-image */
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Подготовка к прыжку (prepare-jump) */
+/* ============================================ */
+.builder-character--prepare-jump {
+    background-image: url('/images/builders/builder-prepare-jump.png');
+    will-change: transform;
+    animation: none;
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Прыжок (jump) */
+/* ============================================ */
+.builder-character--jump {
+    background-image: url('/images/builders/builder-jump.png');
+    will-change: transform;
+    animation: none;
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Зависание (hanging) */
+/* ============================================ */
+.builder-character--hanging {
+    background-image: url('/images/builders/builder-hanging.png');
+    will-change: transform;
+    animation: none;
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Падение (falling) */
+/* ============================================ */
+.builder-character--falling {
+    background-image: url('/images/builders/builder-falling.png');
+    background-color: transparent; /* Убираем фон */
+    will-change: transform;
+    animation: none;
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Лежание (lying) */
+/* ============================================ */
+.builder-character--lying {
+    background-image: url('/images/builders/builder-lying.png');
+    will-change: transform;
+    animation: none;
+}
+
+/* ============================================ */
+/* СОСТОЯНИЕ: Вставание (getting-up) */
+/* ============================================ */
+.builder-character--getting-up {
+    background-image: url('/images/builders/builder-getting-up.png');
+    background-color: transparent; /* Убираем фон */
+    will-change: transform;
+    animation: none;
+}
+
+/* ============================================ */
+/* Адаптивность */
+/* ============================================ */
+
+/* Скрыть на мобильных устройствах */
+@media (max-width: 767px) {
+    .builder-character {
+        display: none;
+    }
+}
+
+/* Размеры для планшетов */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .builder-character {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* ============================================ */
+/* Доступность */
+/* ============================================ */
+
+/* Уважение к предпочтениям пользователя */
+@media (prefers-reduced-motion: reduce) {
+    .builder-character {
+        animation: none !important;
+        transition: background-image 0.3s ease;
+    }
+}

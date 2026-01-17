@@ -11,6 +11,7 @@ import { initSmoothScroll, initFloatingButtons, initScrollAnimation, initMobileM
 import { initGalleryModal } from './components/gallery.js';
 import { initPrivacyModal } from './components/privacy-modal.js';
 import { initMap } from './components/map.js';
+import { initBuilderCharacter } from './components/builder-character.js';
 
 /**
  * Инициализация приложения при загрузке DOM
@@ -65,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Инициализация карты объектов
     initMap();
+    
+    // Инициализация персонажа-строителя
+    initBuilderCharacter();
     
     // Установка текущего года в футере
     const yearElement = document.getElementById('footer-year');

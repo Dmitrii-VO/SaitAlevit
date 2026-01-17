@@ -12,7 +12,8 @@
       "Bash(git add:*)",
       "Bash(node -c:*)",
       "Bash(npm run build:js:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm run build:css:*)"
     ],
     "deny": []
   }
