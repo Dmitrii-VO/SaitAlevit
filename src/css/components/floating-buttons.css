@@ -20,11 +20,11 @@
     visibility: visible;
 }
 
-/* На первом экране кнопки меньше */
+/* На первом экране кнопки меньше и менее заметны */
 .floating-buttons:not(.floating-buttons--scrolled) .floating-button {
     width: 2.75rem;
     height: 2.75rem;
-    opacity: 0.7;
+    opacity: 0.5; /* Уменьшен контраст для меньшей конкуренции с CTA */
 }
 
 .floating-buttons:not(.floating-buttons--scrolled) .floating-button svg {
