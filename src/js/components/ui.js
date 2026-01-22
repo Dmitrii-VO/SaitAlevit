@@ -128,25 +128,44 @@ export function initFloatingButtons() {
     const floatingButtons = document.querySelector('#floating-buttons');
     if (!floatingButtons) return;
     
+    const heroSection = document.querySelector('#hero');
+    if (!heroSection) return;
+    
+    const heroHeight = heroSection.offsetHeight;
     let lastScrollTop = 0;
     
-    window.addEventListener('scroll', function() {
+    /**
+     * Обновляет состояние floating-кнопок в зависимости от скролла
+     */
+    function updateFloatingButtons() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > 300) {
-            floatingButtons.style.display = 'flex';
-            
-            if (scrollTop > lastScrollTop) {
-                floatingButtons.style.opacity = '0.7';
-            } else {
-                floatingButtons.style.opacity = '1';
-            }
+        // Показываем кнопки после прокрутки первого экрана
+        if (scrollTop > heroHeight * 0.3) {
+            floatingButtons.classList.add('floating-buttons--visible');
+            floatingButtons.classList.add('floating-buttons--scrolled');
         } else {
-            floatingButtons.style.opacity = '0';
+            floatingButtons.classList.remove('floating-buttons--visible');
+            floatingButtons.classList.remove('floating-buttons--scrolled');
         }
         
         lastScrollTop = scrollTop;
+    }
+    
+    // Обновляем при скролле
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateFloatingButtons();
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
+    
+    // Обновляем при загрузке страницы
+    updateFloatingButtons();
 }
 
 /**
