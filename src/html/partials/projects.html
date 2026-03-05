@@ -1,37 +1,58 @@
 <!-- PROJECTS - Типовые проекты домов -->
-        <!-- ============================================ -->
-        <section class="projects" id="projects">
-            <div class="projects__image-wrapper">
-                <img src="images/backgrounds/projects-background.png" alt="" class="projects__image" loading="lazy">
-                <div class="projects__overlay"></div>
-            </div>
-            <div class="projects__container">
-                <h2 class="projects__title">Типовые проекты домов</h2>
-                <p class="projects__subtitle">Строительство от 3 месяцев. Выберите готовый проект или закажите индивидуальное проектирование</p>
-                
-                <!-- Переключатели категорий -->
-                <div class="projects__tabs" role="tablist" aria-label="Выбор категории проектов">
-                    <button class="projects__tab projects__tab--active" 
-                            data-category="1" 
-                            role="tab" 
-                            aria-selected="true"
-                            aria-controls="projects-grid"
-                            id="projects-tab-1">
-                        1 этаж
-                    </button>
-                    <button class="projects__tab" 
-                            data-category="2" 
-                            role="tab" 
-                            aria-selected="false"
-                            aria-controls="projects-grid"
-                            id="projects-tab-2">
-                        2 этажа
-                    </button>
-                </div>
-                
-                <!-- Сетка проектов -->
-                <div class="projects__grid" id="projects-grid" role="tabpanel" aria-labelledby="projects-tab-1">
-                    <!-- Проекты будут загружены динамически из data/projects.json -->
-                </div>
-            </div>
-        </section>
+<!-- ============================================ -->
+<section class="projects" id="projects">
+  <div class="projects__image-wrapper">
+    <img
+      src="images/backgrounds/projects-background.webp"
+      alt=""
+      class="projects__image"
+      loading="lazy"
+    />
+    <div class="projects__overlay"></div>
+  </div>
+  <div class="projects__container">
+    <h2 class="projects__title">Типовые проекты домов</h2>
+    <p class="projects__subtitle">
+      Строительство от 3 месяцев. Выберите готовый проект или закажите
+      индивидуальное проектирование
+    </p>
+
+    <!-- Переключатели категорий -->
+    <div
+      class="projects__tabs"
+      role="tablist"
+      aria-label="Выбор категории проектов"
+    >
+      <button
+        class="projects__tab projects__tab--active"
+        data-category="1"
+        role="tab"
+        aria-selected="true"
+        aria-controls="projects-grid"
+        id="projects-tab-1"
+      >
+        1 этаж
+      </button>
+      <button
+        class="projects__tab"
+        data-category="2"
+        role="tab"
+        aria-selected="false"
+        aria-controls="projects-grid"
+        id="projects-tab-2"
+      >
+        2 этажа
+      </button>
+    </div>
+
+    <!-- Сетка проектов -->
+    <div
+      class="projects__grid"
+      id="projects-grid"
+      role="tabpanel"
+      aria-labelledby="projects-tab-1"
+    >
+      <!-- Проекты будут загружены динамически из data/projects.json -->
+    </div>
+  </div>
+</section>

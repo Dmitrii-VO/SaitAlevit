@@ -3,378 +3,380 @@
 /* ============================================ */
 
 .header {
-    position: relative;
-    z-index: 10;
+  position: relative;
+  z-index: 10;
 }
 
 .nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.2) 100%
-    );
-    backdrop-filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  backdrop-filter: blur(0.625rem);
 }
 
 .nav__container {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: var(--spacing-sm) var(--container-padding) var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-sm);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    position: relative;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--spacing-sm) var(--container-padding) var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.15);
+  position: relative;
 }
 
 .nav__link {
-    display: block;
-    padding: 0.375rem var(--spacing-sm);
-    color: var(--color-white);
-    transition: color var(--transition-base), border-bottom var(--transition-base);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    text-shadow: 
-        0 1px 3px rgba(0, 0, 0, 0.95),
-        0 2px 6px rgba(0, 0, 0, 0.8),
-        0 0 8px rgba(0, 0, 0, 0.5);
-    position: relative;
-    font-weight: 500;
+  display: block;
+  padding: 0.375rem var(--spacing-sm);
+  color: var(--color-white);
+  transition:
+    color var(--transition-base),
+    border-bottom var(--transition-base);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.95),
+    0 0.125rem 0.375rem rgba(0, 0, 0, 0.8),
+    0 0 0.5rem rgba(0, 0, 0, 0.5);
+  position: relative;
+  font-weight: 500;
 }
 
 .nav__link:hover {
-    color: var(--color-gold);
-    border-bottom: 1px solid var(--color-gold);
-    padding-bottom: calc(var(--spacing-xs) - 0.125rem);
+  color: var(--color-gold);
+  border-bottom: 0.0625rem solid var(--color-gold);
+  padding-bottom: calc(var(--spacing-xs) - 0.125rem);
 }
 
 /* Активное состояние пункта меню */
 .nav__link--active {
-    color: var(--color-gold);
-    border-bottom: 2px solid var(--color-gold);
-    padding-bottom: calc(var(--spacing-xs) - 0.125rem);
-    font-weight: 600;
-    text-shadow: 
-        0 1px 3px rgba(0, 0, 0, 0.9),
-        0 2px 6px rgba(212, 175, 55, 0.4);
+  color: var(--color-gold);
+  border-bottom: 0.125rem solid var(--color-gold);
+  padding-bottom: calc(var(--spacing-xs) - 0.125rem);
+  font-weight: 600;
+  text-shadow:
+    0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.9),
+    0 0.125rem 0.375rem rgba(212, 175, 55, 0.4);
 }
 
 .nav__link--active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: var(--color-gold);
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+  content: "";
+  position: absolute;
+  bottom: -0.125rem;
+  left: 0;
+  right: 0;
+  height: 0.125rem;
+  background-color: var(--color-gold);
+  box-shadow: 0 0 0.5rem rgba(212, 175, 55, 0.6);
 }
 
 .nav__logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: opacity var(--transition-base);
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-    padding: 0;
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 2px solid var(--color-gold);
-    background: transparent;
-    animation: logoFadeIn 0.6s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: opacity var(--transition-base);
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 0.125rem solid var(--color-gold);
+  background: transparent;
+  animation: logoFadeIn 0.6s ease-out;
 }
 
 @keyframes logoFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-0.625rem) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .nav__logo:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .nav__logo:active {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .nav__logo-img {
-    max-height: 4rem;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    filter: none;
+  max-height: 4rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: none;
 }
 
 /* Текстовое название компании рядом с логотипом */
 .nav__logo-text {
-    display: block;
-    font-family: 'Cinzel', 'Playfair Display', serif;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #f6c86b;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-    text-transform: uppercase;
-    text-shadow:
-        0 0 8px rgba(0, 0, 0, 0.8),
-        0 0 18px rgba(212, 175, 55, 0.4);
+  display: block;
+  font-family: "Cinzel", "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #f6c86b;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 0.5rem rgba(0, 0, 0, 0.8),
+    0 0 1.125rem rgba(212, 175, 55, 0.4);
 }
 
 .nav__menu {
-    display: flex;
-    gap: 1.25rem;
+  display: flex;
+  gap: 1.25rem;
 }
 
 .nav__burger {
-    display: none;
-    flex-direction: column;
-    gap: var(--size-burger-gap);
-    padding: var(--spacing-xs);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    z-index: 1000;
+  display: none;
+  flex-direction: column;
+  gap: var(--size-burger-gap);
+  padding: var(--spacing-xs);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
 }
 
 .nav__burger span {
-    width: var(--size-burger-width);
-    height: var(--size-burger-height);
-    background-color: var(--color-white);
-    transition: var(--transition-base);
+  width: var(--size-burger-width);
+  height: var(--size-burger-height);
+  background-color: var(--color-white);
+  transition: var(--transition-base);
 }
 
 .nav__burger--active span:nth-child(1) {
-    transform: rotate(45deg) translate(0.4rem, 0.4rem);
+  transform: rotate(45deg) translate(0.4rem, 0.4rem);
 }
 
 .nav__burger--active span:nth-child(2) {
-    opacity: 0;
+  opacity: 0;
 }
 
 .nav__burger--active span:nth-child(3) {
-    transform: rotate(-45deg) translate(0.4rem, -0.4rem);
+  transform: rotate(-45deg) translate(0.4rem, -0.4rem);
 }
 
 /* Десктопная версия */
-@media (min-width: 769px) {
-    .nav__container {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto;
-        align-items: start;
-        padding: var(--spacing-xs) var(--container-padding);
-        gap: 0 var(--spacing-md);
-        position: relative;
-    }
+@media (min-width: 48.0625em) {
+  .nav__container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    padding: var(--spacing-xs) var(--container-padding);
+    gap: 0 var(--spacing-md);
+    position: relative;
+  }
 
-    .nav__logo {
-        display: flex;
-        align-items: center;
-        padding: 0;
-        border-bottom: none;
-        z-index: 2;
-        grid-column: 1;
-        grid-row: 1;
-        position: static;
-    }
+  .nav__logo {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border-bottom: none;
+    z-index: 2;
+    grid-column: 1;
+    grid-row: 1;
+    position: static;
+  }
 
-    .nav__logo-img {
-        max-height: 7rem;
-        width: auto;
-        height: auto;
-        display: block;
-        flex-shrink: 0;
-    }
+  .nav__logo-img {
+    max-height: 7rem;
+    width: auto;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+  }
 
-    .nav__logo-text {
-        display: block;
-        position: absolute;
-        left: 50%;
-        top: calc(var(--spacing-xs) + 1rem);
-        transform: translateX(-50%);
-        font-size: 2.25rem;
-        z-index: 1;
-        pointer-events: auto;
-        text-align: center;
-        white-space: nowrap;
-        width: auto;
-    }
+  .nav__logo-text {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: calc(var(--spacing-xs) + 1rem);
+    transform: translateX(-50%);
+    font-size: 2.25rem;
+    z-index: 1;
+    pointer-events: auto;
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+  }
 
-    .nav__menu {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        justify-self: center;
-        margin-top: -2.5rem;
-    }
+  .nav__menu {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    margin-top: -2.5rem;
+  }
 }
 
-@media (max-width: 768px) {
-    .nav__container {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--spacing-xs) 0.75rem var(--spacing-xs);
-        gap: 0.5rem;
-        position: relative;
-    }
-    
-    /* Адаптация логотипа для мобильных */
-    .nav__logo {
-        gap: 0.5rem;
-        padding-bottom: var(--spacing-xs);
-        flex: 1;
-        min-width: 0;
-        max-width: calc(100% - 3rem);
-    }
-    
-    .nav__logo-img {
-        max-height: 3.25rem; /* Увеличено на 30% (было 2.5rem) */
-        width: auto;
-        height: auto;
-        flex-shrink: 0;
-    }
-    
-    .nav__logo-text {
-        font-size: 0.875rem;
-        letter-spacing: 0.03em;
-        line-height: 1.2;
-        text-shadow:
-            0 0 3px rgba(0, 0, 0, 0.8),
-            0 0 8px rgba(212, 175, 55, 0.4);
-        white-space: normal;
-        word-break: break-word;
-        overflow-wrap: break-word;
-        flex: 1;
-        min-width: 0;
-    }
-    
-    .nav__burger {
-        display: flex;
-        flex-shrink: 0;
-        margin-left: 0.5rem;
-    }
-    
-    .nav__burger span {
-        background-color: var(--color-white);
-    }
-    
-    .nav__menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.98); /* Улучшен контраст */
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 0 var(--spacing-xl);
-        padding-top: 0.5rem; /* Отступ сверху для логотипа */
-        padding-bottom: var(--spacing-lg);
-        box-shadow: var(--shadow-xl);
-        transform: translateX(-100%);
-        transition: transform var(--transition-slow);
-        z-index: 999;
-        gap: 0;
-        align-items: stretch;
-        justify-content: flex-start;
-        overflow-y: auto;
-    }
-    
-    .nav__menu--active {
-        transform: translateX(0);
-    }
-    
-    .nav__item {
-        width: 100%;
-    }
-    
-    .nav__link {
-        display: block;
-        width: 100%;
-        padding: 1.25rem var(--spacing-md);
-        color: var(--color-white);
-        font-size: 1.2rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        line-height: 1.5;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        font-weight: 500;
-    }
-    
-    .nav__link:hover {
-        color: var(--color-gold);
-        border-bottom-color: var(--color-gold);
-        padding-bottom: 1.25rem;
-        background-color: rgba(212, 175, 55, 0.1);
-    }
-    
-    .nav__link--active {
-        color: var(--color-gold);
-        border-bottom: 2px solid var(--color-gold);
-        background-color: rgba(212, 175, 55, 0.15);
-        font-weight: 600;
-    }
+@media (max-width: 48em) {
+  .nav__container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) 0.75rem var(--spacing-xs);
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  /* Адаптация логотипа для мобильных */
+  .nav__logo {
+    gap: 0.5rem;
+    padding-bottom: var(--spacing-xs);
+    flex: 1;
+    min-width: 0;
+    max-width: calc(100% - 3rem);
+  }
+
+  .nav__logo-img {
+    max-height: 3.25rem; /* Увеличено на 30% (было 2.5rem) */
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .nav__logo-text {
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    text-shadow:
+      0 0 0.1875rem rgba(0, 0, 0, 0.8),
+      0 0 0.5rem rgba(212, 175, 55, 0.4);
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nav__burger {
+    display: flex;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+  }
+
+  .nav__burger span {
+    background-color: var(--color-white);
+  }
+
+  .nav__menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.98); /* Улучшен контраст */
+    backdrop-filter: blur(1.25rem);
+    flex-direction: column;
+    padding: 0 var(--spacing-xl);
+    padding-top: 0.5rem; /* Отступ сверху для логотипа */
+    padding-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-xl);
+    transform: translateX(-100%);
+    transition: transform var(--transition-slow);
+    z-index: 999;
+    gap: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  .nav__menu--active {
+    transform: translateX(0);
+  }
+
+  .nav__item {
+    width: 100%;
+  }
+
+  .nav__link {
+    display: block;
+    width: 100%;
+    padding: 1.25rem var(--spacing-md);
+    color: var(--color-white);
+    font-size: 1.2rem;
+    border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.15);
+    line-height: 1.5;
+    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+  }
+
+  .nav__link:hover {
+    color: var(--color-gold);
+    border-bottom-color: var(--color-gold);
+    padding-bottom: 1.25rem;
+    background-color: rgba(212, 175, 55, 0.1);
+  }
+
+  .nav__link--active {
+    color: var(--color-gold);
+    border-bottom: 0.125rem solid var(--color-gold);
+    background-color: rgba(212, 175, 55, 0.15);
+    font-weight: 600;
+  }
 }
 
 /* Дополнительная адаптация для очень маленьких экранов */
-@media (max-width: 480px) {
-    .nav__container {
-        padding: var(--spacing-xs) 0.5rem var(--spacing-xs);
-        gap: 0.375rem;
-    }
-    
-    .nav__logo {
-        gap: 0.375rem;
-        max-width: calc(100% - 2.5rem);
-    }
-    
-    .nav__logo-img {
-        max-height: 2.6rem; /* Увеличено на 30% (было 2rem) */
-    }
-    
-    .nav__logo-text {
-        font-size: 0.75rem;
-        letter-spacing: 0.02em;
-    }
-    
-    .nav__burger {
-        margin-left: 0.375rem;
-    }
+@media (max-width: 30em) {
+  .nav__container {
+    padding: var(--spacing-xs) 0.5rem var(--spacing-xs);
+    gap: 0.375rem;
+  }
+
+  .nav__logo {
+    gap: 0.375rem;
+    max-width: calc(100% - 2.5rem);
+  }
+
+  .nav__logo-img {
+    max-height: 2.6rem; /* Увеличено на 30% (было 2rem) */
+  }
+
+  .nav__logo-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav__burger {
+    margin-left: 0.375rem;
+  }
 }
 
 /* Адаптация для экранов меньше 360px (очень маленькие телефоны) */
-@media (max-width: 360px) {
-    .nav__container {
-        padding: 0.375rem 0.5rem;
-    }
-    
-    .nav__logo {
-        gap: 0.25rem;
-        max-width: calc(100% - 2.25rem);
-    }
-    
-    .nav__logo-img {
-        max-height: 2.275rem; /* Увеличено на 30% (было 1.75rem) */
-    }
-    
-    .nav__logo-text {
-        font-size: 0.6875rem;
-        letter-spacing: 0.01em;
-    }
+@media (max-width: 22.5em) {
+  .nav__container {
+    padding: 0.375rem 0.5rem;
+  }
+
+  .nav__logo {
+    gap: 0.25rem;
+    max-width: calc(100% - 2.25rem);
+  }
+
+  .nav__logo-img {
+    max-height: 2.275rem; /* Увеличено на 30% (было 1.75rem) */
+  }
+
+  .nav__logo-text {
+    font-size: 0.6875rem;
+    letter-spacing: 0.01em;
+  }
 }

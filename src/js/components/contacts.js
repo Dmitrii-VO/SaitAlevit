@@ -3,7 +3,7 @@
  * @module components/contacts
  */
 
-import { parseAddress } from '../utils/format.js';
+import { parseAddress } from "../utils/format.js";
 
 /**
  * Обновляет плавающие кнопки с контактами
@@ -13,25 +13,27 @@ import { parseAddress } from '../utils/format.js';
  * @returns {void}
  */
 export function updateFloatingButtons(contacts) {
-    // Телефон
-    const phoneButton = document.querySelector('.floating-button--phone');
-    if (phoneButton && contacts.phone) {
-        const phoneHref = `tel:${contacts.phone.replace(/\D/g, '')}`;
-        phoneButton.setAttribute('href', phoneHref);
+  // Телефон
+  const phoneButton = document.querySelector(".floating-button--phone");
+  if (phoneButton && contacts.phone) {
+    const phoneHref = `tel:${contacts.phone.replace(/\D/g, "")}`;
+    phoneButton.setAttribute("href", phoneHref);
+  }
+
+  // WhatsApp
+  const whatsappButton = document.querySelector(".floating-button--whatsapp");
+  if (whatsappButton && contacts.whatsapp && contacts.whatsapp !== "#") {
+    // Если это номер телефона, преобразуем в ссылку WhatsApp
+    let whatsappHref = contacts.whatsapp;
+    if (whatsappHref.startsWith("+") || /^\d/.test(whatsappHref)) {
+      // Убираем все нецифровые символы, кроме +
+      const phoneNumber = whatsappHref
+        .replace(/[^\d+]/g, "")
+        .replace(/^\+/, "");
+      whatsappHref = `https://wa.me/${phoneNumber}`;
     }
-    
-    // WhatsApp
-    const whatsappButton = document.querySelector('.floating-button--whatsapp');
-    if (whatsappButton && contacts.whatsapp && contacts.whatsapp !== '#') {
-        // Если это номер телефона, преобразуем в ссылку WhatsApp
-        let whatsappHref = contacts.whatsapp;
-        if (whatsappHref.startsWith('+') || /^\d/.test(whatsappHref)) {
-            // Убираем все нецифровые символы, кроме +
-            const phoneNumber = whatsappHref.replace(/[^\d+]/g, '').replace(/^\+/, '');
-            whatsappHref = `https://wa.me/${phoneNumber}`;
-        }
-        whatsappButton.setAttribute('href', whatsappHref);
-    }
+    whatsappButton.setAttribute("href", whatsappHref);
+  }
 }
 
 /**
@@ -48,70 +50,77 @@ export function updateFloatingButtons(contacts) {
  * @returns {void}
  */
 export function updateProcessConsultationPhone() {
-    // Получаем телефон из первого элемента контактов (обычно это телефон)
-    const contactsInfo = document.getElementById('contacts-info');
-    if (!contactsInfo) return;
-    
-    const firstContactItem = contactsInfo.querySelector('.contacts__item');
-    if (!firstContactItem) return;
-    
-    const phoneLink = firstContactItem.querySelector('.contacts__item-link');
-    if (!phoneLink) return;
-    
-    const phoneText = phoneLink.textContent.trim();
-    if (!phoneText) return;
-    
-    // Обновляем телефон в шаге "Консультация"
-    const processPhoneElement = document.getElementById('process-consultation-phone');
-    if (processPhoneElement) {
-        processPhoneElement.textContent = phoneText;
-    }
+  // Получаем телефон из первого элемента контактов (обычно это телефон)
+  const contactsInfo = document.getElementById("contacts-info");
+  if (!contactsInfo) return;
+
+  const firstContactItem = contactsInfo.querySelector(".contacts__item");
+  if (!firstContactItem) return;
+
+  const phoneLink = firstContactItem.querySelector(".contacts__item-link");
+  if (!phoneLink) return;
+
+  const phoneText = phoneLink.textContent.trim();
+  if (!phoneText) return;
+
+  // Обновляем телефон в шаге "Консультация"
+  const processPhoneElement = document.getElementById(
+    "process-consultation-phone",
+  );
+  if (processPhoneElement) {
+    processPhoneElement.textContent = phoneText;
+  }
 }
 
 export function updateSchemaOrg(contacts) {
-    if (!contacts) return;
-    
-    const schemaScripts = document.querySelectorAll('script[type="application/ld+json"]');
-    
-    schemaScripts.forEach(script => {
-        try {
-            const schema = JSON.parse(script.textContent);
-            let updated = false;
-            
-            // Обновляем телефон
-            if (contacts.phone) {
-                if (schema.telephone) {
-                    schema.telephone = contacts.phone;
-                    updated = true;
-                }
-                if (schema.contactPoint && schema.contactPoint.telephone) {
-                    schema.contactPoint.telephone = contacts.phone;
-                    updated = true;
-                }
-            }
-            
-            // Обновляем email
-            if (contacts.email && schema.email) {
-                schema.email = contacts.email;
-                updated = true;
-            }
-            
-            // Обновляем адрес
-            if (contacts.address && schema.address) {
-                const addressParts = parseAddress(contacts.address);
-                if (addressParts) {
-                    if (addressParts.streetAddress) schema.address.streetAddress = addressParts.streetAddress;
-                    if (addressParts.addressLocality) schema.address.addressLocality = addressParts.addressLocality;
-                    if (addressParts.addressRegion) schema.address.addressRegion = addressParts.addressRegion;
-                    updated = true;
-                }
-            }
-            
-            if (updated) {
-                script.textContent = JSON.stringify(schema, null, 2);
-            }
-        } catch (e) {
-            console.error('Ошибка обновления schema.org:', e);
+  if (!contacts) return;
+
+  const schemaScripts = document.querySelectorAll(
+    'script[type="application/ld+json"]',
+  );
+
+  schemaScripts.forEach((script) => {
+    try {
+      const schema = JSON.parse(script.textContent);
+      let updated = false;
+
+      // Обновляем телефон
+      if (contacts.phone) {
+        if (schema.telephone) {
+          schema.telephone = contacts.phone;
+          updated = true;
         }
-    });
+        if (schema.contactPoint && schema.contactPoint.telephone) {
+          schema.contactPoint.telephone = contacts.phone;
+          updated = true;
+        }
+      }
+
+      // Обновляем email
+      if (contacts.email && schema.email) {
+        schema.email = contacts.email;
+        updated = true;
+      }
+
+      // Обновляем адрес
+      if (contacts.address && schema.address) {
+        const addressParts = parseAddress(contacts.address);
+        if (addressParts) {
+          if (addressParts.streetAddress)
+            schema.address.streetAddress = addressParts.streetAddress;
+          if (addressParts.addressLocality)
+            schema.address.addressLocality = addressParts.addressLocality;
+          if (addressParts.addressRegion)
+            schema.address.addressRegion = addressParts.addressRegion;
+          updated = true;
+        }
+      }
+
+      if (updated) {
+        script.textContent = JSON.stringify(schema, null, 2);
+      }
+    } catch (e) {
+      console.error("Ошибка обновления schema.org:", e);
+    }
+  });
 }

@@ -3,39 +3,39 @@
 /* ============================================ */
 
 /* Базовые стили */
-@import './base/variables.css';
-@import './base/reset.css';
-@import './base/typography.css';
+@import "./base/variables.css";
+@import "./base/reset.css";
+@import "./base/typography.css";
 
 /* Layout */
-@import './layout/container.css';
-@import './layout/grid.css';
+@import "./layout/container.css";
+@import "./layout/grid.css";
 
 /* Компоненты */
-@import './components/card.css';
-@import './components/header.css';
-@import './components/hero.css';
-@import './components/buttons.css';
-@import './components/advantages.css';
-@import './components/projects.css';
-@import './components/works.css';
-@import './components/process.css';
-@import './components/map.css';
-@import './components/services.css';
-@import './components/reviews.css';
-@import './components/about.css';
-@import './components/cta.css';
-@import './components/contacts.css';
-@import './components/footer.css';
-@import './components/calculator.css';
-@import './components/faq.css';
-@import './components/gallery-modal.css';
-@import './components/floating-buttons.css';
-@import './components/cta-buttons-after-sections.css';
-@import './components/improved-cta-form.css';
-@import './components/privacy-modal.css';
-@import './components/privacy-page.css';
-@import './components/builder-character.css';
+@import "./components/card.css";
+@import "./components/header.css";
+@import "./components/hero.css";
+@import "./components/buttons.css";
+@import "./components/advantages.css";
+@import "./components/projects.css";
+@import "./components/works.css";
+@import "./components/process.css";
+@import "./components/map.css";
+@import "./components/services.css";
+@import "./components/reviews.css";
+@import "./components/about.css";
+@import "./components/cta.css";
+@import "./components/contacts.css";
+@import "./components/footer.css";
+@import "./components/calculator.css";
+@import "./components/faq.css";
+@import "./components/gallery-modal.css";
+@import "./components/floating-buttons.css";
+@import "./components/cta-buttons-after-sections.css";
+@import "./components/improved-cta-form.css";
+@import "./components/privacy-modal.css";
+@import "./components/privacy-page.css";
+@import "./components/builder-character.css";
 
 /* Утилиты */
-@import './utilities/helpers.css';
+@import "./utilities/helpers.css";

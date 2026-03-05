@@ -54,3 +54,12 @@ coverage/
 # Другое
 *.orig
 .sass-cache/
+
+# Локальные AI/assistant настройки (не относятся к коду проекта)
+.gemini/
+.claude/
+.cursor/
+.codex/
+.aider*
+.continue/
+.roo/

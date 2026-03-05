@@ -5,6 +5,6 @@
 .works__cta,
 .reviews__cta,
 .about__cta {
-    text-align: center;
-    margin-top: var(--spacing-xxl);
+  text-align: center;
+  margin-top: var(--spacing-xxl);
 }

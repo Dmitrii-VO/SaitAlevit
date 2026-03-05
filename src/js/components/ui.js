@@ -8,51 +8,56 @@
  * @returns {void}
  */
 export function initMobileMenu() {
-    const burgerButton = document.querySelector('.nav__burger');
-    const navMenu = document.querySelector('.nav__menu');
-    const navContainer = document.querySelector('.nav__container');
-    
-    if (!burgerButton || !navMenu) return;
-    
-    burgerButton.addEventListener('click', () => {
-        const isActive = navMenu.classList.contains('nav__menu--active');
-        
-        navMenu.classList.toggle('nav__menu--active');
-        burgerButton.classList.toggle('nav__burger--active');
-        burgerButton.setAttribute('aria-label', isActive ? 'Открыть меню' : 'Закрыть меню');
-        burgerButton.setAttribute('aria-expanded', !isActive);
-        
-        if (!isActive) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+  const burgerButton = document.querySelector(".nav__burger");
+  const navMenu = document.querySelector(".nav__menu");
+  const navContainer = document.querySelector(".nav__container");
+
+  if (!burgerButton || !navMenu) return;
+
+  burgerButton.addEventListener("click", () => {
+    const isActive = navMenu.classList.contains("nav__menu--active");
+
+    navMenu.classList.toggle("nav__menu--active");
+    burgerButton.classList.toggle("nav__burger--active");
+    burgerButton.setAttribute(
+      "aria-label",
+      isActive ? "Открыть меню" : "Закрыть меню",
+    );
+    burgerButton.setAttribute("aria-expanded", !isActive);
+
+    if (!isActive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Закрываем меню при клике на ссылку
+  const navLinks = navMenu.querySelectorAll(".nav__link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navMenu.classList.remove("nav__menu--active");
+      burgerButton.classList.remove("nav__burger--active");
+      burgerButton.setAttribute("aria-label", "Открыть меню");
+      burgerButton.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
     });
-    
-    // Закрываем меню при клике на ссылку
-    const navLinks = navMenu.querySelectorAll('.nav__link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('nav__menu--active');
-            burgerButton.classList.remove('nav__burger--active');
-            burgerButton.setAttribute('aria-label', 'Открыть меню');
-            burgerButton.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        });
-    });
-    
-    // Закрываем меню при клике вне его области
-    document.addEventListener('click', (e) => {
-        if (navMenu.classList.contains('nav__menu--active') && 
-            !navContainer.contains(e.target) && 
-            !burgerButton.contains(e.target)) {
-            navMenu.classList.remove('nav__menu--active');
-            burgerButton.classList.remove('nav__burger--active');
-            burgerButton.setAttribute('aria-label', 'Открыть меню');
-            burgerButton.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-    });
+  });
+
+  // Закрываем меню при клике вне его области
+  document.addEventListener("click", (e) => {
+    if (
+      navMenu.classList.contains("nav__menu--active") &&
+      !navContainer.contains(e.target) &&
+      !burgerButton.contains(e.target)
+    ) {
+      navMenu.classList.remove("nav__menu--active");
+      burgerButton.classList.remove("nav__burger--active");
+      burgerButton.setAttribute("aria-label", "Открыть меню");
+      burgerButton.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+  });
 }
 
 /**
@@ -60,36 +65,36 @@ export function initMobileMenu() {
  * @returns {void}
  */
 export function initFAQ() {
-    const faqItems = document.querySelectorAll('.faq__item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq__question');
-        if (!question) return;
-        
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Закрываем все другие элементы
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                    const otherQuestion = otherItem.querySelector('.faq__question');
-                    if (otherQuestion) {
-                        otherQuestion.setAttribute('aria-expanded', 'false');
-                    }
-                }
-            });
-            
-            // Переключаем текущий элемент
-            if (isActive) {
-                item.classList.remove('active');
-                question.setAttribute('aria-expanded', 'false');
-            } else {
-                item.classList.add('active');
-                question.setAttribute('aria-expanded', 'true');
-            }
-        });
+  const faqItems = document.querySelectorAll(".faq__item");
+
+  faqItems.forEach((item) => {
+    const question = item.querySelector(".faq__question");
+    if (!question) return;
+
+    question.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+
+      // Закрываем все другие элементы
+      faqItems.forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.classList.remove("active");
+          const otherQuestion = otherItem.querySelector(".faq__question");
+          if (otherQuestion) {
+            otherQuestion.setAttribute("aria-expanded", "false");
+          }
+        }
+      });
+
+      // Переключаем текущий элемент
+      if (isActive) {
+        item.classList.remove("active");
+        question.setAttribute("aria-expanded", "false");
+      } else {
+        item.classList.add("active");
+        question.setAttribute("aria-expanded", "true");
+      }
     });
+  });
 }
 
 /**
@@ -97,27 +102,27 @@ export function initFAQ() {
  * @returns {void}
  */
 export function initSmoothScroll() {
-    const anchors = document.querySelectorAll('a[href^="#"]');
-    anchors.forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            // Пропускаем пустые якоря и якоря только с #
-            if (!href || href === '#' || href === '#!') {
-                return;
-            }
-            
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            } else {
-                console.warn(`Элемент с ID ${href} не найден`);
-            }
+  const anchors = document.querySelectorAll('a[href^="#"]');
+  anchors.forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      // Пропускаем пустые якоря и якоря только с #
+      if (!href || href === "#" || href === "#!") {
+        return;
+      }
+
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
+      } else {
+        console.warn(`Элемент с ID ${href} не найден`);
+      }
     });
+  });
 }
 
 /**
@@ -125,47 +130,47 @@ export function initSmoothScroll() {
  * @returns {void}
  */
 export function initFloatingButtons() {
-    const floatingButtons = document.querySelector('#floating-buttons');
-    if (!floatingButtons) return;
-    
-    const heroSection = document.querySelector('#hero');
-    if (!heroSection) return;
-    
-    const heroHeight = heroSection.offsetHeight;
-    let lastScrollTop = 0;
-    
-    /**
-     * Обновляет состояние floating-кнопок в зависимости от скролла
-     */
-    function updateFloatingButtons() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Показываем кнопки после прокрутки первого экрана
-        if (scrollTop > heroHeight * 0.3) {
-            floatingButtons.classList.add('floating-buttons--visible');
-            floatingButtons.classList.add('floating-buttons--scrolled');
-        } else {
-            floatingButtons.classList.remove('floating-buttons--visible');
-            floatingButtons.classList.remove('floating-buttons--scrolled');
-        }
-        
-        lastScrollTop = scrollTop;
+  const floatingButtons = document.querySelector("#floating-buttons");
+  if (!floatingButtons) return;
+
+  const heroSection = document.querySelector("#hero");
+  if (!heroSection) return;
+
+  const heroHeight = heroSection.offsetHeight;
+  let lastScrollTop = 0;
+
+  /**
+   * Обновляет состояние floating-кнопок в зависимости от скролла
+   */
+  function updateFloatingButtons() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Показываем кнопки после прокрутки первого экрана
+    if (scrollTop > heroHeight * 0.3) {
+      floatingButtons.classList.add("floating-buttons--visible");
+      floatingButtons.classList.add("floating-buttons--scrolled");
+    } else {
+      floatingButtons.classList.remove("floating-buttons--visible");
+      floatingButtons.classList.remove("floating-buttons--scrolled");
     }
-    
-    // Обновляем при скролле
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                updateFloatingButtons();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-    
-    // Обновляем при загрузке страницы
-    updateFloatingButtons();
+
+    lastScrollTop = scrollTop;
+  }
+
+  // Обновляем при скролле
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateFloatingButtons();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Обновляем при загрузке страницы
+  updateFloatingButtons();
 }
 
 /**
@@ -173,23 +178,23 @@ export function initFloatingButtons() {
  * @returns {void}
  */
 export function initScrollAnimation() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-    
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        observer.observe(section);
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  };
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate-in");
+      }
     });
+  }, observerOptions);
+
+  const sections = document.querySelectorAll("section");
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
 }
 
 /**
@@ -197,62 +202,65 @@ export function initScrollAnimation() {
  * @returns {void}
  */
 export function initActiveNavigation() {
-    const navLinks = document.querySelectorAll('.nav__link');
-    const sections = document.querySelectorAll('section[id]');
-    
-    if (!navLinks.length || !sections.length) return;
-    
-    /**
-     * Обновляет активное состояние навигации
-     */
-    function updateActiveNav() {
-        let currentSection = '';
-        const scrollPosition = window.pageYOffset + 150; // Отступ для активации
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSection = sectionId;
-            }
-        });
-        
-        // Удаляем активное состояние у всех ссылок
-        navLinks.forEach(link => {
-            link.classList.remove('nav__link--active');
-        });
-        
-        // Добавляем активное состояние к текущей ссылке
-        if (currentSection) {
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href === `#${currentSection}`) {
-                    link.classList.add('nav__link--active');
-                }
-            });
-        } else {
-            // Если мы в начале страницы, делаем первую ссылку активной (если есть)
-            const firstLink = navLinks[0];
-            if (firstLink && window.pageYOffset < 200) {
-                firstLink.classList.add('nav__link--active');
-            }
-        }
-    }
-    
-    // Обновляем при скролле
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                updateActiveNav();
-                ticking = false;
-            });
-            ticking = true;
-        }
+  const navLinks = document.querySelectorAll(".nav__link");
+  const sections = document.querySelectorAll("section[id]");
+
+  if (!navLinks.length || !sections.length) return;
+
+  /**
+   * Обновляет активное состояние навигации
+   */
+  function updateActiveNav() {
+    let currentSection = "";
+    const scrollPosition = window.pageYOffset + 150; // Отступ для активации
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute("id");
+
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition < sectionTop + sectionHeight
+      ) {
+        currentSection = sectionId;
+      }
     });
-    
-    // Обновляем при загрузке страницы
-    updateActiveNav();
+
+    // Удаляем активное состояние у всех ссылок
+    navLinks.forEach((link) => {
+      link.classList.remove("nav__link--active");
+    });
+
+    // Добавляем активное состояние к текущей ссылке
+    if (currentSection) {
+      navLinks.forEach((link) => {
+        const href = link.getAttribute("href");
+        if (href === `#${currentSection}`) {
+          link.classList.add("nav__link--active");
+        }
+      });
+    } else {
+      // Если мы в начале страницы, делаем первую ссылку активной (если есть)
+      const firstLink = navLinks[0];
+      if (firstLink && window.pageYOffset < 200) {
+        firstLink.classList.add("nav__link--active");
+      }
+    }
+  }
+
+  // Обновляем при скролле
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Обновляем при загрузке страницы
+  updateActiveNav();
 }

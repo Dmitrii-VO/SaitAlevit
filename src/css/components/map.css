@@ -3,125 +3,125 @@
 /* ============================================ */
 
 .map {
-    position: relative;
-    padding: var(--spacing-xxl) var(--container-padding);
-    overflow: hidden;
-    width: 100%;
+  position: relative;
+  padding: var(--spacing-xxl) var(--container-padding);
+  overflow: hidden;
+  width: 100%;
 }
 
 .map__image-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .map__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .map__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.95) 0%,
-        rgba(245, 245, 245, 0.92) 50%,
-        rgba(255, 255, 255, 0.95) 100%
-    );
-    z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(245, 245, 245, 0.92) 50%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  z-index: 2;
 }
 
 .map__container {
-    position: relative;
-    z-index: 3;
-    max-width: 100%;
-    margin: 0 auto;
-    width: 100%;
+  position: relative;
+  z-index: 3;
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .map__title {
-    text-align: center;
-    margin-bottom: var(--spacing-sm);
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
 }
 
 .map__subtitle {
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
 }
 
 .map__legend {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
 }
 
 .map__legend-item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
 .map__legend-text {
-    font-size: var(--font-size-small);
-    color: var(--color-gray-dark);
+  font-size: var(--font-size-small);
+  color: var(--color-gray-dark);
 }
 
 .map__legend-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .map__legend-color--green {
-    background-color: var(--color-green);
+  background-color: var(--color-green);
 }
 
 .map__legend-color--orange {
-    background-color: var(--color-orange);
+  background-color: var(--color-orange);
 }
 
 .map__legend-color--red {
-    background-color: var(--color-red);
+  background-color: var(--color-red);
 }
 
 /* Узкая и длинная карта на всю ширину */
 .map__content {
-    width: 100%;
-    min-height: 500px;
-    height: 500px;
-    background-color: var(--color-white);
-    border-radius: var(--border-radius);
-    overflow: hidden;
+  width: 100%;
+  min-height: 31.25rem;
+  height: 31.25rem;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 /* Адаптивность */
-@media (max-width: 768px) {
-    .map {
-        padding: var(--spacing-xl) var(--container-padding);
-    }
-    
-    .map__content {
-        min-height: 400px;
-        height: 400px;
-    }
-    
-    .map__legend {
-        gap: var(--spacing-md);
-    }
-    
-    .map__legend-item {
-        font-size: var(--font-size-small);
-    }
+@media (max-width: 48em) {
+  .map {
+    padding: var(--spacing-xl) var(--container-padding);
+  }
+
+  .map__content {
+    min-height: 25rem;
+    height: 25rem;
+  }
+
+  .map__legend {
+    gap: var(--spacing-md);
+  }
+
+  .map__legend-item {
+    font-size: var(--font-size-small);
+  }
 }
