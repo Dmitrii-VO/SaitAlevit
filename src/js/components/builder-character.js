@@ -55,6 +55,15 @@ const STATES = {
   GETTING_UP: "getting-up",
 };
 
+function getSiteBasePath() {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  const [firstSegment] = window.location.pathname.split("/").filter(Boolean);
+  return firstSegment === "saitalevit" ? "/saitalevit" : "";
+}
+
 /**
  * Класс для управления персонажем-строителем
  */
@@ -502,7 +511,7 @@ class BuilderCharacter {
 
     // Номер кадра от 1 до 8 (spriteFrame от 0 до 7, но файлы от 1 до 8)
     const frameNumber = this.spriteFrame + 1;
-    const imagePath = `/images/builders/builder-running-${frameNumber}.webp`;
+    const imagePath = `${getSiteBasePath()}/images/builders/builder-running-${frameNumber}.webp`;
     this.element.style.backgroundImage = `url(${imagePath})`;
   }
 

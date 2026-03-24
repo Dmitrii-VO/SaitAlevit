@@ -6,6 +6,19 @@
 import { showNotification } from "./notifications.js";
 import { formatPhone } from "../utils/format.js";
 
+function getSiteBasePath() {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  const [firstSegment] = window.location.pathname.split("/").filter(Boolean);
+  return firstSegment === "saitalevit" ? "/saitalevit" : "";
+}
+
+function getApiUrl(path) {
+  return `${getSiteBasePath()}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
 /**
  * Добавляет анимацию тряски к элементу
  * @param {HTMLElement} element - Элемент для анимации
@@ -287,7 +300,7 @@ async function handleCTAFormSubmit(
 
   // Отправка на сервер
   try {
-    const response = await fetch("/api/submit-form", {
+    const response = await fetch(getApiUrl("/api/submit-form"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -486,7 +499,7 @@ async function handleCalculatorSubmit(form) {
       phone: "Не указан",
     };
 
-    fetch("/api/submit-form", {
+    fetch(getApiUrl("/api/submit-form"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

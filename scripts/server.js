@@ -9,8 +9,8 @@ const path = require('path');
 const os = require('os');
 const { sendFormNotification } = require('../telegram-bot/utils/notifications');
 
-const PORT = 3000;
-const HOST = '0.0.0.0'; // Доступен по сети
+const PORT = Number(process.env.PORT || 3000);
+const HOST = process.env.HOST || '0.0.0.0'; // Доступен по сети
 
 // MIME типы
 const mimeTypes = {
