@@ -1,3 +1,5 @@
+import { keepDialogFocus } from "../utils/dialog-focus.js";
+
 /**
  * Модуль для работы с модальным окном согласия на обработку персональных данных
  * @module components/privacy-modal
@@ -15,11 +17,14 @@ export function initPrivacyModal() {
   const privacyLinks = document.querySelectorAll("[data-privacy-modal]");
 
   if (!modal) return;
+  modal.addEventListener("keydown", event => keepDialogFocus(event, modal));
 
   /**
    * Открывает модальное окно
    */
+  let returnFocus;
   function openModal() {
+    returnFocus = document.activeElement;
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
     modal.setAttribute("aria-hidden", "false");
@@ -32,6 +37,7 @@ export function initPrivacyModal() {
    * Закрывает модальное окно
    */
   function closeModal() {
+    returnFocus?.focus({ preventScroll: true });
     modal.style.display = "none";
     document.body.style.overflow = "";
     modal.setAttribute("aria-hidden", "true");

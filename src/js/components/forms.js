@@ -6,13 +6,17 @@
 import { showNotification } from "./notifications.js";
 import { formatPhone } from "../utils/format.js";
 
+function isPagesPreview() {
+  return window.location.hostname === "dmitrii-vo.github.io";
+}
+
 function getSiteBasePath() {
   if (typeof window === "undefined") {
     return "";
   }
 
   const [firstSegment] = window.location.pathname.split("/").filter(Boolean);
-  return firstSegment === "saitalevit" ? "/saitalevit" : "";
+  return firstSegment?.toLowerCase() === "saitalevit" ? `/${firstSegment}` : "";
 }
 
 function getApiUrl(path) {
@@ -49,7 +53,7 @@ export function validateNameInput(input, showError = false) {
 
   // Валидация: минимум 2 символа, только буквы, пробелы и дефисы
   const isValid =
-    nameValue.length >= 2 && /^[А-Яа-яЁёA-Za-z\s\-]+$/.test(nameValue);
+    nameValue.length >= 2 && /^[А-Яа-яЁёA-Za-z\s-]+$/.test(nameValue);
 
   // Очищаем предыдущее сообщение об ошибке
   if (errorElement) {
@@ -161,7 +165,8 @@ export function validateAreaInput(input, showError = false) {
   const errorElement = document.getElementById("cta-area-error");
 
   // Валидация: от 20 до 500 м²
-  const isValid = !isNaN(areaValue) && areaValue >= 20 && areaValue <= 500;
+  const omitted = input.value === "" && !input.required && !input.validity.badInput;
+  const isValid = omitted || (Number.isFinite(areaValue) && areaValue >= 20 && areaValue <= 500);
 
   // Очищаем предыдущее сообщение об ошибке
   if (errorElement) {
@@ -363,6 +368,11 @@ async function handleCTAFormSubmit(
  * @returns {void}
  */
 export function initCTAForm(form) {
+  if (isPagesPreview()) {
+    form.hidden = true;
+    document.getElementById("cta-direct").hidden = false;
+    return;
+  }
   const progressBar = document.querySelector("#form-progress");
   const progressContainer = document.querySelector(".cta__form-progress");
   const submitButton = form.querySelector(".cta__form-submit");
@@ -428,8 +438,6 @@ export function initCTAForm(form) {
 export function initContactForm(form) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
 
     // Здесь можно добавить отправку данных на сервер
     showNotification("Сообщение отправлено успешно!", "success");
@@ -447,6 +455,14 @@ async function handleCalculatorSubmit(form) {
   const data = Object.fromEntries(formData);
 
   // Отправляем заявку в Telegram (не блокируем UI, отправляем в фоне)
+  if (isPagesPreview()) {
+    const estimate = document.getElementById("cta-estimate");
+    const total = document.getElementById("result-price").textContent;
+    estimate.textContent = `Ваш расчёт для ${data.area} м² — от ${total} ₽.`;
+    estimate.hidden = false;
+    document.getElementById("cta").scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
   try {
     const submitData = {
       formType: "calculator",

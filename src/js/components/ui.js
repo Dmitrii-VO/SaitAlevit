@@ -14,49 +14,28 @@ export function initMobileMenu() {
 
   if (!burgerButton || !navMenu) return;
 
+  function setOpen(open) {
+    navMenu.classList.toggle("nav__menu--active", open);
+    burgerButton.classList.toggle("nav__burger--active", open);
+    burgerButton.setAttribute("aria-expanded", String(open));
+    burgerButton.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  const isOpen = () => navMenu.classList.contains("nav__menu--active");
   burgerButton.addEventListener("click", () => {
-    const isActive = navMenu.classList.contains("nav__menu--active");
-
-    navMenu.classList.toggle("nav__menu--active");
-    burgerButton.classList.toggle("nav__burger--active");
-    burgerButton.setAttribute(
-      "aria-label",
-      isActive ? "Открыть меню" : "Закрыть меню",
-    );
-    burgerButton.setAttribute("aria-expanded", !isActive);
-
-    if (!isActive) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    setOpen(!isOpen());
+    if (isOpen()) navMenu.querySelector("a")?.focus();
+  });
+  navMenu.addEventListener("click", e => { if (e.target.closest("a")) setOpen(false); });
+  document.addEventListener("click", e => { if (isOpen() && !navContainer.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", e => {
+    if (isOpen() && e.key === "Escape") {
+      setOpen(false);
+      burgerButton.focus();
     }
   });
-
-  // Закрываем меню при клике на ссылку
-  const navLinks = navMenu.querySelectorAll(".nav__link");
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navMenu.classList.remove("nav__menu--active");
-      burgerButton.classList.remove("nav__burger--active");
-      burgerButton.setAttribute("aria-label", "Открыть меню");
-      burgerButton.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    });
-  });
-
-  // Закрываем меню при клике вне его области
-  document.addEventListener("click", (e) => {
-    if (
-      navMenu.classList.contains("nav__menu--active") &&
-      !navContainer.contains(e.target) &&
-      !burgerButton.contains(e.target)
-    ) {
-      navMenu.classList.remove("nav__menu--active");
-      burgerButton.classList.remove("nav__burger--active");
-      burgerButton.setAttribute("aria-label", "Открыть меню");
-      burgerButton.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    }
+  window.matchMedia("(max-width: 48em)").addEventListener("change", () => {
+    if (isOpen()) setOpen(false);
   });
 }
 
@@ -137,7 +116,6 @@ export function initFloatingButtons() {
   if (!heroSection) return;
 
   const heroHeight = heroSection.offsetHeight;
-  let lastScrollTop = 0;
 
   /**
    * Обновляет состояние floating-кнопок в зависимости от скролла
@@ -154,7 +132,6 @@ export function initFloatingButtons() {
       floatingButtons.classList.remove("floating-buttons--scrolled");
     }
 
-    lastScrollTop = scrollTop;
   }
 
   // Обновляем при скролле

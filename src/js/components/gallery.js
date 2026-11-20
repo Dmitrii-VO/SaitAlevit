@@ -1,9 +1,12 @@
+import { keepDialogFocus } from "../utils/dialog-focus.js";
+
 /**
  * Компонент галереи и модального окна
  * @module components/gallery
  */
 
 let currentImages = [];
+let returnFocus;
 let currentIndex = 0;
 let modal = null;
 let prevButton = null;
@@ -17,6 +20,7 @@ let thumbnailsContainer = null;
 export function initGalleryModal() {
   modal = document.getElementById("gallery-modal");
   if (!modal) return;
+  modal.addEventListener("keydown", event => keepDialogFocus(event, modal));
 
   const closeButton = modal.querySelector(".gallery-modal__close");
   const overlay = modal.querySelector(".gallery-modal__overlay");
@@ -60,9 +64,11 @@ function openGallery(projectTitle, images) {
     titleElement.textContent = projectTitle || "Проект";
   }
 
+  returnFocus = document.activeElement;
   modal.classList.add("gallery-modal--active");
   modal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  modal.querySelector(".gallery-modal__close").focus();
 
   loadGalleryImages();
   updateGalleryCounter();
@@ -73,6 +79,7 @@ function openGallery(projectTitle, images) {
  * @returns {void}
  */
 function closeGallery() {
+  returnFocus?.focus({ preventScroll: true });
   modal.classList.remove("gallery-modal--active");
   modal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";

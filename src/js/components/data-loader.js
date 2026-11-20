@@ -12,8 +12,6 @@ import {
   createVideoReviewCard,
   createTextReviewItem,
   createWorkCard,
-  createHeroContactItem,
-  createHeroContactsDropdown,
 } from "./ui-components.js";
 import {
   updateFloatingButtons,
@@ -386,8 +384,7 @@ function updateFooterContacts(contacts) {
   }
 
   // Обновляем ссылку Telegram в блоке социальных сетей
-  const telegramLink = document.getElementById("footer-telegram");
-  if (telegramLink) {
+  for (const telegramLink of document.querySelectorAll("#footer-telegram, #cta-telegram")) {
     if (telegramUrl) {
       telegramLink.href = telegramUrl;
       telegramLink.style.display = "";
