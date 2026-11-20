@@ -237,3 +237,19 @@
   color: var(--color-gray-dark);
   margin: 0;
 }
+
+/* Мобильная версия: карточки контактов на всю ширину */
+@media (max-width: 47.9375em) {
+  .contacts__content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .contacts__info {
+    gap: var(--spacing-md);
+  }
+
+  .contacts__item {
+    padding: var(--spacing-md);
+  }
+}

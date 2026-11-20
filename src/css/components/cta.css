@@ -263,3 +263,23 @@
   margin: 0;
   line-height: 1.5;
 }
+
+/* Мобильная версия: форма под текстом, а не справа за экраном */
+@media (max-width: 47.9375em) {
+  .cta__container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .cta__content {
+    padding-right: 0;
+  }
+
+  .cta__title {
+    font-size: 1.75rem;
+  }
+
+  .cta__form {
+    padding: var(--spacing-lg);
+  }
+}

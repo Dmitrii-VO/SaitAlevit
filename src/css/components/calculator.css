@@ -349,9 +349,4 @@
     width: 100%;
   }
 
-  .calculator__result-price {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-xs);
-  }
 }
