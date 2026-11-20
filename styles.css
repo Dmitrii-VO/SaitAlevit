@@ -5528,30 +5528,43 @@ textarea {
 }
 .builder-wall {
   position: fixed;
-  left: 24px;
-  bottom: 24px;
-  width: 120px;
-  height: 44px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  contain: strict;
   z-index: 999;
   pointer-events: none;
-  filter: drop-shadow(0 2px 2px rgba(35, 21, 15, .4));
 }
-.builder-wall__brick {
+.builder-wall__course, .builder-wall__brick {
   position: absolute;
-  height: 11px;
+  left: 0;
+  width: 100%;
+  height: 18px;
   box-sizing: border-box;
-  border: 1px solid #d5c0a4;
-  border-radius: 1.5px;
-  background: linear-gradient(155deg, #d78858, #ad553a 70%, #89442f);
-  box-shadow: inset 0 1px rgba(255, 222, 180, .45);
-  animation: set-brick .72s ease-out both;
+  border-bottom: 2px solid #ceb59c;
+  background-image: linear-gradient(90deg, #ccb49a 1px, transparent 1px),
+    linear-gradient(165deg, #cd8056, #b05e40 68%, #975037);
+  box-shadow: inset 0 1px rgba(255, 222, 180, .4);
 }
-.builder-wall__brick:nth-child(3n) { background: linear-gradient(155deg, #d79b68, #a65c40); }
+.builder-wall__course:nth-child(3n) { filter: brightness(.97); }
+.builder-wall__brick { animation: set-brick .38s ease-out both; }
 @keyframes set-brick {
-  0% { opacity: 0; transform: translate(12px, -14px) rotate(8deg); }
-  22% { opacity: 1; }
-  80% { transform: translate(0, -1px) rotate(-2deg); }
-  100% { transform: none; }
+  from { opacity: .25; transform: translate(var(--carry), -9px) rotate(5deg); }
+  75% { transform: translateY(-1px); }
+  to { opacity: 1; transform: none; }
+}
+.builder-character--running .mason-leg, .builder-character--running .mason-shin, .builder-character--running .mason-arm, .builder-character--running .mason-body {
+  animation-play-state: paused;
+  animation-delay: 0s;
+  animation-delay: var(--step-phase, 0s);
+}
+.builder-character--running .mason-leg--back,
+.builder-character--running .mason-leg--back .mason-shin,
+.builder-character--running .mason-arm--back {
+  animation-delay: calc(0s - .25s);
+  animation-delay: calc(var(--step-phase, 0s) - .25s);
 }
 /* Утилиты */
 /* ============================================ */

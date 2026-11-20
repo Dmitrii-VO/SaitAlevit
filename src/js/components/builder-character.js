@@ -12,7 +12,7 @@ import { trickMethods } from "./builder-character-tricks.js";
  * Класс для управления персонажем-строителем
  */
 class BuilderCharacter {
-  constructor() {
+  constructor(progress) {
     this.element = null;
     this.currentState = null;
     this.targetX = 0;
@@ -28,15 +28,14 @@ class BuilderCharacter {
     this.isScrolling = false;
     this.scrollTimeout = null;
     this.animationFrame = null;
+    this.velocityX = 0;
+    this.velocityY = 0;
+    this.stride = 0;
     this.stateTimeout = null;
     this.jumpCooldown = 0;
 
     this.mouseWasMoved = false;
     this.events = new AbortController();
-
-    // Целевая позиция для прыжка (для плавного перемещения)
-    this.jumpTargetX = 0; // Целевая позиция X для прыжка
-    this.jumpTargetY = 0; // Целевая позиция Y для прыжка
 
     // Сохранение ссылок на обработчики для удаления
     this.mouseMoveHandler = null;
@@ -44,7 +43,7 @@ class BuilderCharacter {
     this.resizeHandler = null;
     this.mouseMoveThrottle = null;
 
-    this.init();
+    this.init(progress);
   }
 
   /**
@@ -65,13 +64,13 @@ class BuilderCharacter {
   /**
    * Инициализация персонажа
    */
-  init() {
+  init(progress) {
     // Проверка на мобильных устройствах
     if (window.innerWidth <= 767) {
       return;
     }
 
-    this.wall = new BrickWall();
+    this.wall = new BrickWall(progress);
     this.createElement();
     this.setInitialPosition();
     this.attachEventListeners();
@@ -278,7 +277,7 @@ class BuilderCharacter {
    * Обновление состояния персонажа
    */
   update(elapsed) {
-    if (!this.element || this.wall.update(this, performance.now())) return;
+    if (!this.element || this.wall.update(this, performance.now(), elapsed)) return;
 
     // Обновление cooldown
     if (this.jumpCooldown > 0) {
@@ -301,86 +300,67 @@ class BuilderCharacter {
         Math.pow(this.targetY + size / 2 - centerY, 2),
     );
 
-    // Логика состояний
     if (this.currentState === STATES.RUNNING) {
       this.handleRunningState(distance);
-    } else if (this.currentState === STATES.PREPARE_JUMP) {
-      // Состояние обрабатывается через таймаут
-    } else if (this.currentState === STATES.JUMP) {
-      // Плавное перемещение к целевой позиции прыжка
-      const dx = this.jumpTargetX - this.currentX;
-      const dy = this.jumpTargetY - this.currentY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      // Если еще не достиг цели прыжка - плавно перемещаемся
-      if (distance > 2) {
-        // Используем более быструю скорость для прыжка (15% за кадр)
-        this.currentX += dx * 0.15;
-        this.currentY += dy * 0.15;
-        this.updatePosition();
-      }
+      if (this.currentState === STATES.RUNNING) this.approach(this.targetX, this.targetY, elapsed);
+    } else if (this.currentState === STATES.JUMP || this.currentState === STATES.FALLING) {
+      this.advanceFlight(elapsed / 1000);
     } else if (this.currentState === STATES.HANGING) {
-      // В состоянии зависания персонаж следует за курсором ТОЛЬКО если мышь двигалась
-      if (this.mouseWasMoved) {
-        const size = this.getCharacterSize();
-        const halfWidth = size / 2;
-        const halfHeight = size / 2;
-
-        // Обновляем целевую позицию (персонаж чуть ниже и со смещением относительно курсора)
-        this.targetX = this.mouseX - halfWidth + CONFIG.HANGING_OFFSET_X;
-        this.targetY = this.mouseY - halfHeight + CONFIG.HANGING_OFFSET_Y;
-
-        // Плавно перемещаем к курсору (быстрее чем бег)
-        const dx = this.targetX - this.currentX;
-        const dy = this.targetY - this.currentY;
-        this.currentX += dx * 0.25; // 25% за кадр - быстрое следование
-        this.currentY += dy * 0.25;
-        this.updatePosition();
-      } else {
-        // Если мышь не двигалась - возвращаемся к блужданию
-        this.setState(STATES.RUNNING);
-      }
-    } else if (this.currentState === STATES.FALLING) {
-      // Плавное падение вниз
-      // При падении персонаж плавно опускается вниз
-      const fallSpeed = 3; // пикселей за кадр для падения
-      this.currentY += fallSpeed;
-
-      // Проверяем границы экрана (не падаем ниже экрана)
-      const size = this.getCharacterSize();
-      const maxY = window.innerHeight - CONFIG.BOUNDARY_OFFSET - size;
-      if (this.currentY > maxY) {
-        this.currentY = maxY;
-      }
-
-      this.updatePosition();
-    } else if (this.currentState === STATES.LYING) {
-      // При лежании не двигаемся к мыши
-    } else if (this.currentState === STATES.GETTING_UP) {
-      // Состояние обрабатывается через таймаут
+      this.approach(this.targetX + CONFIG.HANGING_OFFSET_X, this.targetY + CONFIG.HANGING_OFFSET_Y, elapsed);
     }
-
-    // Плавное движение к целевой позиции (только в состоянии бега)
-    if (this.currentState === STATES.RUNNING) {
-      this.moveToTarget(elapsed);
-    }
-
-    // Обновление направления взгляда
-    this.updateDirection();
   }
 
-  /**
-   * Плавное движение к целевой позиции
-   */
-  moveToTarget(elapsed) {
-    const dx = this.targetX - this.currentX;
-    const dy = this.targetY - this.currentY;
+  // A damped spring preserves momentum on a reversal. Limit the integration
+  // step so the same tuning works at both low and high refresh rates.
+  approach(x, y, elapsed) {
+    const startX = this.currentX;
+    const startY = this.currentY;
+    for (let time = elapsed / 1000; time > 0; time -= 1 / 120) {
+      const dt = Math.min(time, 1 / 120);
+      const ax = (x - this.currentX) * 230 - this.velocityX * 29;
+      const ay = (y - this.currentY) * 230 - this.velocityY * 29;
+      this.velocityX += Math.max(-4800, Math.min(4800, ax)) * dt;
+      this.velocityY += Math.max(-4800, Math.min(4800, ay)) * dt;
+      const limit = Math.max(1, Math.hypot(this.velocityX, this.velocityY) / 830);
+      this.velocityX /= limit;
+      this.velocityY /= limit;
+      this.currentX += this.velocityX * dt;
+      this.currentY += this.velocityY * dt;
+    }
+    const arrived = Math.hypot(x - this.currentX, y - this.currentY) < 1.6 &&
+      Math.hypot(this.velocityX, this.velocityY) < 25;
+    if (arrived) {
+      this.currentX = x;
+      this.currentY = y;
+      this.velocityX = this.velocityY = 0;
+    }
+    if (Math.abs(this.velocityX) > 8) this.facingLeft = this.velocityX > 0;
+    this.stride = (this.stride + Math.hypot(this.currentX - startX, this.currentY - startY)) % 66;
+    this.element.style.setProperty("--step-phase", (-this.stride / 66 * .5) + "s");
+    this.updatePosition();
+    return arrived;
+  }
 
-    // Применение скорости движения
-    const step = 1 - Math.exp(-elapsed / CONFIG.FOLLOW_TIME);
-    this.currentX += dx * step;
-    this.currentY += dy * step;
-
+  advanceFlight(dt) {
+    const jumping = this.currentState === STATES.JUMP;
+    if (jumping) dt = Math.min(dt, this.jumpRemaining);
+    this.currentX += this.velocityX * dt;
+    this.currentY += this.velocityY * dt + CONFIG.GRAVITY * dt * dt / 2;
+    this.velocityY += CONFIG.GRAVITY * dt;
+    const size = this.getCharacterSize();
+    this.currentX = Math.max(0, Math.min(document.documentElement.clientWidth - size, this.currentX));
+    const floor = window.innerHeight - size * .94;
+    if (jumping) {
+      this.jumpRemaining -= dt;
+      if (this.jumpRemaining <= 0) {
+        this.velocityY = 0;
+        this.setState(STATES.RUNNING);
+      }
+    } else if (this.currentY >= floor && this.velocityY >= 0) {
+      this.currentY = floor;
+      this.velocityX = this.velocityY = 0;
+      this.triggerLying();
+    }
     this.updatePosition();
   }
 
@@ -392,20 +372,6 @@ class BuilderCharacter {
       const scaleX = this.facingLeft ? -1 : 1;
       this.element.style.transform = `translate(${this.currentX}px, ${this.currentY}px) scaleX(${scaleX})`;
     }
-  }
-
-  /**
-   * Обновление направления взгляда
-   */
-  updateDirection() {
-    const size = this.getCharacterSize();
-    const centerX = this.currentX + size / 2;
-    // Определяем направление взгляда по целевой позиции (мышь или случайная точка)
-    const targetCenterX = this.targetX + size / 2;
-    // Инвертированная логика: если цель слева → смотрим вправо (scaleX(1))
-    // Если цель справа → смотрим влево (scaleX(-1))
-    // Это для случая, когда персонаж по умолчанию смотрит влево
-    this.facingLeft = targetCenterX > centerX;
   }
 
   /**
@@ -453,10 +419,11 @@ Object.assign(BuilderCharacter.prototype, trickMethods);
  */
 export function initBuilderCharacter() {
   const allowed = window.matchMedia("(min-width: 768px) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)");
+  const progress = new Map();
   let character = null;
   const sync = () => {
     if (allowed.matches && !document.hidden) {
-      if (!character) character = new BuilderCharacter();
+      if (!character) character = new BuilderCharacter(progress);
     } else {
       character?.destroy();
       character = null;

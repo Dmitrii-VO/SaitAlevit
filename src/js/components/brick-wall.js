@@ -1,114 +1,114 @@
 import { poseTrowel } from "./mason.js";
 import { STATES } from "./builder-character-config.js";
+import { COURSE_HEIGHT, brickAt, nextCourse, rowGeometry } from "./brick-courses.js";
 
 const IDLE_DELAY = 4500;
-const BRICK_WIDTH = 24;
-const COURSE_HEIGHT = 11;
-const COLUMNS = 5;
-const COURSES = 4;
-const PLACEMENT_TIME = 920;
-
-// Alternate full and half bricks so the vertical mortar joints are staggered.
-function makeCourses() {
-  const slots = [];
-  for (let row = 0; row < COURSES; row++) {
-    const widths = Array(COLUMNS).fill(BRICK_WIDTH);
-    if (row % 2) {
-      widths[0] /= 2;
-      widths.push(BRICK_WIDTH / 2);
-    }
-    let left = 0;
-    const course = widths.map(width => {
-      const slot = { left, bottom: row * COURSE_HEIGHT, width };
-      left += width;
-      return slot;
-    });
-    slots.push(...(row % 2 ? course.reverse() : course));
-  }
-  return slots;
-}
-
-const slots = makeCourses();
+const PLACEMENT_TIME = 440;
 
 export class BrickWall {
-  constructor() {
+  constructor(progress) {
+    this.progress = progress;
     this.root = document.createElement("div");
     this.root.className = "builder-wall";
     this.root.setAttribute("aria-hidden", "true");
     this.root.hidden = true;
     document.body.append(this.root);
-    this.count = 0;
-    this.pending = null;
     this.nextIdle = performance.now() + IDLE_DELAY;
-    this.lastFrame = 0;
+    this.row = -1;
+    this.started = null;
   }
 
   interrupt(builder) {
     this.nextIdle = performance.now() + IDLE_DELAY;
     if (this.root.hidden) return;
     this.root.hidden = true;
-    this.pending?.remove();
-    this.pending = null;
-    if (this.count === slots.length) {
-      this.root.replaceChildren();
-      this.count = 0;
-    }
+    this.started = null;
+    this.row = -1;
+    builder.element.style.visibility = "";
     builder.setState(STATES.RUNNING);
   }
 
-  update(builder, now) {
+  renderRows(width, scroll, height) {
+    const fragment = document.createDocumentFragment();
+    const from = Math.floor(scroll / COURSE_HEIGHT);
+    const last = Math.floor((scroll + height - 1) / COURSE_HEIGHT);
+    for (let row = from; row <= last; row++) {
+      const fraction = this.progress.get(row);
+      if (!fraction) continue;
+      const { brick, reverse } = rowGeometry(width, row);
+      const course = document.createElement("div");
+      course.className = "builder-wall__course";
+      course.style.top = (row * COURSE_HEIGHT - scroll) + "px";
+      course.style.backgroundSize = brick + "px 100%";
+      course.style.backgroundPositionX = (reverse ? brick / 2 : 0) + "px";
+      const hidden = (1 - fraction) * 100 + "%";
+      course.style.clipPath = reverse ? `inset(0 0 0 ${hidden})` : `inset(0 ${hidden} 0 0)`;
+      fragment.append(course);
+    }
+    this.root.replaceChildren(fragment);
+  }
+
+  update(builder, now, elapsed) {
     if (now < this.nextIdle) return false;
-    const elapsed = Math.min(50, now - this.lastFrame);
-    this.lastFrame = now;
+    const width = document.documentElement.clientWidth;
+    const height = window.innerHeight;
+    const scroll = Math.max(0, window.scrollY);
+    const rows = Math.ceil(document.documentElement.scrollHeight / COURSE_HEIGHT);
     if (this.root.hidden) {
       this.root.hidden = false;
       clearTimeout(builder.stateTimeout);
       builder.setState(STATES.RUNNING);
+      this.renderRows(width, scroll, height);
     }
-    const slot = slots[this.count];
-    if (!slot && builder.currentState === STATES.RESTING) return true;
-    const size = builder.getCharacterSize();
-    const base = this.root.getBoundingClientRect();
-    const x = slot
-      ? base.left + slot.left + slot.width / 2 - size * .235
-      : base.right - size * .25;
-    const y = base.bottom - size * .94;
-    const dx = x - builder.currentX;
-    const dy = y - builder.currentY;
-    const distance = Math.hypot(dx, dy);
-    if (distance > 1) {
-      builder.setState(STATES.RUNNING);
-      builder.facingLeft = dx > 0;
-      const step = Math.min(1, elapsed * .85 / distance);
-      builder.currentX += dx * step;
-      builder.currentY += dy * step;
-      builder.updatePosition();
-      return true;
+    if (this.row < 0) {
+      this.row = nextCourse(this.progress, rows, Math.ceil((scroll + height) / COURSE_HEIGHT) - 1);
+      if (this.row < 0) {
+        builder.setState(STATES.RESTING);
+        return true;
+      }
     }
 
-    builder.facingLeft = false;
-    builder.updatePosition();
-    if (!slot) {
-      builder.setState(STATES.RESTING);
-      return true;
+    const row = this.row;
+    const top = row * COURSE_HEIGHT - scroll;
+    const visible = top < height && top + COURSE_HEIGHT > 0;
+    builder.element.style.visibility = visible ? "" : "hidden";
+    const { brick, count, reverse } = rowGeometry(width, row);
+    const fraction = this.progress.get(row) || 0;
+    // The stored fraction measures laid width, including half bricks on offset rows.
+    const index = Math.min(count - 1, Math.floor(fraction * width / brick + (reverse ? .5 : 0) + 1e-7));
+    const slot = brickAt(width, row, index);
+    if (visible) {
+      const size = builder.getCharacterSize();
+      const center = slot.left + slot.width / 2;
+      // Stand on the inside at either edge, with the tool angled toward the brick.
+      const faceRight = center > width - size * .72 || (!reverse && center > size * .72);
+      const x = center - size * (faceRight ? .765 : .235);
+      const surfaceY = Math.max(23, Math.min(94 - COURSE_HEIGHT / size * 100, top / size * 100 + 12));
+      const y = top - size * surfaceY / 100;
+      if (this.started === null && !builder.approach(x, y, elapsed)) {
+        builder.setState(STATES.RUNNING);
+        return true;
+      }
+      builder.facingLeft = faceRight;
+      builder.updatePosition();
+      builder.setState(STATES.BUILDING);
+      builder.element.style.setProperty("--mason-crouch", Math.max(0, surfaceY - 54) * .22 + "px");
+      if (this.started === null) {
+        const tile = document.createElement("span");
+        tile.className = "builder-wall__brick";
+        tile.style.cssText = `left:${slot.left}px;top:${top}px;width:${slot.width}px;--carry:${faceRight ? -10 : 10}px`;
+        this.root.append(tile);
+      }
+      poseTrowel(builder.toolParts, surfaceY, Math.min(1, (now - (this.started ?? now)) / PLACEMENT_TIME));
     }
-    const surfaceY = 94 - (slot.bottom + COURSE_HEIGHT) * 100 / size;
-    builder.element.style.setProperty("--mason-crouch", Math.max(0, surfaceY - 54) * .22 + "px");
-    builder.setState(STATES.BUILDING);
-    if (!this.pending) {
-      const brick = document.createElement("span");
-      brick.className = "builder-wall__brick";
-      brick.style.left = slot.left + "px";
-      brick.style.bottom = slot.bottom + "px";
-      brick.style.width = slot.width + "px";
-      this.root.append(brick);
-      this.pending = brick;
-      this.started = now;
-    } else if (now - this.started >= PLACEMENT_TIME) {
-      this.count++;
-      this.pending = null;
+    if (this.started === null) this.started = now;
+    if (now - this.started >= PLACEMENT_TIME) {
+      const covered = reverse ? width - slot.left : slot.left + slot.width;
+      this.progress.set(row, index + 1 === count ? 1 : covered / width);
+      if (visible) this.renderRows(width, scroll, height);
+      if (index + 1 === count) this.row = -1;
+      this.started = null;
     }
-    poseTrowel(builder.toolParts, surfaceY, Math.min(1, (now - this.started) / PLACEMENT_TIME));
     return true;
   }
 

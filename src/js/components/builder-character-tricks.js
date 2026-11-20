@@ -54,40 +54,10 @@ export const trickMethods = {
     // Установка cooldown
     this.jumpCooldown = CONFIG.JUMP_COOLDOWN;
 
-    // Вычисляем расстояние до текущей цели перед прыжком
-    const size = this.getCharacterSize();
-    const centerX = this.currentX + size / 2;
-    const centerY = this.currentY + size / 2;
-    const targetCenterX = this.targetX + size / 2;
-    const targetCenterY = this.targetY + size / 2;
-    const dx = targetCenterX - centerX;
-    const dy = targetCenterY - centerY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    // Устанавливаем целевую позицию для плавного прыжка
-    // Перемещаем на 65% расстояния до цели
-    if (distance > CONFIG.HANGING_DISTANCE) {
-      const jumpDistance = distance * 0.65; // Перемещаем на 65% расстояния
-      const jumpDx = (dx / distance) * jumpDistance;
-      const jumpDy = (dy / distance) * jumpDistance;
-
-      // Сохраняем целевую позицию для плавного перемещения во время прыжка
-      this.jumpTargetX = this.currentX + jumpDx;
-      this.jumpTargetY = this.currentY + jumpDy;
-    } else {
-      // Если уже близко - не двигаемся при прыжке
-      this.jumpTargetX = this.currentX;
-      this.jumpTargetY = this.currentY;
-    }
-
-    // После прыжка возвращаемся в состояние бега
-    // Персонаж продолжит движение к текущей цели (мыши или случайной точке)
-    if (this.stateTimeout) {
-      clearTimeout(this.stateTimeout);
-    }
-    this.stateTimeout = setTimeout(() => {
-      this.setState(STATES.RUNNING);
-    }, 500);
+    this.jumpRemaining = .36;
+    this.velocityX = (this.targetX - this.currentX) / this.jumpRemaining;
+    this.velocityY = (this.targetY - this.currentY) / this.jumpRemaining -
+      CONFIG.GRAVITY * this.jumpRemaining / 2;
   },
 
   /**
@@ -96,15 +66,6 @@ export const trickMethods = {
   triggerHanging() {
     this.setState(STATES.HANGING);
 
-    // Перемещаем персонажа на позицию курсора мыши (чуть ниже курсора)
-    const size = this.getCharacterSize();
-    const halfWidth = size / 2;
-    const halfHeight = size / 2;
-
-    // Позиционируем персонажа так, чтобы он был немного ниже и со смещением относительно курсора
-    this.currentX = this.mouseX - halfWidth + CONFIG.HANGING_OFFSET_X;
-    this.currentY = this.mouseY - halfHeight + CONFIG.HANGING_OFFSET_Y;
-    this.updatePosition();
   },
 
   /**
@@ -126,10 +87,8 @@ export const trickMethods = {
       clearTimeout(this.stateTimeout);
     }
 
-    // После падения - лежание
-    this.stateTimeout = setTimeout(() => {
-      this.triggerLying();
-    }, 800);
+    this.velocityX *= .4;
+    this.velocityY = Math.min(160, Math.max(-200, this.velocityY));
   },
 
   /**
