@@ -16,7 +16,7 @@ export function updateFloatingButtons(contacts) {
   // Телефон
   const phoneButton = document.querySelector(".floating-button--phone");
   if (phoneButton && contacts.phone) {
-    const phoneHref = `tel:${contacts.phone.replace(/\D/g, "")}`;
+    const phoneHref = `tel:+${contacts.phone.replace(/\D/g, "")}`;
     phoneButton.setAttribute("href", phoneHref);
   }
 

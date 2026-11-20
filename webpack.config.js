@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/js/main.js',
@@ -22,6 +23,13 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    // after minification so terser does not strip it
+    new webpack.BannerPlugin({
+      banner: '@generated: js/main.js is built from src/js (npm run build:js)',
+      stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT
+    })
+  ],
   resolve: {
     extensions: ['.js']
   },

@@ -63,3 +63,5 @@ coverage/
 .aider*
 .continue/
 .roo/
+
+generated-images/

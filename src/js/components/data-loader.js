@@ -171,6 +171,18 @@ export async function loadProjects() {
 }
 
 /**
+ * Форматирует телефон: +79066010357 -> +7 (906) 601-03-57
+ * @param {string} phone
+ * @returns {string}
+ */
+function formatPhone(phone) {
+  const d = phone.replace(/\D/g, "");
+  return d.length === 11
+    ? `+7 (${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7, 9)}-${d.slice(9, 11)}`
+    : phone;
+}
+
+/**
  * Загружает контакты из JSON файла
  * @returns {Promise<void>}
  */
@@ -190,10 +202,21 @@ export async function loadContacts() {
         const phoneItem = createContactItem(
           "phone",
           "Телефон",
-          contacts.phone,
-          `tel:${contacts.phone.replace(/\D/g, "")}`,
+          formatPhone(contacts.phone),
+          `tel:+${contacts.phone.replace(/\D/g, "")}`,
         );
         container.appendChild(phoneItem);
+      }
+
+      if (contacts.phone2) {
+        container.appendChild(
+          createContactItem(
+            "phone",
+            "Второй телефон",
+            formatPhone(contacts.phone2),
+            `tel:+${contacts.phone2.replace(/\D/g, "")}`,
+          ),
+        );
       }
 
       if (contacts.email) {
@@ -253,7 +276,13 @@ function updateFooterContacts(contacts) {
         ? `+7 (${phoneNumber.slice(1, 4)}) ${phoneNumber.slice(4, 7)}-${phoneNumber.slice(7, 9)}-${phoneNumber.slice(9, 11)}`
         : contacts.phone;
     phoneLink.textContent = formattedPhone;
-    phoneLink.href = `tel:${phoneNumber}`;
+    phoneLink.href = `tel:+${phoneNumber}`;
+  }
+
+  const phoneLink2 = document.getElementById("footer-phone-2");
+  if (phoneLink2 && contacts.phone2) {
+    phoneLink2.textContent = formatPhone(contacts.phone2);
+    phoneLink2.href = `tel:+${contacts.phone2.replace(/\D/g, "")}`;
   }
 
   // Обновляем email
@@ -278,7 +307,7 @@ function updateFooterContacts(contacts) {
         ? `+7 (${phoneNumber.slice(1, 4)}) ${phoneNumber.slice(4, 7)}-${phoneNumber.slice(7, 9)}-${phoneNumber.slice(9, 11)}`
         : contacts.phone;
     privacyModalPhone.textContent = formattedPhone;
-    privacyModalPhone.href = `tel:${phoneNumber}`;
+    privacyModalPhone.href = `tel:+${phoneNumber}`;
   }
 
   // Обновляем email в модальном окне privacy-modal

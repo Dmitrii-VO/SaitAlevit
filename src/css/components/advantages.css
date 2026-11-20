@@ -83,16 +83,24 @@
   }
 }
 
+/* ponytail: 6-колоночная сетка под ровно 5 карточек (3 + 2 по центру); при другом числе карточек пересчитать */
 @media (min-width: 64em) {
   .advantages__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .advantages__item {
+    grid-column: span 2;
+  }
+
+  .advantages__item:nth-child(4) {
+    grid-column: 2 / span 2;
   }
 }
 
 /* На очень больших экранах можно показать 2-3 карточки в ряд */
 @media (min-width: 87.5em) {
   .advantages__grid {
-    grid-template-columns: repeat(3, 1fr);
     max-width: 75rem;
   }
 }
@@ -196,23 +204,4 @@
   line-height: 1.6;
   color: var(--color-gray-dark);
   margin: 0;
-}
-
-.advantages__cta {
-  text-align: center;
-  margin-top: calc(
-    var(--spacing-xxl) * 1.5
-  ); /* Увеличен отступ после карточек */
-  padding-top: calc(var(--spacing-xxl) * 1.2);
-}
-
-.advantages__cta-button {
-  margin-bottom: var(--spacing-md);
-}
-
-.advantages__cta-note {
-  font-size: 0.875rem; /* 14px */
-  color: var(--color-gray);
-  margin: 0;
-  line-height: 1.5;
 }

@@ -155,6 +155,11 @@
   margin-top: 0.125rem;
 }
 
+.footer__contact-phones {
+  display: flex;
+  flex-direction: column;
+}
+
 .footer__contact-link {
   color: var(--color-gray);
   text-decoration: none;

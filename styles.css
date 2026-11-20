@@ -136,6 +136,8 @@ h1 {
 h2 {
   font-size: 2rem;
   font-size: var(--font-size-h2);
+  font-family: "Playfair Display", Georgia, serif;
+  letter-spacing: 0.01em;
 }
 h3 {
   font-size: 1.5rem;
@@ -1145,7 +1147,7 @@ textarea {
   font-size: 1.125rem;
   font-size: var(--font-size-large);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.25;
   text-align: center;
   border: 3px solid transparent;
   transition: all 0.2s ease;
@@ -1304,15 +1306,23 @@ textarea {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* ponytail: 6-колоночная сетка под ровно 5 карточек (3 + 2 по центру); при другом числе карточек пересчитать */
 @media (min-width: 64em) {
   .advantages__grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .advantages__item {
+    grid-column: span 2;
+  }
+
+  .advantages__item:nth-child(4) {
+    grid-column: 2 / span 2;
   }
 }
 /* На очень больших экранах можно показать 2-3 карточки в ряд */
 @media (min-width: 87.5em) {
   .advantages__grid {
-    grid-template-columns: repeat(3, 1fr);
     max-width: 75rem;
   }
 }
@@ -1422,28 +1432,6 @@ textarea {
   color: #333333;
   color: var(--color-gray-dark);
   margin: 0;
-}
-.advantages__cta {
-  text-align: center;
-  margin-top: calc(
-    4rem * 1.5
-  );
-  margin-top: calc(
-    var(--spacing-xxl) * 1.5
-  ); /* Увеличен отступ после карточек */
-  padding-top: calc(4rem * 1.2);
-  padding-top: calc(var(--spacing-xxl) * 1.2);
-}
-.advantages__cta-button {
-  margin-bottom: 1.5rem;
-  margin-bottom: var(--spacing-md);
-}
-.advantages__cta-note {
-  font-size: 0.875rem; /* 14px */
-  color: #808080;
-  color: var(--color-gray);
-  margin: 0;
-  line-height: 1.5;
 }
 /* ============================================ */
 /* PROJECTS */
@@ -1766,7 +1754,8 @@ textarea {
 /* Адаптивность: Десктоп (4 карточки в ряд) */
 @media (min-width: 64em) {
   .projects__grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 17.5rem));
+    justify-content: center;
   }
 
   .projects__tabs {
@@ -2050,7 +2039,8 @@ textarea {
 /* Адаптивность: Десктоп (4 карточки в ряд) */
 @media (min-width: 64em) {
   .works__grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 17.5rem));
+    justify-content: center;
   }
 }
 /* ============================================ */
@@ -2983,9 +2973,11 @@ textarea {
 }
 .about__advantage-icon {
   flex-shrink: 0;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  font-weight: 700;
   line-height: 1.5;
-  margin-top: 0.1em;
+  color: #d4af37;
+  color: var(--color-gold);
 }
 .about__advantage-text {
   flex: 1;
@@ -3843,6 +3835,10 @@ textarea {
   color: var(--color-gold);
   margin-top: 0.125rem;
 }
+.footer__contact-phones {
+  display: flex;
+  flex-direction: column;
+}
 .footer__contact-link {
   color: #808080;
   color: var(--color-gray);
@@ -4314,23 +4310,6 @@ textarea {
   margin-bottom: var(--spacing-lg);
   flex-wrap: wrap;
 }
-.calculator__result-price-examples {
-  font-size: 0.75rem;
-  color: #ffffff;
-  color: var(--color-white);
-  opacity: 0.7;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  margin-left: 1rem;
-  margin-left: var(--spacing-sm);
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-}
-.calculator__result-price-examples:hover {
-  opacity: 1;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
 .calculator__result-price-label {
   font-size: 1.25rem;
   font-size: var(--font-size-lg);
@@ -4433,12 +4412,6 @@ textarea {
     align-items: center;
     gap: 0.5rem;
     gap: var(--spacing-xs);
-  }
-
-  .calculator__result-price-examples {
-    margin-left: 0;
-    margin-top: 0.5rem;
-    margin-top: var(--spacing-xs);
   }
 }
 /* ============================================ */

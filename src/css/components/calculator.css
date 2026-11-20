@@ -260,21 +260,6 @@
   flex-wrap: wrap;
 }
 
-.calculator__result-price-examples {
-  font-size: 0.75rem;
-  color: var(--color-white);
-  opacity: 0.7;
-  text-decoration: none;
-  margin-left: var(--spacing-sm);
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-}
-
-.calculator__result-price-examples:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
-
 .calculator__result-price-label {
   font-size: var(--font-size-lg);
   color: var(--color-gold);
@@ -368,10 +353,5 @@
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-xs);
-  }
-
-  .calculator__result-price-examples {
-    margin-left: 0;
-    margin-top: var(--spacing-xs);
   }
 }

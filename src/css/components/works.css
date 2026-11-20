@@ -244,6 +244,7 @@
 /* Адаптивность: Десктоп (4 карточки в ряд) */
 @media (min-width: 64em) {
   .works__grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 17.5rem));
+    justify-content: center;
   }
 }
