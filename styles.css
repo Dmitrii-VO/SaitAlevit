@@ -2969,85 +2969,57 @@ textarea {
   color: var(--color-black);
   font-weight: 600;
 }
-/* Правая колонка */
-.about__right {
-  display: flex;
-  flex-direction: column;
+.about__album {
+  min-width: 0;
+  align-self: start;
+  color: #f4f4ec;
+  color: var(--chalk);
 }
-.about__cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  gap: var(--spacing-md);
-}
-.about__card {
-  padding: 1.5rem;
-  padding: var(--spacing-md);
-  background-color: #ffffff;
-  background-color: var(--color-white);
-  border: 2px solid #f5f5f5;
-  border: 2px solid var(--color-gray-light);
-  border-radius: 0.5rem;
-  border-radius: var(--border-radius);
-  transition: all 0.3s ease;
-  transition: all var(--transition-slow);
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  gap: var(--spacing-md);
-}
-.about__card:hover {
-  border-color: #d4af37;
-  border-color: var(--color-gold);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-.about__card-icon {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #d4af37;
-  color: var(--color-gold);
-}
-.about__card-icon svg {
+.about__album img {
   width: 100%;
-  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: .25rem;
 }
-.about__card-icon-img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-}
-.about__card-content {
-  flex: 1;
+.about__feature img { aspect-ratio: 4 / 3; height: auto; }
+.about__feature figcaption {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+  padding: 1rem 0;
 }
-.about__card-title {
-  font-size: 1rem;
-  font-size: var(--font-size-base);
-  color: #000000;
-  color: var(--color-black);
-  margin-bottom: 0.5rem;
-  margin-bottom: var(--spacing-xs);
-  margin-top: 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03125rem;
-  letter-spacing: var(--letter-spacing);
-}
-.about__card-text {
-  font-size: calc(1rem * 0.9);
-  font-size: calc(var(--font-size-base) * 0.9);
-  color: #333333;
-  color: var(--color-gray-dark);
-  line-height: 1.6;
+.about__feature h3 {
   margin: 0;
+  font: 400 max(1.5rem, min(2.2vw, 2rem))/1.18 "PT Serif", Georgia, serif;
+  font: 400 max(1.5rem, min(2.2vw, 2rem))/1.18 var(--catalog-display);
+}
+.about__feature span, .about__details figcaption {
+  color: #c0c7bc;
+  color: var(--catalog-muted);
+  font-size: .9rem;
+}
+.about__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: max(.75rem, min(1.5vw, 1.25rem));
+  gap: max(.75rem, min(1.5vw, 1.25rem));
+  border-top: 1px solid #556053;
+  padding-top: 1.25rem;
+}
+.about__details img { aspect-ratio: 4 / 3; }
+.about__details figcaption { margin-top: .5rem; }
+.about__portfolio-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  color: #ead192;
+  color: var(--brass);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  text-underline-offset: .25em;
 }
 /* CTA */
 .about__cta {
@@ -3064,12 +3036,6 @@ textarea {
   .about__logo {
     width: 120px;
     flex-shrink: 0;
-  }
-}
-@media (max-width: 47.9375em) {
-  .about__card-icon {
-    width: 56px;
-    height: 56px;
   }
 }
 /* ============================================ */
@@ -5694,7 +5660,7 @@ textarea {
 .projects__plan { width: 100%; aspect-ratio: 1; -o-object-fit: contain; object-fit: contain; background: white; }
 .projects__grid .projects__card-image { border-radius: .25rem; aspect-ratio: 1.48; height: auto; }
 .projects__card-content { padding: 0; }
-.projects__card-title, .works__card-title, .services__card-title, .about__card-title {
+.projects__card-title, .works__card-title, .services__card-title {
   font-family: "PT Serif", Georgia, serif;
   font-family: var(--catalog-display); font-weight: 400; text-transform: none; letter-spacing: -.02em; line-height: 1.17;
 }
@@ -5713,7 +5679,6 @@ textarea {
 .main .services__card { border: 0; background: #e5e9df; box-shadow: none; }
 .about__description,.about__team-names,.about__team-title,.about__advantage-text,.about__advantage-text strong { color: #f4f4ec; color: var(--chalk); }
 .about__logo { width: 6rem; height: 6rem; padding: .3rem; }
-.about__card { box-shadow: none; }
 .calculator__form-wrapper, .calculator__result, .cta__form-wrapper, .reviews__text-item { border-radius: .35rem; }
 .main .faq__list { max-width: 55rem; }
 .main .faq__item { box-shadow: none; border-color: #c8cec2; }

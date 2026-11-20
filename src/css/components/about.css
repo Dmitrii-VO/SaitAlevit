@@ -224,77 +224,49 @@
   font-weight: 600;
 }
 
-/* Правая колонка */
-.about__right {
-  display: flex;
-  flex-direction: column;
+.about__album {
+  min-width: 0;
+  align-self: start;
+  color: var(--chalk);
 }
-
-.about__cards {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.about__card {
-  padding: var(--spacing-md);
-  background-color: var(--color-white);
-  border: 2px solid var(--color-gray-light);
-  border-radius: var(--border-radius);
-  transition: all var(--transition-slow);
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-md);
-}
-
-.about__card:hover {
-  border-color: var(--color-gold);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-}
-
-.about__card-icon {
-  width: 96px;
-  height: 96px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-gold);
-}
-
-.about__card-icon svg {
+.about__album img {
   width: 100%;
-  height: 100%;
+  object-fit: cover;
+  border-radius: .25rem;
 }
-
-.about__card-icon-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.about__card-content {
-  flex: 1;
+.about__feature img { aspect-ratio: 4 / 3; height: auto; }
+.about__feature figcaption {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+  padding: 1rem 0;
 }
-
-.about__card-title {
-  font-size: var(--font-size-base);
-  color: var(--color-black);
-  margin-bottom: var(--spacing-xs);
-  margin-top: 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing);
-}
-
-.about__card-text {
-  font-size: calc(var(--font-size-base) * 0.9);
-  color: var(--color-gray-dark);
-  line-height: 1.6;
+.about__feature h3 {
   margin: 0;
+  font: 400 clamp(1.5rem, 2.2vw, 2rem)/1.18 var(--catalog-display);
+}
+.about__feature span, .about__details figcaption {
+  color: var(--catalog-muted);
+  font-size: .9rem;
+}
+.about__details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.75rem, 1.5vw, 1.25rem);
+  border-top: 1px solid #556053;
+  padding-top: 1.25rem;
+}
+.about__details img { aspect-ratio: 4 / 3; }
+.about__details figcaption { margin-top: .5rem; }
+.about__portfolio-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding-block: .5rem;
+  color: var(--brass);
+  text-decoration: underline;
+  text-underline-offset: .25em;
 }
 
 /* CTA */
@@ -310,12 +282,5 @@
   .about__logo {
     width: 120px;
     flex-shrink: 0;
-  }
-}
-
-@media (max-width: 47.9375em) {
-  .about__card-icon {
-    width: 56px;
-    height: 56px;
   }
 }

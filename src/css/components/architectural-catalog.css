@@ -105,7 +105,7 @@
 .projects__plan { width: 100%; aspect-ratio: 1; object-fit: contain; background: white; }
 .projects__grid .projects__card-image { border-radius: .25rem; aspect-ratio: 1.48; height: auto; }
 .projects__card-content { padding: 0; }
-.projects__card-title, .works__card-title, .services__card-title, .about__card-title {
+.projects__card-title, .works__card-title, .services__card-title {
   font-family: var(--catalog-display); font-weight: 400; text-transform: none; letter-spacing: -.02em; line-height: 1.17;
 }
 .projects__card-title { font-size: clamp(1.45rem,2vw,2.2rem); }
@@ -122,7 +122,6 @@
 .main .services__card { border: 0; background: #e5e9df; box-shadow: none; }
 .about__description,.about__team-names,.about__team-title,.about__advantage-text,.about__advantage-text strong { color: var(--chalk); }
 .about__logo { width: 6rem; height: 6rem; padding: .3rem; }
-.about__card { box-shadow: none; }
 .calculator__form-wrapper, .calculator__result, .cta__form-wrapper, .reviews__text-item { border-radius: .35rem; }
 .main .faq__list { max-width: 55rem; }
 .main .faq__item { box-shadow: none; border-color: #c8cec2; }
