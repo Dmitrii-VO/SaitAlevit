@@ -14,7 +14,7 @@ export const CONFIG = {
   HANGING_OFFSET_Y: 25, // px - смещение персонажа вниз относительно курсора (руки на уровне курсора)
 
   // Скорость движения
-  MOVEMENT_SPEED: 0.008, // коэффициент скорости (0.8% расстояния за кадр) - очень медленное плавное движение
+  FOLLOW_TIME: 260, // мс — время сглаживания движения к курсору
   FAST_MOUSE_THRESHOLD: 0.75, // px/ms - порог быстрого движения мыши (150px за 200ms = 0.75)
   FAST_MOUSE_TIME: 200, // ms - время для определения быстрого движения
 
@@ -45,6 +45,8 @@ export const CONFIG = {
  * Состояния персонажа
  */
 export const STATES = {
+  BUILDING: "building",
+  RESTING: "resting",
   RUNNING: "running",
   PREPARE_JUMP: "prepare-jump",
   JUMP: "jump",

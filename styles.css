@@ -5573,6 +5573,44 @@ textarea {
     transition: background-image 0.3s ease;
   }
 }
+.builder-wall {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  width: 120px;
+  height: 44px;
+  z-index: 999;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 2px rgba(35, 21, 15, .4));
+}
+.builder-wall__brick {
+  position: absolute;
+  height: 11px;
+  box-sizing: border-box;
+  border: 1px solid #d5c0a4;
+  border-radius: 1.5px;
+  background: linear-gradient(155deg, #d78858, #ad553a 70%, #89442f);
+  box-shadow: inset 0 1px rgba(255, 222, 180, .45);
+  animation: set-brick .72s ease-out both;
+}
+.builder-wall__brick:nth-child(3n) { background: linear-gradient(155deg, #d79b68, #a65c40); }
+@keyframes set-brick {
+  0% { opacity: 0; transform: translate(12px, -14px) rotate(8deg); }
+  22% { opacity: 1; }
+  80% { transform: translate(0, -1px) rotate(-2deg); }
+  100% { transform: none; }
+}
+.builder-character--building,
+.builder-character--resting {
+  background-image: url("images/builders/builder-prepare-jump.webp");
+}
+.builder-character--building {
+  animation: lay-brick .92s ease-in-out infinite;
+}
+@keyframes lay-brick {
+  0%, 100% { background-position: center -3px; }
+  62% { background-position: -2px 2px; }
+}
 /* Утилиты */
 /* ============================================ */
 /* УТИЛИТАРНЫЕ КЛАССЫ */

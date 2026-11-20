@@ -3,6 +3,7 @@
  * Персонаж следует за мышкой с различными состояниями и анимациями
  * @module builder-character
  */
+import { BrickWall } from "./brick-wall.js";
 import { CONFIG, STATES } from "./builder-character-config.js";
 import { trickMethods } from "./builder-character-tricks.js";
 
@@ -12,7 +13,7 @@ import { trickMethods } from "./builder-character-tricks.js";
 class BuilderCharacter {
   constructor() {
     this.element = null;
-    this.currentState = STATES.RUNNING;
+    this.currentState = null;
     this.targetX = 0;
     this.targetY = 0;
     this.currentX = 0;
@@ -35,10 +36,8 @@ class BuilderCharacter {
     this.lastFrameTime = 0; // Время последнего переключения кадра
     this.frameInterval = 80; // Интервал между кадрами (мс) - 80мс = ~12.5 FPS
 
-    // Автономное блуждание
-    this.wanderTargetX = 0; // Случайная целевая позиция X для блуждания
-    this.wanderTargetY = 0; // Случайная целевая позиция Y для блуждания
-    this.mouseWasMoved = false; // Флаг, была ли мышь перемещена пользователем
+    this.mouseWasMoved = false;
+    this.events = new AbortController();
 
     // Целевая позиция для прыжка (для плавного перемещения)
     this.jumpTargetX = 0; // Целевая позиция X для прыжка
@@ -77,6 +76,7 @@ class BuilderCharacter {
       return;
     }
 
+    this.wall = new BrickWall();
     this.createElement();
     this.setInitialPosition();
     this.attachEventListeners();
@@ -98,55 +98,29 @@ class BuilderCharacter {
   }
 
   /**
-   * Установка начальной позиции (случайная)
+   * Начальная позиция возле площадки для кладки
    */
   setInitialPosition() {
     const size = this.getCharacterSize();
 
-    // Границы для случайной позиции
-    const minX = CONFIG.BOUNDARY_OFFSET;
-    const maxX = window.innerWidth - CONFIG.BOUNDARY_OFFSET - size;
-    const minY = CONFIG.BOUNDARY_OFFSET;
-    const maxY = window.innerHeight - CONFIG.BOUNDARY_OFFSET - size;
-
-    // Случайная позиция в пределах экрана
-    this.currentX = minX + Math.random() * (maxX - minX);
-    this.currentY = minY + Math.random() * (maxY - minY);
-
-    // Инициализация позиции мыши на текущей позиции персонажа
-    const centerX = this.currentX + size / 2;
-    const centerY = this.currentY + size / 2;
-    this.mouseX = centerX;
-    this.mouseY = centerY;
-
-    // Устанавливаем первую случайную цель для блуждания
-    this.setRandomWanderTarget();
-
-    // Используем случайную цель для движения
-    this.targetX = this.wanderTargetX;
-    this.targetY = this.wanderTargetY;
-
+    this.currentX = CONFIG.BOUNDARY_OFFSET + size;
+    this.currentY = window.innerHeight - size - CONFIG.BOUNDARY_OFFSET;
+    this.targetX = this.currentX;
+    this.targetY = this.currentY;
+    this.setState(STATES.RESTING);
     this.updatePosition();
-  }
-
-  /**
-   * Установка случайной целевой позиции для блуждания
-   */
-  setRandomWanderTarget() {
-    const size = this.getCharacterSize();
-    const minX = CONFIG.BOUNDARY_OFFSET;
-    const maxX = window.innerWidth - CONFIG.BOUNDARY_OFFSET - size;
-    const minY = CONFIG.BOUNDARY_OFFSET;
-    const maxY = window.innerHeight - CONFIG.BOUNDARY_OFFSET - size;
-
-    this.wanderTargetX = minX + Math.random() * (maxX - minX);
-    this.wanderTargetY = minY + Math.random() * (maxY - minY);
   }
 
   /**
    * Прикрепление обработчиков событий
    */
   attachEventListeners() {
+    const activity = () => this.wall.interrupt(this);
+    const options = { capture: true, passive: true, signal: this.events.signal };
+    for (const event of ["pointerdown", "keydown", "wheel", "touchmove", "scroll", "focusin", "input"]) {
+      document.addEventListener(event, activity, options);
+    }
+
     // Отслеживание движения мыши
     this.mouseMoveHandler = (e) => {
       if (this.mouseMoveThrottle) return;
@@ -184,6 +158,8 @@ class BuilderCharacter {
    */
   handleMouseMove(e) {
     const now = Date.now();
+    this.wall.interrupt(this);
+    if (this.currentState === STATES.RESTING) this.setState(STATES.RUNNING);
     const timeDelta = now - this.lastMouseTime;
 
     // Отмечаем, что мышь была перемещена пользователем
@@ -278,6 +254,7 @@ class BuilderCharacter {
     }
 
     // Обновление позиции с учетом новых границ
+    this.wall.interrupt(this);
     this.updateTargetPosition();
   }
 
@@ -285,8 +262,10 @@ class BuilderCharacter {
    * Запуск анимации движения
    */
   startAnimation() {
-    const animate = () => {
-      this.update();
+    let previous = performance.now();
+    const animate = (now = previous) => {
+      this.update(Math.min(50, now - previous));
+      previous = now;
       this.animationFrame = requestAnimationFrame(animate);
     };
     animate();
@@ -295,14 +274,14 @@ class BuilderCharacter {
   /**
    * Обновление состояния персонажа
    */
-  update() {
-    if (!this.element) return;
+  update(elapsed) {
+    if (!this.element || this.wall.update(this, performance.now())) return;
 
     const now = Date.now();
 
     // Обновление cooldown
     if (this.jumpCooldown > 0) {
-      this.jumpCooldown -= 16; // ~60fps
+      this.jumpCooldown -= elapsed;
       if (this.jumpCooldown < 0) {
         this.jumpCooldown = 0;
       }
@@ -318,31 +297,7 @@ class BuilderCharacter {
     const centerX = this.currentX + size / 2;
     const centerY = this.currentY + size / 2;
 
-    if (this.mouseWasMoved) {
-      // Если мышь двигалась - следуем за курсором
-      const halfWidth = size / 2;
-      const halfHeight = size / 2;
-      this.targetX = this.mouseX - halfWidth;
-      this.targetY = this.mouseY - halfHeight;
-    } else {
-      // Если мышь не двигалась - блуждаем по экрану
-      // Проверяем, достиг ли персонаж случайной цели
-      // wanderTargetX и wanderTargetY - это координаты левого верхнего угла цели
-      const wanderTargetCenterX = this.wanderTargetX + size / 2;
-      const wanderTargetCenterY = this.wanderTargetY + size / 2;
-      const wanderDistance = Math.sqrt(
-        Math.pow(wanderTargetCenterX - centerX, 2) +
-          Math.pow(wanderTargetCenterY - centerY, 2),
-      );
-
-      // Если близко к цели (менее 50px) - выбираем новую случайную цель
-      if (wanderDistance < 50) {
-        this.setRandomWanderTarget();
-      }
-
-      this.targetX = this.wanderTargetX;
-      this.targetY = this.wanderTargetY;
-    }
+    if (this.mouseWasMoved) this.updateTargetPosition();
 
     // Вычисление расстояния до текущей цели (мыши или случайной точки)
     const distance = Math.sqrt(
@@ -411,7 +366,7 @@ class BuilderCharacter {
 
     // Плавное движение к целевой позиции (только в состоянии бега)
     if (this.currentState === STATES.RUNNING) {
-      this.moveToTarget();
+      this.moveToTarget(elapsed);
     }
 
     // Обновление направления взгляда
@@ -460,13 +415,14 @@ class BuilderCharacter {
   /**
    * Плавное движение к целевой позиции
    */
-  moveToTarget() {
+  moveToTarget(elapsed) {
     const dx = this.targetX - this.currentX;
     const dy = this.targetY - this.currentY;
 
     // Применение скорости движения
-    this.currentX += dx * CONFIG.MOVEMENT_SPEED;
-    this.currentY += dy * CONFIG.MOVEMENT_SPEED;
+    const step = 1 - Math.exp(-elapsed / CONFIG.FOLLOW_TIME);
+    this.currentX += dx * step;
+    this.currentY += dy * step;
 
     this.updatePosition();
   }
@@ -499,6 +455,9 @@ class BuilderCharacter {
    * Очистка ресурсов
    */
   destroy() {
+    this.events.abort();
+    this.wall?.destroy();
+    cancelAnimationFrame(this.mouseMoveThrottle);
     // Отмена анимации
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
@@ -536,16 +495,24 @@ Object.assign(BuilderCharacter.prototype, trickMethods);
  * Инициализация персонажа-строителя
  */
 export function initBuilderCharacter() {
-  // Проверка на мобильных устройствах
-  if (window.innerWidth <= 767) {
-    return null;
-  }
-
-  try {
-    const character = new BuilderCharacter();
-    return character;
-  } catch (error) {
-    console.error("Ошибка при инициализации персонажа:", error);
-    return null;
-  }
+  const allowed = window.matchMedia("(min-width: 768px) and (any-pointer: fine) and (prefers-reduced-motion: no-preference)");
+  let character = null;
+  const sync = () => {
+    if (allowed.matches && !document.hidden) {
+      if (!character) character = new BuilderCharacter();
+    } else {
+      character?.destroy();
+      character = null;
+    }
+  };
+  allowed.addEventListener("change", sync);
+  document.addEventListener("visibilitychange", sync);
+  sync();
+  return {
+    destroy() {
+      allowed.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", sync);
+      character?.destroy();
+    },
+  };
 }
