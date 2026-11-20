@@ -175,19 +175,5 @@ export const trickMethods = {
     this.currentState = newState;
     this.element.classList.add(`builder-character--${this.currentState}`);
 
-    // Управление inline стилями в зависимости от состояния
-    if (newState === STATES.RUNNING) {
-      // Сброс анимации при возврате в состояние бега
-      this.spriteFrame = 0;
-      this.lastFrameTime = 0;
-      // Установка начального изображения кадра через inline стиль
-      this.updateFrameImage();
-    } else {
-      // Для других состояний очищаем inline backgroundImage,
-      // чтобы CSS стили состояний работали корректно
-      if (this.element) {
-        this.element.style.backgroundImage = "";
-      }
-    }
   },
 };

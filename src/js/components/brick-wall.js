@@ -1,3 +1,4 @@
+import { poseTrowel } from "./mason.js";
 import { STATES } from "./builder-character-config.js";
 
 const IDLE_DELAY = 4500;
@@ -64,13 +65,14 @@ export class BrickWall {
       clearTimeout(builder.stateTimeout);
       builder.setState(STATES.RUNNING);
     }
-    if (this.count === slots.length) return true;
-
     const slot = slots[this.count];
+    if (!slot && builder.currentState === STATES.RESTING) return true;
     const size = builder.getCharacterSize();
     const base = this.root.getBoundingClientRect();
-    const x = base.left + slot.left + slot.width / 2 - size * .34;
-    const y = base.bottom - slot.bottom - size * .73;
+    const x = slot
+      ? base.left + slot.left + slot.width / 2 - size * .235
+      : base.right - size * .25;
+    const y = base.bottom - size * .94;
     const dx = x - builder.currentX;
     const dy = y - builder.currentY;
     const distance = Math.hypot(dx, dy);
@@ -80,13 +82,18 @@ export class BrickWall {
       const step = Math.min(1, elapsed * .85 / distance);
       builder.currentX += dx * step;
       builder.currentY += dy * step;
-      builder.updateSpriteAnimation(Date.now());
       builder.updatePosition();
       return true;
     }
 
     builder.facingLeft = false;
     builder.updatePosition();
+    if (!slot) {
+      builder.setState(STATES.RESTING);
+      return true;
+    }
+    const surfaceY = 94 - (slot.bottom + COURSE_HEIGHT) * 100 / size;
+    builder.element.style.setProperty("--mason-crouch", Math.max(0, surfaceY - 54) * .22 + "px");
     builder.setState(STATES.BUILDING);
     if (!this.pending) {
       const brick = document.createElement("span");
@@ -100,8 +107,8 @@ export class BrickWall {
     } else if (now - this.started >= PLACEMENT_TIME) {
       this.count++;
       this.pending = null;
-      if (this.count === slots.length) builder.setState(STATES.RESTING);
     }
+    poseTrowel(builder.toolParts, surfaceY, Math.min(1, (now - this.started) / PLACEMENT_TIME));
     return true;
   }
 

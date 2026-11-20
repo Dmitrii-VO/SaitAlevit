@@ -3,6 +3,7 @@
  * Персонаж следует за мышкой с различными состояниями и анимациями
  * @module builder-character
  */
+import { createMason } from "./mason.js";
 import { BrickWall } from "./brick-wall.js";
 import { CONFIG, STATES } from "./builder-character-config.js";
 import { trickMethods } from "./builder-character-tricks.js";
@@ -29,12 +30,6 @@ class BuilderCharacter {
     this.animationFrame = null;
     this.stateTimeout = null;
     this.jumpCooldown = 0;
-
-    // Анимация спрайта бега
-    this.spriteFrame = 0; // Текущий кадр спрайта (0-7)
-    this.spriteFrameCount = 8; // Количество кадров в спрайте
-    this.lastFrameTime = 0; // Время последнего переключения кадра
-    this.frameInterval = 80; // Интервал между кадрами (мс) - 80мс = ~12.5 FPS
 
     this.mouseWasMoved = false;
     this.events = new AbortController();
@@ -91,6 +86,14 @@ class BuilderCharacter {
     this.element.className = "builder-character";
     this.element.setAttribute("aria-hidden", "true");
 
+    const model = createMason();
+    this.element.append(model);
+    this.toolParts = {
+      sleeve: model.querySelector(".mason-work-sleeve"),
+      cuff: model.querySelector(".mason-work-cuff"),
+      wrist: model.querySelector(".mason-work-wrist"),
+      hand: model.querySelector(".mason-hand"),
+    };
     document.body.appendChild(this.element);
 
     // Установка начального состояния
@@ -277,19 +280,12 @@ class BuilderCharacter {
   update(elapsed) {
     if (!this.element || this.wall.update(this, performance.now())) return;
 
-    const now = Date.now();
-
     // Обновление cooldown
     if (this.jumpCooldown > 0) {
       this.jumpCooldown -= elapsed;
       if (this.jumpCooldown < 0) {
         this.jumpCooldown = 0;
       }
-    }
-
-    // Обновление кадров спрайта анимации (только в состоянии бега)
-    if (this.currentState === STATES.RUNNING) {
-      this.updateSpriteAnimation(now);
     }
 
     // Определение целевой позиции в зависимости от движения мыши
@@ -371,45 +367,6 @@ class BuilderCharacter {
 
     // Обновление направления взгляда
     this.updateDirection();
-  }
-
-  /**
-   * Обновление анимации бега с отдельными изображениями
-   * @param {number} now - Текущее время в миллисекундах
-   */
-  updateSpriteAnimation(now) {
-    // Инициализация времени последнего кадра
-    if (this.lastFrameTime === 0) {
-      this.lastFrameTime = now;
-      // Установка начального кадра
-      this.updateFrameImage();
-      return;
-    }
-
-    // Проверка, нужно ли переключать кадр
-    const timeDelta = now - this.lastFrameTime;
-    if (timeDelta >= this.frameInterval) {
-      // Переход к следующему кадру
-      this.spriteFrame = (this.spriteFrame + 1) % this.spriteFrameCount;
-
-      // Обновление background-image на следующий файл
-      this.updateFrameImage();
-
-      // Обновление времени последнего кадра
-      this.lastFrameTime = now;
-    }
-  }
-
-  /**
-   * Обновление изображения кадра анимации
-   */
-  updateFrameImage() {
-    if (!this.element) return;
-
-    // Номер кадра от 1 до 8 (spriteFrame от 0 до 7, но файлы от 1 до 8)
-    const frameNumber = this.spriteFrame + 1;
-    const imagePath = `images/builders/builder-running-${frameNumber}.webp`;
-    this.element.style.backgroundImage = `url(${imagePath})`;
   }
 
   /**
