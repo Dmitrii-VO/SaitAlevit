@@ -41,28 +41,7 @@
 /* Утилиты */
 @import "./utilities/helpers.css";
 
-/* Тёмный фон разделов сохраняет контраст светлых карточек. */
-.main section [class$="__overlay"] {
-  background: linear-gradient(135deg, rgba(8, 12, 13, .9), rgba(20, 25, 25, .82) 58%, rgba(7, 11, 12, .78));
-}
-
-.main section h2[class$="__title"],
-.main > section[id] p[class$="__subtitle"],
-.map__legend-text,
-.about__team-title,
-.about__team-names,
-.about__description,
-.about__advantage-text,
-.about__advantage-text strong {
-  color: #f6f3eb;
-}
-
-.hero__phone {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-underline-offset: .25em;
-}
+@import "./components/architectural-catalog.css";
 
 .map__legend-color {
   border-radius: 0;
@@ -92,17 +71,6 @@
 .projects__card-image, .works__card-image { height: auto; aspect-ratio: 16 / 10; }
 
 .projects__tabs[hidden], .projects__tab[hidden] { display: none; }
-.hero .hero__cta-main {
-  background: #edc561;
-  color: #201b11;
-  border-color: transparent;
-  box-shadow: 0 .3rem 1.5rem rgba(0,0,0,.24);
-  padding-inline: clamp(1rem, 4vw, 3rem);
-}
-.hero .hero__cta-main:hover { background: #f8d789; }
-.advantages__item-title, .advantages__item-number { color: #775900; }
-.cta__form-subtitle { color: #595959; }
-.hero__container { align-items: center; }
 .map__container { max-width: var(--container-width); }
 .map__content:not(.map__content--active) { display: none; }
 .map__locations { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
@@ -111,13 +79,6 @@
 .privacy-header { background: #161b1b; color: white; }
 .privacy-header .header__container { max-width: 58rem; margin: auto; padding: .6rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
 .privacy-header img { width: 3.5rem; height: 3.5rem; object-fit: contain; }
-@media (min-width: 64em) {
-  .projects__grid, .works__grid {
-    max-width: 65rem;
-    margin-inline: auto;
-    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  }
-}
 @media (max-width: 47.9375em) {
   .map__legend { display: grid; justify-content: start; text-align: left; }
   .floating-buttons { display: none; }

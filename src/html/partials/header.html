@@ -3,11 +3,11 @@
 <header class="header" id="header">
   <nav class="nav">
     <div class="nav__container">
-      <a href="#" class="nav__logo">
-        <img src="images/3.webp" alt="АЛЕВИТ СТРОЙ" class="nav__logo-img" />
+      <a href="#hero" class="nav__logo" aria-label="Алевит Строй — на главную">
+        <img src="images/3.webp" alt="" class="nav__logo-img" />
         <span class="nav__logo-text">АЛЕВИТ СТРОЙ</span>
       </a>
-      <ul class="nav__menu">
+      <ul class="nav__menu" id="primary-menu">
         <li class="nav__item">
           <a href="#projects" class="nav__link">Проекты</a>
         </li>
@@ -24,10 +24,7 @@
           <a href="#contacts" class="nav__link">Контакты</a>
         </li>
       </ul>
-      <div class="hero__contacts" id="hero-contacts">
-        <!-- Контакты будут загружены динамически из data/contacts.json -->
-      </div>
-      <button class="nav__burger" aria-label="Открыть меню">
+      <button class="nav__burger" aria-controls="primary-menu" aria-expanded="false" aria-label="Открыть меню">
         <span></span>
         <span></span>
         <span></span>

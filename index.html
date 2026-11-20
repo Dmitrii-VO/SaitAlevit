@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://dmitrii-vo.github.io/SaitAlevit/images/house-preview.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Загородный дом с освещённой террасой" />
+  <meta property="og:image:alt" content="Одноэтажный дом с крытой террасой" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="images/logo.png" />
   <link rel="apple-touch-icon" href="images/logo.png" />
@@ -82,11 +82,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;family=Golos+Text:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="styles.css?v=ba74ce50aad5" />
+  <link rel="stylesheet" href="styles.css?v=33fedd45d98c" />
 
   <!-- Яндекс Карты API -->
   <script id="map-api" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" async></script>
@@ -97,11 +97,11 @@
 <header class="header" id="header">
   <nav class="nav">
     <div class="nav__container">
-      <a href="#" class="nav__logo">
-        <img src="images/3.webp" alt="АЛЕВИТ СТРОЙ" class="nav__logo-img" />
+      <a href="#hero" class="nav__logo" aria-label="Алевит Строй — на главную">
+        <img src="images/3.webp" alt="" class="nav__logo-img" />
         <span class="nav__logo-text">АЛЕВИТ СТРОЙ</span>
       </a>
-      <ul class="nav__menu">
+      <ul class="nav__menu" id="primary-menu">
         <li class="nav__item">
           <a href="#projects" class="nav__link">Проекты</a>
         </li>
@@ -118,10 +118,7 @@
           <a href="#contacts" class="nav__link">Контакты</a>
         </li>
       </ul>
-      <div class="hero__contacts" id="hero-contacts">
-        <!-- Контакты будут загружены динамически из data/contacts.json -->
-      </div>
-      <button class="nav__burger" aria-label="Открыть меню">
+      <button class="nav__burger" aria-controls="primary-menu" aria-expanded="false" aria-label="Открыть меню">
         <span></span>
         <span></span>
         <span></span>
@@ -131,49 +128,35 @@
 </header>
 
     <main class="main">
-      <!-- HERO - Первый экран -->
-<!-- ============================================ -->
-<section class="hero" id="hero">
-  <div class="hero__image-wrapper">
-    <img
-      src="images/houses/hero/hero-main.webp"
-      alt="Дом построенный компанией АЛЕВИТ СТРОЙ"
-      class="hero__image" width="1456" height="816" fetchpriority="high"
-    />
-    <div class="hero__overlay"></div>
-  </div>
-  <div class="hero__container">
-    <div class="hero__content">
-      <h1 class="hero__title">
-        <span class="hero__title-main">Строительство домов</span>
-        <span class="hero__title-sub">в Белгороде и Белгородском районе</span>
-      </h1>
-      <p class="hero__usp">
-        Дом под ключ за 6–8 месяцев · Более 20 построенных домов
-      </p>
-      <div class="hero__cta">
-        <a href="#calculator" class="btn btn--primary hero__cta-main"
-          >Рассчитать стоимость</a
-        >
-        <a class="hero__phone" href="tel:+79066038585">+7 (906) 603-85-85</a>
-        <p class="hero__cta-hint">Ответим в ближайшее время</p>
+      <section class="showcase" id="hero">
+  <div class="showcase__layout">
+    <div class="showcase__intro">
+      <p class="showcase__region">Белгород и Белгородский район</p>
+      <h1>Дома <br>под ключ</h1>
+      <p class="showcase__lead">Строим из газобетона, керамзитобетона и кирпича. От проекта до передачи ключей — 6–8 месяцев.</p>
+      <div class="showcase__actions">
+        <a class="catalog-action" href="#calculator">Рассчитать стоимость</a>
+        <a class="showcase__phone" href="tel:+79066038585">+7 (906) 603-85-85</a>
       </div>
     </div>
+    <figure class="showcase__figure">
+    <div class="showcase__media">
+      <img class="showcase__facade" src="images/projects/photos_file_2-1768075730944.webp" alt="Фасад проекта «Дом с крытой террасой»" fetchpriority="high" width="1280" height="720">
+      <img class="showcase__plan" src="images/projects/photos_file_1-1768075731016.webp" alt="Планировка проекта «Дом с крытой террасой»">
+    </div>
+    <figcaption><div><a href="#projects">Дом с крытой террасой</a><small>Типовой проект · 136 м²</small></div><fieldset class="drawing-switch">
+      <legend class="visually-hidden">Вид проекта</legend>
+      <label><input type="radio" name="project-view" value="facade" checked><span>Фасад</span></label>
+      <label><input type="radio" name="project-view" value="plan"><span>Планировка</span></label>
+    </fieldset></figcaption>
+  </figure>
   </div>
 </section>
       <!-- MAP - Карта объектов -->
 <!-- ============================================ -->
 <section class="map" id="map">
-  <div class="map__image-wrapper">
-    <img
-      src="images/backgrounds/map-background.webp"
-      alt=""
-      class="map__image"
-      loading="lazy"
-    />
-    <div class="map__overlay"></div>
-  </div>
   <div class="map__container">
+    <div class="map__directory">
     <h2 class="map__title">Карта объектов</h2>
     <p class="map__subtitle">
       Дома и участки на карте Белгорода и области
@@ -187,39 +170,24 @@
       <div class="map__legend-item"><span class="map__legend-color map__legend-color--orange"></span><span class="map__legend-text">Свободный участок</span></div>
     </div>
 
-    <!-- Контейнер для Яндекс Карт -->
-    <div class="map__content" id="yandex-map"></div>
     <div class="map__locations"><a href="https://yandex.ru/maps/?ll=36.5872,50.5957&amp;pt=36.5872,50.5957&amp;z=16" target="_blank" rel="noopener">Дом из газобетона на Яндекс Картах</a></div>
+    </div>
+    <div class="map__content" id="yandex-map"></div>
   </div>
 </section>
-      <!-- ADVANTAGES - Почему с нами выгодно и безопасно строить дом -->
+      <!-- ADVANTAGES - Условия строительства -->
 <!-- ============================================ -->
 <section class="advantages" id="advantages">
-  <div class="advantages__image-wrapper">
-    <img
-      src="images/backgrounds/advantages-background.webp"
-      alt=""
-      class="advantages__image"
-      loading="lazy"
-    />
-    <div class="advantages__overlay"></div>
-  </div>
   <div class="advantages__container">
     <h2 class="advantages__title">
-      Почему с нами выгодно и безопасно строить дом
+      Условия строительства
     </h2>
     <p class="advantages__subtitle">
       Фиксируем условия, соблюдаем договор и сдаём дом точно в срок.
     </p>
     <div class="advantages__grid">
       <div class="advantages__item advantages__item--featured">
-        <div class="advantages__icon">
-          <img
-            src="images/icons/icon-houses-completed.webp"
-            alt="Более 20 построенных домов"
-            class="advantages__icon-img"
-          />
-        </div>
+
         <h3 class="advantages__item-title">
           <span class="advantages__item-number">20+</span>
           <span class="advantages__item-title-text"
@@ -232,13 +200,7 @@
         </p>
       </div>
       <div class="advantages__item">
-        <div class="advantages__icon">
-          <img
-            src="images/icons/icon-transparency-document.webp"
-            alt="Фиксированная стоимость в договоре"
-            class="advantages__icon-img"
-          />
-        </div>
+
         <h3 class="advantages__item-title">Фиксированная цена по договору</h3>
         <p class="advantages__item-text">
           Цена фиксируется в договоре и не меняется. Платите только за
@@ -246,13 +208,7 @@
         </p>
       </div>
       <div class="advantages__item">
-        <div class="advantages__icon">
-          <img
-            src="images/icons/icon-deadline-clock.webp"
-            alt="Фиксированные сроки строительства"
-            class="advantages__icon-img"
-          />
-        </div>
+
         <h3 class="advantages__item-title">
           Фиксированные сроки строительства
         </h3>
@@ -262,13 +218,7 @@
         </p>
       </div>
       <div class="advantages__item">
-        <div class="advantages__icon">
-          <img
-            src="images/icons/icon-guarantee-star.webp"
-            alt="Гарантия по договору"
-            class="advantages__icon-img"
-          />
-        </div>
+
         <h3 class="advantages__item-title">Гарантия по договору</h3>
         <p class="advantages__item-text">
           Гарантия на несущие конструкции — 3 года, на все виды отделочных работ — 1 год.
@@ -280,15 +230,6 @@
       <!-- CALCULATOR - Калькулятор стоимости -->
 <!-- ============================================ -->
 <section class="calculator" id="calculator">
-  <div class="calculator__image-wrapper">
-    <img
-      src="images/backgrounds/calculator-background.webp"
-      alt=""
-      class="calculator__image"
-      loading="lazy"
-    />
-    <div class="calculator__overlay"></div>
-  </div>
   <div class="calculator__container">
     <h2 class="calculator__title">Калькулятор стоимости дома</h2>
     <p class="calculator__subtitle">
@@ -467,15 +408,6 @@
       <!-- PROJECTS - Типовые проекты домов -->
 <!-- ============================================ -->
 <section class="projects" id="projects">
-  <div class="projects__image-wrapper">
-    <img
-      src="images/backgrounds/projects-background.webp"
-      alt=""
-      class="projects__image"
-      loading="lazy"
-    />
-    <div class="projects__overlay"></div>
-  </div>
   <div class="projects__container">
     <h2 class="projects__title">Типовые проекты домов</h2>
     <p class="projects__subtitle">
@@ -520,6 +452,7 @@
     >
       <article class="projects__card">
       <div class="projects__card-image"><img class="projects__card-img" src="images/projects/photos_file_2-1768075730944.webp" alt="Дом с крытой террасой" loading="lazy"></div>
+      <img class="projects__plan" src="images/projects/photos_file_1-1768075731016.webp" alt="Планировка дома «Дом с крытой террасой»" loading="lazy">
       <div class="projects__card-content">
         <h3 class="projects__card-title">Дом с крытой террасой</h3>
         <p>1 этаж · 136 м² · 6 120 000 ₽</p>
@@ -528,6 +461,7 @@
     </article>
 <article class="projects__card">
       <div class="projects__card-image"><img class="projects__card-img" src="images/projects/photos_file_8-1768079028709.webp" alt="Кирпичный дом с гаражом" loading="lazy"></div>
+      <img class="projects__plan" src="images/projects/photos_file_7-1768079028700.webp" alt="Планировка дома «Кирпичный дом с гаражом»" loading="lazy">
       <div class="projects__card-content">
         <h3 class="projects__card-title">Кирпичный дом с гаражом</h3>
         <p>1 этаж · 187 м² · 8 430 000 ₽</p>
@@ -540,15 +474,6 @@
       <!-- WORKS - Наши работы (реальные построенные дома) -->
 <!-- ============================================ -->
 <section class="works" id="works">
-  <div class="works__image-wrapper">
-    <img
-      src="images/backgrounds/works-background.webp"
-      alt=""
-      class="works__image"
-      loading="lazy"
-    />
-    <div class="works__overlay"></div>
-  </div>
   <div class="works__container">
     <h2 class="works__title">Наши работы</h2>
     <p class="works__subtitle">
@@ -582,15 +507,6 @@
       <!-- PROCESS - Этапы строительства -->
 <!-- ============================================ -->
 <section class="process" id="process">
-  <div class="process__image-wrapper">
-    <img
-      src="images/backgrounds/process-background.webp"
-      alt=""
-      class="process__image"
-      loading="lazy"
-    />
-    <div class="process__overlay"></div>
-  </div>
   <div class="process__container">
     <h2 class="process__title">Этапы строительства</h2>
     <p class="process__subtitle">От консультации до сдачи дома под ключ</p>
@@ -693,15 +609,6 @@
       <!-- ABOUT - О компании и команда -->
 <!-- ============================================ -->
 <section class="about" id="about">
-  <div class="about__image-wrapper">
-    <img
-      src="images/backgrounds/about-background.webp"
-      alt=""
-      class="about__image"
-      loading="lazy"
-    />
-    <div class="about__overlay"></div>
-  </div>
   <div class="about__container">
     <h2 class="about__title">О компании</h2>
 
@@ -918,15 +825,6 @@
       <!-- REVIEWS - Отзывы -->
 <!-- ============================================ -->
 <section class="reviews" id="reviews">
-  <div class="reviews__image-wrapper">
-    <img
-      src="images/backgrounds/reviews-background.webp"
-      alt=""
-      class="reviews__image"
-      loading="lazy"
-    />
-    <div class="reviews__overlay"></div>
-  </div>
   <div class="reviews__container">
     <h2 class="reviews__title">Отзывы наших клиентов</h2>
     <p class="reviews__subtitle">Более 50 отзывов о строительстве с «Алевит Строй»</p>
@@ -946,15 +844,6 @@
       <!-- FAQ - Часто задаваемые вопросы -->
 <!-- ============================================ -->
 <section class="faq" id="faq">
-  <div class="faq__image-wrapper">
-    <img
-      src="images/backgrounds/faq-background.webp"
-      alt=""
-      class="faq__image"
-      loading="lazy"
-    />
-    <div class="faq__overlay"></div>
-  </div>
   <div class="faq__container">
     <h2 class="faq__title">Часто задаваемые вопросы</h2>
     <p class="faq__subtitle">
@@ -1189,15 +1078,6 @@
       <!-- SERVICES - Дополнительные услуги -->
 <!-- ============================================ -->
 <section class="services" id="services">
-  <div class="services__image-wrapper">
-    <img
-      src="images/backgrounds/services-background.webp"
-      alt=""
-      class="services__image"
-      loading="lazy"
-    />
-    <div class="services__overlay"></div>
-  </div>
   <div class="services__container">
     <h2 class="services__title">Дополнительные услуги</h2>
     <div class="services__grid">
@@ -1335,15 +1215,6 @@
       <!-- CTA - Призыв к действию и формы -->
 <!-- ============================================ -->
 <section class="cta" id="cta">
-  <div class="cta__image-wrapper">
-    <img
-      src="images/backgrounds/cta-background.webp"
-      alt=""
-      class="cta__image"
-      loading="lazy"
-    />
-    <div class="cta__overlay"></div>
-  </div>
   <div class="cta__container">
     <div class="cta__content">
       <h2 class="cta__title">
@@ -1540,15 +1411,6 @@
       <!-- CONTACTS - Контакты -->
 <!-- ============================================ -->
 <section class="contacts" id="contacts">
-  <div class="contacts__image-wrapper">
-    <img
-      src="images/backgrounds/contacts-background.webp"
-      alt=""
-      class="contacts__image"
-      loading="lazy"
-    />
-    <div class="contacts__overlay"></div>
-  </div>
   <div class="contacts__container">
     <h2 class="contacts__title">Контакты</h2>
     <p class="contacts__subtitle">Свяжитесь с нами удобным способом</p>
@@ -1984,6 +1846,6 @@
   </div>
 </div>
 
-    <script src="js/main.js?v=f8306c469b08"></script>
+    <script src="js/main.js?v=9276b9f5fa4d"></script>
   </body>
 </html>

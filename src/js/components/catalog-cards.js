@@ -29,6 +29,7 @@ export function createProjectCard(project) {
         <div class="projects__card-image">
             <img src="${imageSrc}" alt="${escapeHtml(imageAlt)}" class="projects__card-img" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23f5f5f5\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext fill=\\'%23999\\' x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dominant-baseline=\\'middle\\'%3EНет фото%3C/text%3E%3C/svg%3E';">
         </div>
+        ${project.planImage ? `<img class="projects__plan" src="${encodeURI(project.planImage)}" alt="Планировка дома" loading="lazy">` : ""}
         <div class="projects__card-content">
             <h3 class="projects__card-title">${escapeHtml(project.title)}</h3>
             <p class="projects__card-description">${escapeHtml(description)}</p>

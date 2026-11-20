@@ -15,7 +15,8 @@
         "images/projects/photos_file_1-1768075731016.webp"
       ],
       "status": "published",
-      "createdAt": "2026-01-10T20:09:14.755Z"
+      "createdAt": "2026-01-10T20:09:14.755Z",
+      "planImage": "images/projects/photos_file_1-1768075731016.webp"
     },
     {
       "id": "2",
@@ -34,7 +35,8 @@
         "images/projects/photos_file_7-1768079028700.webp"
       ],
       "status": "published",
-      "createdAt": "2026-01-10T21:04:05.390Z"
+      "createdAt": "2026-01-10T21:04:05.390Z",
+      "planImage": "images/projects/photos_file_7-1768079028700.webp"
     }
   ]
 }
