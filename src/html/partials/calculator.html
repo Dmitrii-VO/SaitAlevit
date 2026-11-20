@@ -53,6 +53,16 @@
                 <input
                   type="radio"
                   name="type"
+                  value="clay-block"
+                  id="calc-type-clay-block"
+                  required
+                />
+                <span class="calculator__form-radio-label">Керамзитобетон</span>
+              </label>
+              <label class="calculator__form-radio">
+                <input
+                  type="radio"
+                  name="type"
                   value="brick"
                   id="calc-type-brick"
                   required
@@ -94,11 +104,11 @@
                 <input
                   type="radio"
                   name="finish"
-                  value="box"
+                  value="shell"
                   id="calc-finish-box"
                   required
                 />
-                <span class="calculator__form-radio-label">Коробка</span>
+                <span class="calculator__form-radio-label">Черновая отделка</span>
               </label>
               <label class="calculator__form-radio">
                 <input
@@ -152,20 +162,20 @@
 
           <div class="calculator__prices" id="calculator-prices">
             <div class="calculator__prices-row">
-              <span class="calculator__prices-label">Под самоотделку</span>
-              <span class="calculator__prices-value" data-price-key="shell"
+              <span class="calculator__prices-label">Черновая отделка</span>
+              <span class="calculator__prices-value" data-price-key="shell" data-rate="45000"
                 >45 000 ₽/м²</span
               >
             </div>
             <div class="calculator__prices-row">
               <span class="calculator__prices-label">Чистовая отделка</span>
-              <span class="calculator__prices-value" data-price-key="clean"
-                >65 000 ₽/м²</span
+              <span class="calculator__prices-value" data-price-key="clean" data-rate="70000"
+                >70 000 ₽/м²</span
               >
             </div>
             <div class="calculator__prices-row">
               <span class="calculator__prices-label">Под ключ</span>
-              <span class="calculator__prices-value" data-price-key="turnkey"
+              <span class="calculator__prices-value" data-price-key="turnkey" data-rate="80000"
                 >80 000 ₽/м²</span
               >
             </div>

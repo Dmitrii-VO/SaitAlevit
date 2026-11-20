@@ -107,11 +107,13 @@ function formatFormMessage(formData) {
   
   const houseTypes = {
     'gas-block': 'Газобетон',
+    'clay-block': 'Керамзитобетон',
     'brick': 'Кирпич'
   };
   
   const finishTypes = {
-    'box': 'Коробка',
+    'shell': 'Черновая отделка',
+    'box': 'Черновая отделка',
     'clean': 'Чистовая отделка',
     'turnkey': 'Под ключ'
   };

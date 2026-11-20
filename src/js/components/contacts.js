@@ -69,6 +69,7 @@ export function updateProcessConsultationPhone() {
   );
   if (processPhoneElement) {
     processPhoneElement.textContent = phoneText;
+    processPhoneElement.href = phoneLink.href;
   }
 }
 

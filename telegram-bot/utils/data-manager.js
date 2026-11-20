@@ -77,7 +77,7 @@ function getDefaultStructure(dataType) {
     prices: {
       prices: {
         shell: 45000,
-        clean: 65000,
+        clean: 70000,
         turnkey: 80000
       }
     }

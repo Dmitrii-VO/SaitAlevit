@@ -1335,27 +1335,11 @@ textarea {
   max-width: var(--container-width);
   margin: 0 auto;
 }
-/* Оптимизация для 5 карточек: 2-3 в ряд на десктопе */
 @media (min-width: 48em) {
   .advantages__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-/* ponytail: 6-колоночная сетка под ровно 5 карточек (3 + 2 по центру); при другом числе карточек пересчитать */
-@media (min-width: 64em) {
-  .advantages__grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .advantages__item {
-    grid-column: span 2;
-  }
-
-  .advantages__item:nth-child(4) {
-    grid-column: 2 / span 2;
-  }
-}
-/* На очень больших экранах можно показать 2-3 карточки в ряд */
 @media (min-width: 87.5em) {
   .advantages__grid {
     max-width: 75rem;
@@ -5651,3 +5635,47 @@ textarea {
   -o-object-position: center;
      object-position: center;
 }
+/* Тёмный фон разделов сохраняет контраст светлых карточек. */
+.main section [class$="__overlay"] {
+  background: linear-gradient(135deg, rgba(8, 12, 13, .9), rgba(20, 25, 25, .82) 58%, rgba(7, 11, 12, .78));
+}
+.main section h2[class$="__title"],
+.main section p[class$="__subtitle"],
+.map__legend-text,
+.about__team-title,
+.about__team-names,
+.about__description,
+.about__advantage-text,
+.about__advantage-text strong {
+  color: #f6f3eb;
+}
+.hero__phone {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-underline-offset: .25em;
+}
+.map__legend-color {
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 79% 33%, 100% 65%, 12% 65%, 12% 100%, 0 100%);
+}
+.map__legend-color--yellow { background-color: #f2c230; }
+.contacts__content {
+  display: block;
+  max-width: 54rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contacts__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+}
+.contacts__item, .contacts__item:hover, .contacts__social {
+  background: rgba(24, 29, 29, .92);
+  border: 1px solid rgba(228, 204, 142, .35);
+  color: #f6f3eb;
+}
+.contacts__item-link, .contacts__item-text { color: #f6f3eb; }
+.footer__social-list { flex-direction: column; align-items: flex-start; color: white; }
+.services__card[id] { scroll-margin-top: 6rem; }
+.projects__card-image, .works__card-image { height: auto; aspect-ratio: 16 / 10; }

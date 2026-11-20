@@ -5,11 +5,27 @@
       "clientName": "Дима",
       "houseName": "Дом 11",
       "reviewText": "Леша лучший",
-      "clientPhoto": "images/reviews/photos_file_18-1768087602064.jpg",
+      "clientPhoto": "images/reviews/photos_file_18-1768087602064.webp",
       "videoUrl": "",
       "isVideo": false,
       "status": "published",
       "createdAt": "2026-01-10T23:26:49.286Z"
+    },
+    {
+      "id": "2",
+      "clientName": "Пример отзыва",
+      "houseName": "Подбор проекта",
+      "reviewText": "На консультацию пришли с планом участка. Разобрали, куда лучше развернуть террасу и где оставить место для въезда.",
+      "isVideo": false,
+      "status": "published"
+    },
+    {
+      "id": "3",
+      "clientName": "Пример отзыва",
+      "houseName": "Выбор отделки",
+      "reviewText": "Сравнивали черновую и чистовую отделку. После разбора сметы стало понятно, какие работы оставить за собой.",
+      "isVideo": false,
+      "status": "published"
     }
   ]
 }

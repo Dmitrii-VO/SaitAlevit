@@ -12,13 +12,13 @@ async function handleView(bot, msg) {
 
     const prices = data.prices || {};
     const shell = prices.shell || 45000;
-    const clean = prices.clean || 65000;
+    const clean = prices.clean || 70000;
     const turnkey = prices.turnkey || 80000;
 
     const text = [
       '📊 <b>Текущие примерные цены за м²</b>',
       '',
-      `1) Под самоотделку: <b>${shell.toLocaleString('ru-RU')} ₽/м²</b>`,
+      `1) Черновая отделка: <b>${shell.toLocaleString('ru-RU')} ₽/м²</b>`,
       `2) Чистовая отделка: <b>${clean.toLocaleString('ru-RU')} ₽/м²</b>`,
       `3) Под ключ: <b>${turnkey.toLocaleString('ru-RU')} ₽/м²</b>`,
       '',
@@ -46,7 +46,7 @@ async function handleEdit(bot, msg, userStates) {
 
   await bot.sendMessage(
     chatId,
-    '✏️ Введите цену за м² <b>под самоотделку</b> (например: 45000):',
+    '✏️ Введите цену за м² <b>для черновой отделки</b> (например: 45000):',
     { parse_mode: 'HTML' }
   );
 }
@@ -71,7 +71,7 @@ async function handleMessage(bot, msg, userStates) {
     state.step = 'clean';
     return bot.sendMessage(
       chatId,
-      'Введите цену за м² для <b>чистовой отделки</b> (например: 65000):',
+      'Введите цену за м² для <b>чистовой отделки</b> (например: 70000):',
       { parse_mode: 'HTML' }
     );
   }
@@ -100,7 +100,7 @@ async function handleMessage(bot, msg, userStates) {
       const textConfirm = [
         '✅ Цены обновлены:',
         '',
-        `1) Под самоотделку: <b>${shell} ₽/м²</b>`,
+        `1) Черновая отделка: <b>${shell} ₽/м²</b>`,
         `2) Чистовая отделка: <b>${clean} ₽/м²</b>`,
         `3) Под ключ: <b>${turnkey} ₽/м²</b>`
       ].join('\n');

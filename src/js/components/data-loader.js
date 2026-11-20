@@ -219,15 +219,13 @@ export async function loadContacts() {
         );
       }
 
-      if (contacts.email) {
-        const emailItem = createContactItem(
-          "email",
-          "Email",
-          contacts.email,
-          `mailto:${contacts.email}`,
-        );
-        container.appendChild(emailItem);
-      }
+      container.appendChild(createContactItem(
+        "email",
+        "Электронная почта",
+        contacts.email || "Адрес появится позже",
+        contacts.email ? `mailto:${contacts.email}` : null,
+        !contacts.email,
+      ));
 
       if (contacts.address) {
         const addressItem = createContactItem(
@@ -241,8 +239,8 @@ export async function loadContacts() {
       }
 
       const socialContainer = createSocialLinks(
-        contacts.whatsapp,
         contacts.telegram,
+        formatPhone(contacts.phone),
       );
       if (socialContainer) {
         container.appendChild(socialContainer);
@@ -506,25 +504,14 @@ export async function loadPrices() {
     const data = await fetchJSON("data/prices.json");
     if (!data || !data.prices) return;
 
-    const { shell, clean, turnkey } = data.prices;
-    const formatPrice = (value) => {
-      if (!value || isNaN(value)) return null;
-      return `${new Intl.NumberFormat("ru-RU").format(value)} ₽/м²`;
-    };
-
-    const shellEl = document.querySelector('[data-price-key="shell"]');
-    const cleanEl = document.querySelector('[data-price-key="clean"]');
-    const turnkeyEl = document.querySelector('[data-price-key="turnkey"]');
-
-    if (shellEl && formatPrice(shell)) {
-      shellEl.textContent = formatPrice(shell);
-    }
-    if (cleanEl && formatPrice(clean)) {
-      cleanEl.textContent = formatPrice(clean);
-    }
-    if (turnkeyEl && formatPrice(turnkey)) {
-      turnkeyEl.textContent = formatPrice(turnkey);
-    }
+    document.querySelectorAll("[data-price-key]").forEach((element) => {
+      const rate = Number(data.prices[element.dataset.priceKey]);
+      if (Number.isFinite(rate) && rate > 0) {
+        element.dataset.rate = rate;
+        element.textContent = `${new Intl.NumberFormat("ru-RU").format(rate)} ₽/м²`;
+      }
+    });
+    document.querySelector("#calculator-form")?.dispatchEvent(new Event("input"));
   } catch (error) {
     console.error("Ошибка загрузки цен калькулятора:", error);
   }

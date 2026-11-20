@@ -76,29 +76,12 @@
   margin: 0 auto;
 }
 
-/* Оптимизация для 5 карточек: 2-3 в ряд на десктопе */
 @media (min-width: 48em) {
   .advantages__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* ponytail: 6-колоночная сетка под ровно 5 карточек (3 + 2 по центру); при другом числе карточек пересчитать */
-@media (min-width: 64em) {
-  .advantages__grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  .advantages__item {
-    grid-column: span 2;
-  }
-
-  .advantages__item:nth-child(4) {
-    grid-column: 2 / span 2;
-  }
-}
-
-/* На очень больших экранах можно показать 2-3 карточки в ряд */
 @media (min-width: 87.5em) {
   .advantages__grid {
     max-width: 75rem;

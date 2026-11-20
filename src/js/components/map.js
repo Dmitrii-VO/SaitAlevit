@@ -5,28 +5,12 @@
 
 import { fetchJSON } from "../utils/fetch.js";
 
-/**
- * Определяет цвет метки по статусу работы
- * @param {string} workStatus - Статус работы
- * @returns {string} Цвет метки ('green', 'orange', 'red')
- */
-function getMarkerColor(workStatus) {
-  if (!workStatus) return "red";
-
+function getMarkerColor(workStatus = "") {
   const status = workStatus.toLowerCase();
-
-  // Зелёные - построенные, сданы в эксплуатацию
-  if (status.includes("сдан") || status.includes("эксплуатац")) {
-    return "green";
-  }
-
-  // Оранжевые - строящиеся дома
-  if (status.includes("строит") || status.includes("в процессе")) {
-    return "orange";
-  }
-
-  // Красные - этап строительства, можно заказать
-  return "red";
+  if (status.includes("участок")) return "#ff8c00";
+  if (status.includes("продаж")) return "#28a745";
+  if (status.includes("строит") || status.includes("в процессе")) return "#f2c230";
+  return "#dc3545";
 }
 
 /**
@@ -98,13 +82,7 @@ async function initYandexMap() {
         return;
       }
 
-      const color = getMarkerColor(work.workStatus);
-      const fillColor =
-        color === "green"
-          ? "#28a745"
-          : color === "orange"
-            ? "#ff8c00"
-            : "#dc3545";
+      const fillColor = getMarkerColor(work.workStatus);
 
       try {
         const placemark = new ymaps.Placemark(
@@ -124,12 +102,11 @@ async function initYandexMap() {
             iconLayout: "default#imageWithContent",
             iconImageHref: `data:image/svg+xml;base64,${btoa(`
                             <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="16" cy="16" r="14" fill="${fillColor}" stroke="#fff" stroke-width="2"/>
-                                <circle cx="16" cy="16" r="6" fill="#fff"/>
+                                <path d="M6 30V3" stroke="#333" stroke-width="3"/><path d="M7 3h21l-5 7 5 7H7z" fill="${fillColor}" stroke="#fff" stroke-width="1.5"/>
                             </svg>
                         `)}`,
             iconImageSize: [32, 32],
-            iconImageOffset: [-16, -16],
+            iconImageOffset: [-6, -30],
           },
         );
 

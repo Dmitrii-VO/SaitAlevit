@@ -312,7 +312,7 @@ async function handleCTAFormSubmit(
 
     if (result.success) {
       showNotification(
-        "Спасибо! Мы свяжемся с вами в течение 15 минут",
+        "Спасибо! Мы свяжемся с вами в ближайшее время",
         "success",
       );
 
@@ -438,47 +438,6 @@ export function initContactForm(form) {
 }
 
 /**
- * Цены за м² по типам домов, этажности и форматам отделки
- * Отдельные цены для 1 и 2 этажей, так как двухэтажные дома требуют
- * больше материалов, более сложную конструкцию и дополнительные работы
- */
-const CALCULATOR_PRICES = {
-  "gas-block": {
-    1: { box: 25000, clean: 35000, turnkey: 45000 },
-    2: { box: 35000, clean: 48000, turnkey: 62000 },
-  },
-  brick: {
-    1: { box: 30000, clean: 40000, turnkey: 50000 },
-    2: { box: 40000, clean: 55000, turnkey: 70000 },
-  },
-};
-
-/**
- * Рассчитывает стоимость дома
- * @param {number} area - Площадь в м²
- * @param {string} type - Тип дома
- * @param {string} floors - Этажность ("1" или "2")
- * @param {string} finish - Формат отделки
- * @returns {number|null} Рассчитанная цена или null при невалидных данных
- */
-function calculateHousePrice(area, type, floors, finish) {
-  if (area < 20 || area > 500) {
-    return null;
-  }
-
-  // Получаем цену за м² с учётом этажности
-  // Используем отдельные цены для 1 и 2 этажей
-  const pricePerM2 =
-    CALCULATOR_PRICES[type]?.[floors]?.[finish] ||
-    CALCULATOR_PRICES[type]?.["1"]?.[finish] ||
-    25000;
-
-  const totalPrice = area * pricePerM2;
-  // Применяем скидку 10% для показа "от" цены
-  return Math.round(totalPrice * 0.9);
-}
-
-/**
  * Обрабатывает отправку формы калькулятора
  * @param {HTMLElement} form - Элемент формы
  * @returns {Promise<void>}
@@ -538,21 +497,9 @@ export function initCalculator() {
 
   function updatePrice() {
     const area = parseFloat(document.querySelector("#calc-area").value) || 0;
-    const typeRadio = calculatorForm.querySelector(
-      'input[name="type"]:checked',
-    );
-    const floorsRadio = calculatorForm.querySelector(
-      'input[name="floors"]:checked',
-    );
-    const finishRadio = calculatorForm.querySelector(
-      'input[name="finish"]:checked',
-    );
-
-    const type = typeRadio ? typeRadio.value : null;
-    const floors = floorsRadio ? floorsRadio.value : null;
-    const finish = finishRadio ? finishRadio.value : null;
-
-    const price = calculateHousePrice(area, type, floors, finish);
+    const finish = calculatorForm.elements.finish.value;
+    const rate = Number(document.querySelector(`[data-price-key="${finish}"]`)?.dataset.rate);
+    const price = area >= 20 && area <= 500 && rate > 0 ? Math.round(area * rate) : null;
 
     if (price === null) {
       resultPrice.textContent = "—";
@@ -565,19 +512,6 @@ export function initCalculator() {
   calculatorForm.addEventListener("input", updatePrice);
   calculatorForm.addEventListener("change", updatePrice);
 
-  // Явные обработчики для всех элементов формы
-  const areaInput = document.querySelector("#calc-area");
-  const radioInputs = calculatorForm.querySelectorAll('input[type="radio"]');
-
-  if (areaInput) {
-    areaInput.addEventListener("input", updatePrice);
-    areaInput.addEventListener("change", updatePrice);
-  }
-
-  // Обработчики для радио-кнопок
-  radioInputs.forEach((radio) => {
-    radio.addEventListener("change", updatePrice);
-  });
   calculatorForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     await handleCalculatorSubmit(this);
