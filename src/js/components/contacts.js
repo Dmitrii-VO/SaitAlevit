@@ -82,7 +82,8 @@ export function updateSchemaOrg(contacts) {
 
   schemaScripts.forEach((script) => {
     try {
-      const schema = JSON.parse(script.textContent);
+      const documentData = JSON.parse(script.textContent);
+      const schema = documentData["@graph"]?.find(entity => entity.address && entity.telephone) || documentData;
       let updated = false;
 
       // Обновляем телефон
@@ -106,7 +107,7 @@ export function updateSchemaOrg(contacts) {
       // Обновляем адрес
       if (contacts.address && schema.address) {
         const addressParts = parseAddress(contacts.address);
-        if (addressParts) {
+        if (addressParts && schema.address) {
           if (addressParts.streetAddress)
             schema.address.streetAddress = addressParts.streetAddress;
           if (addressParts.addressLocality)
@@ -118,7 +119,7 @@ export function updateSchemaOrg(contacts) {
       }
 
       if (updated) {
-        script.textContent = JSON.stringify(schema, null, 2);
+        script.textContent = JSON.stringify(documentData, null, 2);
       }
     } catch (e) {
       console.error("Ошибка обновления schema.org:", e);

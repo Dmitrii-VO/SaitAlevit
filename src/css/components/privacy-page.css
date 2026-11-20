@@ -122,7 +122,8 @@
   }
 
   .privacy__title {
-    font-size: var(--font-size-h2);
+    font-size: clamp(1.45rem, 5vw, 2rem);
+    overflow-wrap: anywhere;
   }
 
   .privacy__section-title {

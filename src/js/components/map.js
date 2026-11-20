@@ -44,6 +44,7 @@ async function initYandexMap() {
     }
 
     // Создаём карту
+    mapContainer.classList.add("map__content--active");
     const map = new ymaps.Map("yandex-map", {
       center: [50.5957, 36.5872], // Центр Белгорода
       zoom: 11,
@@ -188,6 +189,7 @@ async function initYandexMap() {
       ymapsLoaded: typeof ymaps !== "undefined",
     });
 
+    mapContainer.classList.remove("map__content--active");
     let errorMessage = "Ошибка загрузки карты";
     if (error.message) {
       errorMessage += `: ${error.message}`;
@@ -237,25 +239,5 @@ export function initMap() {
   }
 
   // Если библиотека ещё не загружена, ждём её загрузки
-  let attempts = 0;
-  const maxAttempts = 100; // 10 секунд (100 * 100ms)
-
-  const checkInterval = setInterval(() => {
-    attempts++;
-
-    if (tryInit()) {
-      clearInterval(checkInterval);
-      return;
-    }
-
-    // Если превышен лимит попыток
-    if (attempts >= maxAttempts) {
-      clearInterval(checkInterval);
-      console.error(
-        "❌ Библиотека Яндекс Карт не загружена в течение 10 секунд",
-      );
-      mapContainer.innerHTML =
-        '<p style="text-align: center; padding: 2rem; color: var(--color-gray);">Карта временно недоступна. Проверьте подключение к интернету.</p>';
-    }
-  }, 100);
+  document.getElementById("map-api")?.addEventListener("load", tryInit, { once: true });
 }

@@ -19,7 +19,7 @@
 
     <!-- Переключатели категорий -->
     <div
-      class="projects__tabs"
+      class="projects__tabs" hidden
       role="tablist"
       aria-label="Выбор категории проектов"
     >
@@ -52,7 +52,7 @@
       role="tabpanel"
       aria-labelledby="projects-tab-1"
     >
-      <!-- Проекты будут загружены динамически из data/projects.json -->
+      {{PROJECTS}}
     </div>
   </div>
 </section>

@@ -132,16 +132,13 @@ function initProjectsTabs() {
     });
   });
 
-  // По умолчанию показываем категорию "1 этаж"
-  const defaultTab = document.querySelector(
-    '.projects__tab[data-category="1"]',
-  );
-  if (defaultTab) {
-    defaultTab.classList.add("projects__tab--active");
-    defaultTab.setAttribute("aria-selected", "true");
-    grid.setAttribute("aria-labelledby", defaultTab.id);
-    renderProjectsByCategory("1");
-  }
+  const categories = new Set(allProjects.map(getProjectCategory));
+  tabs.forEach(tab => { tab.hidden = !categories.has(tab.dataset.category); });
+  const tablist = document.querySelector(".projects__tabs");
+  tablist.hidden = categories.size < 2;
+  const first = [...tabs].find(tab => !tab.hidden);
+  if (first) first.click();
+  else renderProjectsByCategory("1");
 }
 
 /**
