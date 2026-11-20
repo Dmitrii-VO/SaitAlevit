@@ -178,6 +178,12 @@ textarea {
   font-family: inherit;
   font-size: inherit;
 }
+/* Мобильная версия: единый размер заголовков секций */
+@media (max-width: 47.9375em) {
+  section h2[class$="__title"] {
+    font-size: 1.75rem;
+  }
+}
 /* Layout */
 /* ============================================ */
 /* КОНТЕЙНЕРЫ */
@@ -690,6 +696,35 @@ textarea {
   .nav__logo-text {
     font-size: 0.6875rem;
     letter-spacing: 0.01em;
+  }
+}
+/* Мобильная версия: backdrop-filter на .nav делал его контейнером для position: fixed,
+   и меню растягивалось только на высоту шапки. Размытие переносим на псевдоэлемент. */
+@media (max-width: 48em) {
+  .nav {
+    backdrop-filter: none;
+  }
+
+  .nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    backdrop-filter: blur(0.625rem);
+    pointer-events: none;
+  }
+
+  /* золотая линия на всю ширину шапки, а не только под логотипом */
+  .nav__logo {
+    border-bottom: none;
+  }
+
+  .nav__container {
+    border-bottom: 0.125rem solid #d4af37;
+    border-bottom: 0.125rem solid var(--color-gold);
   }
 }
 /* ============================================ */
@@ -3089,6 +3124,12 @@ textarea {
     flex-shrink: 0;
   }
 }
+@media (max-width: 47.9375em) {
+  .about__card-icon {
+    width: 56px;
+    height: 56px;
+  }
+}
 /* ============================================ */
 /* CTA */
 /* ============================================ */
@@ -4905,6 +4946,12 @@ textarea {
   .gallery-modal__thumbnail {
     width: 5rem;
     height: 5rem;
+  }
+}
+/* Мобильная версия: заголовок и счётчик не залезают под кнопку закрытия */
+@media (max-width: 48em) {
+  .gallery-modal__header {
+    padding-right: 3.5rem;
   }
 }
 /* ============================================ */

@@ -65,3 +65,10 @@ textarea {
   font-family: inherit;
   font-size: inherit;
 }
+
+/* Мобильная версия: единый размер заголовков секций */
+@media (max-width: 47.9375em) {
+  section h2[class$="__title"] {
+    font-size: 1.75rem;
+  }
+}

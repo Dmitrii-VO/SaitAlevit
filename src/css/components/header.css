@@ -380,3 +380,29 @@
     letter-spacing: 0.01em;
   }
 }
+
+/* Мобильная версия: backdrop-filter на .nav делал его контейнером для position: fixed,
+   и меню растягивалось только на высоту шапки. Размытие переносим на псевдоэлемент. */
+@media (max-width: 48em) {
+  .nav {
+    backdrop-filter: none;
+  }
+
+  .nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    backdrop-filter: blur(0.625rem);
+    pointer-events: none;
+  }
+
+  /* золотая линия на всю ширину шапки, а не только под логотипом */
+  .nav__logo {
+    border-bottom: none;
+  }
+
+  .nav__container {
+    border-bottom: 0.125rem solid var(--color-gold);
+  }
+}

@@ -293,3 +293,10 @@
     height: 5rem;
   }
 }
+
+/* Мобильная версия: заголовок и счётчик не залезают под кнопку закрытия */
+@media (max-width: 48em) {
+  .gallery-modal__header {
+    padding-right: 3.5rem;
+  }
+}

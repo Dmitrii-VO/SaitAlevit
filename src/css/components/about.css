@@ -312,3 +312,10 @@
     flex-shrink: 0;
   }
 }
+
+@media (max-width: 47.9375em) {
+  .about__card-icon {
+    width: 56px;
+    height: 56px;
+  }
+}
