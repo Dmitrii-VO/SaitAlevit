@@ -86,7 +86,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="styles.css?v=46f9ed1a2964" />
+  <link rel="stylesheet" href="styles.css?v=e4081466562d" />
 
   <!-- Яндекс Карты API -->
   <script id="map-api" src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" async></script>
@@ -139,17 +139,6 @@
         <a class="showcase__phone" href="tel:+79066038585">+7 (906) 603-85-85</a>
       </div>
     </div>
-    <figure class="showcase__figure">
-    <div class="showcase__media">
-      <img class="showcase__facade" src="images/projects/photos_file_2-1768075730944.webp" alt="Фасад проекта «Дом с крытой террасой»" fetchpriority="high" width="1280" height="720">
-      <img class="showcase__plan" src="images/projects/photos_file_1-1768075731016.webp" alt="Планировка проекта «Дом с крытой террасой»">
-    </div>
-    <figcaption><div><a href="#projects">Дом с крытой террасой</a><small>Типовой проект · 136 м²</small></div><fieldset class="drawing-switch">
-      <legend class="visually-hidden">Вид проекта</legend>
-      <label><input type="radio" name="project-view" value="facade" checked><span>Фасад</span></label>
-      <label><input type="radio" name="project-view" value="plan"><span>Планировка</span></label>
-    </fieldset></figcaption>
-  </figure>
   </div>
 </section>
       <!-- MAP - Карта объектов -->
@@ -175,6 +164,72 @@
     <div class="map__content" id="yandex-map"></div>
   </div>
 </section>
+      <!-- PROJECTS - Типовые проекты домов -->
+<!-- ============================================ -->
+<section class="projects" id="projects">
+  <div class="projects__container">
+    <h2 class="projects__title">Типовые проекты домов</h2>
+    <p class="projects__subtitle">
+      Строительство под ключ за 6–8 месяцев. Выберите готовый проект или закажите
+      индивидуальное проектирование
+    </p>
+
+    <!-- Переключатели категорий -->
+    <div
+      class="projects__tabs" hidden
+      role="tablist"
+      aria-label="Выбор категории проектов"
+    >
+      <button
+        class="projects__tab projects__tab--active"
+        data-category="1"
+        role="tab"
+        aria-selected="true"
+        aria-controls="projects-grid"
+        id="projects-tab-1"
+      >
+        1 этаж
+      </button>
+      <button
+        class="projects__tab"
+        data-category="2"
+        role="tab"
+        aria-selected="false"
+        aria-controls="projects-grid"
+        id="projects-tab-2"
+      >
+        2 этажа
+      </button>
+    </div>
+
+    <!-- Сетка проектов -->
+    <div
+      class="projects__grid"
+      id="projects-grid"
+      role="tabpanel"
+      aria-labelledby="projects-tab-1"
+    >
+      <article class="projects__card">
+      <div class="projects__card-image"><img class="projects__card-img" src="images/projects/photos_file_2-1768075730944.webp" alt="Дом с крытой террасой" loading="lazy"></div>
+      <img class="projects__plan" src="images/projects/photos_file_1-1768075731016.webp" alt="Планировка дома «Дом с крытой террасой»" loading="lazy">
+      <div class="projects__card-content">
+        <h3 class="projects__card-title">Дом с крытой террасой</h3>
+        <p>1 этаж · 136 м² · 6 120 000 ₽</p>
+        <p>Одноэтажный дом площадью 136 м². В галерее — фасады и планировка.</p>
+      </div>
+    </article>
+<article class="projects__card">
+      <div class="projects__card-image"><img class="projects__card-img" src="images/projects/photos_file_8-1768079028709.webp" alt="Кирпичный дом с гаражом" loading="lazy"></div>
+      <img class="projects__plan" src="images/projects/photos_file_7-1768079028700.webp" alt="Планировка дома «Кирпичный дом с гаражом»" loading="lazy">
+      <div class="projects__card-content">
+        <h3 class="projects__card-title">Кирпичный дом с гаражом</h3>
+        <p>1 этаж · 187 м² · 8 430 000 ₽</p>
+        <p>Проект площадью 187 м² с гаражом под общей крышей.</p>
+      </div>
+    </article>
+    </div>
+  </div>
+</section>
       <!-- ADVANTAGES - Преимущества строительства с нами -->
 <!-- ============================================ -->
 <section class="advantages" id="advantages">
@@ -187,6 +242,7 @@
       <article class="advantages__item"><h3>Фиксированная смета</h3><p>Согласуем работы и материалы до начала строительства. Цену закрепляем в договоре.</p></article>
       <article class="advantages__item"><h3>6–8 месяцев</h3><p>Срок строительства дома под ключ. Дату передачи ключей указываем в договоре.</p></article>
       <article class="advantages__item"><h3>Гарантия по договору</h3><p>3 года на несущие конструкции и 1 год на все виды отделочных работ.</p></article>
+      <article class="advantages__item"><h3>Типовой проект бесплатно</h3><p>При заключении договора на строительство типовой проект дома — бесплатно.</p></article>
     </div>
   </div>
 </section>
@@ -347,90 +403,24 @@
             <div class="calculator__prices-row">
               <span class="calculator__prices-label">Черновая отделка</span>
               <span class="calculator__prices-value" data-price-key="shell" data-rate="45000"
-                >45 000 ₽/м²</span
+                >от 45 000 ₽/м²</span
               >
             </div>
             <div class="calculator__prices-row">
               <span class="calculator__prices-label">Чистовая отделка</span>
               <span class="calculator__prices-value" data-price-key="clean" data-rate="70000"
-                >70 000 ₽/м²</span
+                >от 70 000 ₽/м²</span
               >
             </div>
             <div class="calculator__prices-row">
               <span class="calculator__prices-label">Под ключ</span>
               <span class="calculator__prices-value" data-price-key="turnkey" data-rate="80000"
-                >80 000 ₽/м²</span
+                >от 80 000 ₽/м²</span
               >
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-      <!-- PROJECTS - Типовые проекты домов -->
-<!-- ============================================ -->
-<section class="projects" id="projects">
-  <div class="projects__container">
-    <h2 class="projects__title">Типовые проекты домов</h2>
-    <p class="projects__subtitle">
-      Строительство под ключ за 6–8 месяцев. Выберите готовый проект или закажите
-      индивидуальное проектирование
-    </p>
-
-    <!-- Переключатели категорий -->
-    <div
-      class="projects__tabs" hidden
-      role="tablist"
-      aria-label="Выбор категории проектов"
-    >
-      <button
-        class="projects__tab projects__tab--active"
-        data-category="1"
-        role="tab"
-        aria-selected="true"
-        aria-controls="projects-grid"
-        id="projects-tab-1"
-      >
-        1 этаж
-      </button>
-      <button
-        class="projects__tab"
-        data-category="2"
-        role="tab"
-        aria-selected="false"
-        aria-controls="projects-grid"
-        id="projects-tab-2"
-      >
-        2 этажа
-      </button>
-    </div>
-
-    <!-- Сетка проектов -->
-    <div
-      class="projects__grid"
-      id="projects-grid"
-      role="tabpanel"
-      aria-labelledby="projects-tab-1"
-    >
-      <article class="projects__card">
-      <div class="projects__card-image"><img class="projects__card-img" src="images/projects/photos_file_2-1768075730944.webp" alt="Дом с крытой террасой" loading="lazy"></div>
-      <img class="projects__plan" src="images/projects/photos_file_1-1768075731016.webp" alt="Планировка дома «Дом с крытой террасой»" loading="lazy">
-      <div class="projects__card-content">
-        <h3 class="projects__card-title">Дом с крытой террасой</h3>
-        <p>1 этаж · 136 м² · 6 120 000 ₽</p>
-        <p>Одноэтажный дом площадью 136 м². В галерее — фасады и планировка.</p>
-      </div>
-    </article>
-<article class="projects__card">
-      <div class="projects__card-image"><img class="projects__card-img" src="images/projects/photos_file_8-1768079028709.webp" alt="Кирпичный дом с гаражом" loading="lazy"></div>
-      <img class="projects__plan" src="images/projects/photos_file_7-1768079028700.webp" alt="Планировка дома «Кирпичный дом с гаражом»" loading="lazy">
-      <div class="projects__card-content">
-        <h3 class="projects__card-title">Кирпичный дом с гаражом</h3>
-        <p>1 этаж · 187 м² · 8 430 000 ₽</p>
-        <p>Проект площадью 187 м² с гаражом под общей крышей.</p>
-      </div>
-    </article>
     </div>
   </div>
 </section>
@@ -513,7 +503,7 @@
             <div class="about__team-info">
               <p class="about__team-names">Алексей&nbsp;Г. и Виталий&nbsp;П.</p>
               <h3 class="about__team-title">
-                Руководство компании
+                Руководство компании «АЛЕВИТ СТРОЙ»
               </h3>
             </div>
           </div>
@@ -586,30 +576,6 @@
         </div>
       </div>
 
-      <div class="about__album">
-        <figure class="about__feature">
-          <img src="images/works/photos_file_19-1768092421831.webp"
-               alt="Светлый кирпичный фасад с крыльцом и въездом под навес справа"
-               width="1280" height="960" loading="lazy">
-          <figcaption>
-            <h3>Кирпичный дом с навесом</h3>
-            <span>Ноябрь 2024</span>
-          </figcaption>
-        </figure>
-        <div class="about__details">
-          <figure>
-            <img src="images/works/photos_file_22-1768092422439.webp"
-                 alt="Вид сбоку на кирпичные опоры навеса и общую кровлю дома" loading="lazy">
-            <figcaption>Навес под общей кровлей</figcaption>
-          </figure>
-          <figure>
-            <img src="images/works/photos_file_16-1768092420199.webp"
-                 alt="Светлая комната с широким окном и проходом в соседнее помещение" loading="lazy">
-            <figcaption>Внутренняя отделка</figcaption>
-          </figure>
-        </div>
-        <a class="about__portfolio-link" href="#works">Смотреть наши работы</a>
-      </div>
     </div>
 
     <div class="about__cta">
@@ -833,7 +799,8 @@
             Срок строительства зависит от площади и сложности проекта. Дом под
             ключ от 6 до 8 месяцев. Точные сроки указываются в договоре, и мы их
             соблюдаем. За задержки несём ответственность согласно условиям
-            договора.
+            договора. Исключением являются стихийные бедствия, боевые действия
+            и затяжные погодные условия.
           </p>
         </div>
       </div>
@@ -1627,6 +1594,6 @@
   </div>
 </div>
 
-    <script src="js/main.js?v=577fc826125b"></script>
+    <script src="js/main.js?v=baf90f18e545"></script>
   </body>
 </html>

@@ -57,7 +57,6 @@
 /* Двухколоночная сетка */
 .about__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-xxl);
   margin-bottom: var(--spacing-xxl);
 }
@@ -222,51 +221,6 @@
 .about__advantage-text strong {
   color: var(--color-black);
   font-weight: 600;
-}
-
-.about__album {
-  min-width: 0;
-  align-self: start;
-  color: var(--chalk);
-}
-.about__album img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: .25rem;
-}
-.about__feature img { aspect-ratio: 4 / 3; height: auto; }
-.about__feature figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .25rem 1rem;
-  padding: 1rem 0;
-}
-.about__feature h3 {
-  margin: 0;
-  font: 400 clamp(1.5rem, 2.2vw, 2rem)/1.18 var(--catalog-display);
-}
-.about__feature span, .about__details figcaption {
-  color: var(--catalog-muted);
-  font-size: .9rem;
-}
-.about__details {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(.75rem, 1.5vw, 1.25rem);
-  border-top: 1px solid #556053;
-  padding-top: 1.25rem;
-}
-.about__details img { aspect-ratio: 4 / 3; }
-.about__details figcaption { margin-top: .5rem; }
-.about__portfolio-link {
-  display: inline-block;
-  margin-top: 1rem;
-  padding-block: .5rem;
-  color: var(--brass);
-  text-decoration: underline;
-  text-underline-offset: .25em;
 }
 
 /* CTA */

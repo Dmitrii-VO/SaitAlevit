@@ -15,23 +15,6 @@ const escape = value => String(value ?? "").replace(/[&<>"']/g, char =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char],
 );
 
-function featuredProject(item) {
-  if (!item) return '<img class="showcase__fallback" src="images/houses/hero/hero-main.webp" alt="Загородный дом" fetchpriority="high">';
-  const title = escape(item.title);
-  const switcher = item.planImage ? `<fieldset class="drawing-switch">
-      <legend class="visually-hidden">Вид проекта</legend>
-      <label><input type="radio" name="project-view" value="facade" checked><span>Фасад</span></label>
-      <label><input type="radio" name="project-view" value="plan"><span>Планировка</span></label>
-    </fieldset>` : "";
-  return `<figure class="showcase__figure">
-    <div class="showcase__media">
-      <img class="showcase__facade" src="${escape(item.mainImage)}" alt="Фасад проекта «${title}»" fetchpriority="high" width="1280" height="720">
-      ${item.planImage ? `<img class="showcase__plan" src="${escape(item.planImage)}" alt="Планировка проекта «${title}»">` : ""}
-    </div>
-    <figcaption><div><a href="#projects">${title}</a><small>Типовой проект · ${escape(item.area)} м²</small></div>${switcher}</figcaption>
-  </figure>`;
-}
-
 function catalogCards(section, items) {
   return items.map(item => {
     const details = [item.floors || item.material, item.area && `${item.area} м²`];
@@ -76,7 +59,6 @@ const substitutions = {
   ROBOTS: production ? "index, follow" : "noindex, follow",
   SITE_URL: site,
   SCHEMA: JSON.stringify({ "@context": "https://schema.org", "@graph": schema }, null, 2).replace(/</g, "\\u003c"),
-  FEATURED_PROJECT: featuredProject(published("projects")[0]),
   PROJECTS: catalogCards("projects", published("projects")),
   WORKS: catalogCards("works", works),
   MAP_LINKS: markers.map(({title, coordinates}) => {

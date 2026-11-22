@@ -502,7 +502,7 @@ export async function loadPrices() {
       const rate = Number(data.prices[element.dataset.priceKey]);
       if (Number.isFinite(rate) && rate > 0) {
         element.dataset.rate = rate;
-        element.textContent = `${new Intl.NumberFormat("ru-RU").format(rate)} ₽/м²`;
+        element.textContent = `от ${new Intl.NumberFormat("ru-RU").format(rate)} ₽/м²`;
       }
     });
     document.querySelector("#calculator-form")?.dispatchEvent(new Event("input"));
